@@ -1,0 +1,25 @@
+[package]
+name = "jupiter-core"
+version = "0.1.0"
+description = ""
+edition = "2018"
+
+[dependencies]
+solana-sdk = "1.10.41"
+solana-client = "1.10.41"
+anyhow = "1.0"
+spl-token = { version = "3.3.1", features = ["no-entrypoint"] }
+spl-token-swap = { version = "3.0.0", features = ["no-entrypoint"] }
+serde_json = "1.0.82"
+serde = "1.0.140"
+lazy_static = "1.2.0"
+#cpamm = { git = "https://github.com/jup-ag/sencha/", features = ["cpi"] }
+rust_decimal = "1.26.1"
+anchor-lang = "0.25.0"
+jupiter = { path = "../jupiter" }
+
+[dev-dependencies]
+rand="0.8.5"
+
+[profile.release]
+overflow-checks = true
