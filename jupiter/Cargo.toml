@@ -6,4 +6,4 @@ edition = "2018"
 
 [dependencies]
 anchor-gen = "0.3.0"
-anchor-lang = "0.25.0"
+anchor-lang = "0.26.0"
