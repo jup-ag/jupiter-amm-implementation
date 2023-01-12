@@ -8,7 +8,7 @@ anchor_lang::declare_id!("JUP4Fb2cqiRUcaTHdrPC8h2gNsA2ETXiPDD33WcGuJB");
 // Temporarily redefined it until solution is found
 pub mod jupiter_override {
     use super::Side;
-    use anchor_lang::prelude::*;
+    use anchor_lang::{prelude::*, Discriminator};
     use anchor_lang::{AnchorSerialize, InstructionData};
     use std::io::Write;
 
@@ -32,6 +32,16 @@ pub mod jupiter_override {
         Aldrin { side: Side },
         AldrinV2 { side: Side },
         Whirlpool { a_to_b: bool },
+        Invariant { x_to_y: bool },
+        Meteora,
+        GooseFX,
+        DeltaFi { stable: bool },
+        Balansol,
+        MarcoPolo { x_to_y: bool },
+        Dradex { side: Side },
+        LifinityV2,
+        RaydiumClmm,
+        Openbook { side: Side },
     }
 
     #[derive(AnchorSerialize)]
@@ -74,13 +84,9 @@ pub mod jupiter_override {
         pub slippage_bps: u16,
         pub platform_fee_bps: u8,
     }
-
-    impl InstructionData for Route {
-        fn data(&self) -> Vec<u8> {
-            // SHA256 "global:route"
-            let mut d = vec![229, 23, 203, 151, 122, 227, 173, 42];
-            d.append(&mut self.try_to_vec().unwrap());
-            d
-        }
+    impl Discriminator for Route {
+        const DISCRIMINATOR: [u8; 8] = [229, 23, 203, 151, 122, 227, 173, 42];
     }
+
+    impl InstructionData for Route {}
 }
