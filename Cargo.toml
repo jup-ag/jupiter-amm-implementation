@@ -1,6 +1,17 @@
 [workspace]
-
 members = [
     "jupiter",
     "jupiter-core",
 ]
+
+[workspace.package]
+edition = "2021"
+
+[workspace.dependencies]
+anchor-lang = "0.26"
+anchor-syn = "0.26"
+solana-sdk = "~1.14"
+solana-client = "~1.14"
+solana-program-test = "~1.14"
+
+anchor-gen = "0.3"

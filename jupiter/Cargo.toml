@@ -2,8 +2,14 @@
 name = "jupiter"
 version = "0.1.0"
 description = ""
-edition = "2018"
+edition = { workspace = true }
+
+[features]
+default = ["cpi"]
+no-entrypoint = []
+cpi = ["no-entrypoint"]
+staging = []
 
 [dependencies]
-anchor-gen = "0.3.0"
-anchor-lang = "0.26.0"
+anchor-gen = { workspace = true }
+anchor-lang = { workspace = true }

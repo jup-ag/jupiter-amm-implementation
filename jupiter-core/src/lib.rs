@@ -1,4 +1,5 @@
 mod amms;
+mod math;
 
 pub use amms::amm;
 
