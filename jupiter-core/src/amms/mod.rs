@@ -1,5 +1,4 @@
-pub mod amm;
-
+mod amm;
 mod spl_token_swap_amm;
 
 #[cfg(test)]

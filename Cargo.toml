@@ -1,6 +1,5 @@
 [workspace]
 members = [
-    "jupiter",
     "jupiter-core",
 ]
 

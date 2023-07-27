@@ -15,4 +15,4 @@ anyhow = "1.0"
 serde = "1.0.140"
 lazy_static = "1.2.0"
 rust_decimal = "1.26.1"
-jupiter = { path = "../jupiter" }
+jupiter-amm-interface = "0.2.1"
