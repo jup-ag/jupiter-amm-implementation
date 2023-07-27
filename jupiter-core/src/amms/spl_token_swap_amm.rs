@@ -191,7 +191,7 @@ impl Amm for SplTokenSwapAmm {
         };
 
         Ok(SwapAndAccountMetas {
-            swap: Swap::StakeDexStakeWrappedSol,
+            swap: Swap::TokenSwap,
             account_metas: TokenSwap {
                 token_swap_program: self.program_id,
                 token_program: spl_token::id(),
