@@ -1,18 +1,21 @@
-use anchor_lang::ToAccountMetas;
+use anchor_lang::prelude::AccountMeta;
 use anyhow::Result;
 use spl_token::state::Account as TokenAccount;
 use std::{collections::HashMap, convert::TryInto};
 
-use crate::amm::{try_get_account_data, AccountMap};
-use crate::amms::amm::{Amm, KeyedAccount};
 use crate::math::swap_curve_info::get_swap_curve_result;
 use lazy_static::lazy_static;
 use solana_sdk::{program_pack::Pack, pubkey, pubkey::Pubkey};
 use spl_token_swap::curve::base::SwapCurve;
 use spl_token_swap::{curve::calculator::TradeDirection, state::SwapV1};
 
-use super::amm::{Quote, QuoteParams, SwapAndAccountMetas, SwapParams};
-use jupiter::{accounts::TokenSwap, jupiter_override::Swap};
+use jupiter_amm_interface::Swap;
+use jupiter_amm_interface::{
+    try_get_account_data, AccountMap, Amm, KeyedAccount, Quote, QuoteParams, SwapAndAccountMetas,
+    SwapParams,
+};
+
+use super::amm::TokenSwap;
 
 mod spl_token_swap_programs {
     use super::*;
@@ -172,15 +175,12 @@ impl Amm for SplTokenSwapAmm {
         })
     }
 
-    fn get_swap_leg_and_account_metas(
-        &self,
-        swap_params: &SwapParams,
-    ) -> Result<SwapAndAccountMetas> {
+    fn get_swap_and_account_metas(&self, swap_params: &SwapParams) -> Result<SwapAndAccountMetas> {
         let SwapParams {
+            token_transfer_authority,
+            source_token_account,
+            destination_token_account,
             source_mint,
-            user_destination_token_account,
-            user_source_token_account,
-            user_transfer_authority,
             ..
         } = swap_params;
 
@@ -190,24 +190,22 @@ impl Amm for SplTokenSwapAmm {
             (self.state.token_b, self.state.token_a)
         };
 
-        let account_metas = TokenSwap {
-            destination: *user_destination_token_account,
-            source: *user_source_token_account,
-            user_transfer_authority: *user_transfer_authority,
-            authority: self.get_authority(),
-            token_swap_program: self.program_id,
-            token_program: spl_token::ID,
-            swap: self.key,
-            pool_mint: self.state.pool_mint,
-            pool_fee: self.state.pool_fee_account,
-            swap_destination,
-            swap_source,
-        }
-        .to_account_metas(None);
-
         Ok(SwapAndAccountMetas {
-            swap: Swap::TokenSwap,
-            account_metas,
+            swap: Swap::StakeDexStakeWrappedSol,
+            account_metas: TokenSwap {
+                token_swap_program: self.program_id,
+                token_program: spl_token::id(),
+                swap: self.key,
+                authority: self.get_authority(),
+                user_transfer_authority: *token_transfer_authority,
+                source: *source_token_account,
+                destination: *destination_token_account,
+                pool_mint: self.state.pool_mint,
+                pool_fee: self.state.pool_fee_account,
+                swap_destination,
+                swap_source,
+            }
+            .into(),
         })
     }
 

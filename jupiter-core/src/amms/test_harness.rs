@@ -1,11 +1,10 @@
 use anyhow::Result;
+use jupiter_amm_interface::{AccountMap, Amm, KeyedAccount};
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;
 use std::collections::HashMap;
 
-use crate::{amm::AccountMap, config};
-
-use super::amm::{Amm, KeyedAccount};
+use crate::config;
 
 pub struct AmmTestHarness {
     pub client: RpcClient,
