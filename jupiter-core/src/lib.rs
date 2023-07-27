@@ -1,6 +1,5 @@
 mod amms;
-
-pub use amms::amm;
+mod math;
 
 pub mod config;
 pub mod constants;

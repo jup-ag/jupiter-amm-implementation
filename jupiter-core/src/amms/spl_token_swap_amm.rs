@@ -1,20 +1,21 @@
-use anchor_lang::ToAccountMetas;
-use anyhow::{Context, Result};
-use spl_token::native_mint;
+use anchor_lang::prelude::AccountMeta;
+use anyhow::Result;
 use spl_token::state::Account as TokenAccount;
 use std::{collections::HashMap, convert::TryInto};
 
-use crate::amms::amm::{Amm, KeyedAccount};
+use crate::math::swap_curve_info::get_swap_curve_result;
 use lazy_static::lazy_static;
 use solana_sdk::{program_pack::Pack, pubkey, pubkey::Pubkey};
 use spl_token_swap::curve::base::SwapCurve;
 use spl_token_swap::{curve::calculator::TradeDirection, state::SwapV1};
 
-use super::amm::{Quote, QuoteParams, SwapLegAndAccountMetas, SwapParams};
-use jupiter::{
-    accounts::TokenSwap,
-    jupiter_override::{Swap, SwapLeg},
+use jupiter_amm_interface::Swap;
+use jupiter_amm_interface::{
+    try_get_account_data, AccountMap, Amm, KeyedAccount, Quote, QuoteParams, SwapAndAccountMetas,
+    SwapParams,
 };
+
+use super::amm::TokenSwap;
 
 mod spl_token_swap_programs {
     use super::*;
@@ -57,30 +58,13 @@ pub struct SplTokenSwapAmm {
 }
 
 impl SplTokenSwapAmm {
-    pub fn from_keyed_account(keyed_account: &KeyedAccount) -> Result<Self> {
-        // Skip the first byte which is version
-        let state = SwapV1::unpack(&keyed_account.account.data[1..])?;
-        let reserve_mints = [state.token_a_mint.clone(), state.token_b_mint.clone()];
-
-        let label = SPL_TOKEN_SWAP_PROGRAMS
-            .get(&keyed_account.account.owner)
-            .unwrap()
-            .clone();
-        Ok(Self {
-            key: keyed_account.key,
-            label,
-            state,
-            reserve_mints,
-            program_id: keyed_account.account.owner,
-            reserves: Default::default(),
-        })
-    }
-
     fn get_authority(&self) -> Pubkey {
         Pubkey::find_program_address(&[&self.key.to_bytes()], &self.program_id).0
     }
+}
 
-    fn clone(&self) -> SplTokenSwapAmm {
+impl Clone for SplTokenSwapAmm {
+    fn clone(&self) -> Self {
         SplTokenSwapAmm {
             key: self.key,
             label: self.label.clone(),
@@ -108,8 +92,32 @@ impl SplTokenSwapAmm {
 }
 
 impl Amm for SplTokenSwapAmm {
+    fn from_keyed_account(keyed_account: &KeyedAccount) -> Result<Self> {
+        // Skip the first byte which is version
+        let state = SwapV1::unpack(&keyed_account.account.data[1..])?;
+        let reserve_mints = [state.token_a_mint, state.token_b_mint];
+
+        let label = SPL_TOKEN_SWAP_PROGRAMS
+            .get(&keyed_account.account.owner)
+            .unwrap()
+            .clone();
+
+        Ok(Self {
+            key: keyed_account.key,
+            label,
+            state,
+            reserve_mints,
+            program_id: keyed_account.account.owner,
+            reserves: Default::default(),
+        })
+    }
+
     fn label(&self) -> String {
         self.label.clone()
+    }
+
+    fn program_id(&self) -> Pubkey {
+        self.program_id
     }
 
     fn key(&self) -> Pubkey {
@@ -124,12 +132,12 @@ impl Amm for SplTokenSwapAmm {
         vec![self.state.token_a, self.state.token_b]
     }
 
-    fn update(&mut self, accounts_map: &HashMap<Pubkey, Vec<u8>>) -> Result<()> {
-        let token_a_account = accounts_map.get(&self.state.token_a).unwrap();
-        let token_a_token_account = TokenAccount::unpack(token_a_account).unwrap();
+    fn update(&mut self, account_map: &AccountMap) -> Result<()> {
+        let token_a_account = try_get_account_data(account_map, &self.state.token_a)?;
+        let token_a_token_account = TokenAccount::unpack(token_a_account)?;
 
-        let token_b_account = accounts_map.get(&self.state.token_b).unwrap();
-        let token_b_token_account = TokenAccount::unpack(token_b_account).unwrap();
+        let token_b_account = try_get_account_data(account_map, &self.state.token_b)?;
+        let token_b_token_account = TokenAccount::unpack(token_b_account)?;
 
         self.reserves = [
             token_a_token_account.amount.into(),
@@ -147,37 +155,33 @@ impl Amm for SplTokenSwapAmm {
                 (TradeDirection::BtoA, self.reserves[1], self.reserves[0])
             };
 
-        let swap_result = self
-            .state
-            .swap_curve
-            .swap(
-                quote_params.in_amount.into(),
-                swap_source_amount,
-                swap_destination_amount,
-                trade_direction,
-                &self.state.fees,
-            )
-            .context("quote failed")?;
+        let swap_result = get_swap_curve_result(
+            &self.state.swap_curve,
+            quote_params.in_amount,
+            swap_source_amount,
+            swap_destination_amount,
+            trade_direction,
+            &self.state.fees,
+        )?;
 
         Ok(Quote {
-            out_amount: swap_result.destination_amount_swapped.try_into().unwrap(),
+            fee_pct: swap_result.fee_pct,
+            in_amount: swap_result.input_amount.try_into()?,
+            not_enough_liquidity: swap_result.not_enough_liquidity,
+            out_amount: swap_result.expected_output_amount.try_into()?,
+            fee_amount: swap_result.fees.try_into()?,
+            fee_mint: quote_params.input_mint,
             ..Quote::default()
         })
     }
 
-    fn get_swap_leg_and_account_metas(
-        &self,
-        swap_params: &SwapParams,
-    ) -> Result<SwapLegAndAccountMetas> {
+    fn get_swap_and_account_metas(&self, swap_params: &SwapParams) -> Result<SwapAndAccountMetas> {
         let SwapParams {
-            destination_mint,
-            in_amount,
+            token_transfer_authority,
+            source_token_account,
+            destination_token_account,
             source_mint,
-            user_destination_token_account,
-            user_source_token_account,
-            user_transfer_authority,
-            open_order_address,
-            quote_mint_to_referrer,
+            ..
         } = swap_params;
 
         let (swap_source, swap_destination) = if *source_mint == self.state.token_a_mint {
@@ -186,55 +190,26 @@ impl Amm for SplTokenSwapAmm {
             (self.state.token_b, self.state.token_a)
         };
 
-        let account_metas = TokenSwap {
-            destination: *user_destination_token_account,
-            source: *user_source_token_account,
-            user_transfer_authority: *user_transfer_authority,
-            authority: self.get_authority(),
-            token_swap_program: self.program_id,
-            token_program: spl_token::ID,
-            swap: self.key,
-            pool_mint: self.state.pool_mint,
-            pool_fee: self.state.pool_fee_account,
-            swap_destination,
-            swap_source,
-        }
-        .to_account_metas(None);
-
-        Ok(SwapLegAndAccountMetas {
-            swap_leg: SwapLeg::Swap {
-                swap: Swap::TokenSwap,
-            },
-            account_metas,
+        Ok(SwapAndAccountMetas {
+            swap: Swap::TokenSwap,
+            account_metas: TokenSwap {
+                token_swap_program: self.program_id,
+                token_program: spl_token::id(),
+                swap: self.key,
+                authority: self.get_authority(),
+                user_transfer_authority: *token_transfer_authority,
+                source: *source_token_account,
+                destination: *destination_token_account,
+                pool_mint: self.state.pool_mint,
+                pool_fee: self.state.pool_fee_account,
+                swap_destination,
+                swap_source,
+            }
+            .into(),
         })
     }
 
     fn clone_amm(&self) -> Box<dyn Amm + Send + Sync> {
         Box::new(self.clone())
     }
-}
-
-#[test]
-fn test_new_spl_token_swap() {
-    use crate::amms::test_harness::AmmTestHarness;
-    use crate::constants::USDC_MINT;
-
-    const SOL_USDC_POOL: Pubkey = pubkey!("EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U");
-
-    let test_harness = AmmTestHarness::new();
-    let keyed_account = test_harness.get_keyed_account(SOL_USDC_POOL).unwrap();
-    let mut amm = SplTokenSwapAmm::from_keyed_account(&keyed_account).unwrap();
-
-    test_harness.update_amm(&mut amm);
-
-    let quote = amm
-        .quote(&QuoteParams {
-            input_mint: native_mint::id(),
-            in_amount: 1000000000,
-            output_mint: USDC_MINT,
-        })
-        .unwrap();
-
-    println!("Token mints: {:?}", amm.reserve_mints);
-    println!("Quote result: {:?}", quote);
 }

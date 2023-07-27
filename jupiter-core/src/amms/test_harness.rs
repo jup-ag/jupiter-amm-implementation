@@ -1,11 +1,10 @@
 use anyhow::Result;
+use jupiter_amm_interface::{AccountMap, Amm, KeyedAccount};
 use solana_client::rpc_client::RpcClient;
 use solana_sdk::pubkey::Pubkey;
 use std::collections::HashMap;
 
 use crate::config;
-
-use super::amm::{Amm, KeyedAccount};
 
 pub struct AmmTestHarness {
     pub client: RpcClient,
@@ -31,7 +30,7 @@ impl AmmTestHarness {
         let accounts_to_update = amm.get_accounts_to_update();
         println!("{:?}", accounts_to_update);
 
-        let accounts_map = self
+        let accounts_map: AccountMap = self
             .client
             .get_multiple_accounts(&accounts_to_update)
             .unwrap()
@@ -39,7 +38,7 @@ impl AmmTestHarness {
             .enumerate()
             .fold(HashMap::new(), |mut m, (index, account)| {
                 if let Some(account) = account {
-                    m.insert(accounts_to_update[index], account.data.clone());
+                    m.insert(accounts_to_update[index], account.clone().into());
                 }
                 m
             });
