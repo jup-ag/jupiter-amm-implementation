@@ -7,10 +7,22 @@ members = [
 edition = "2021"
 
 [workspace.dependencies]
-anchor-lang = "0.26"
-anchor-syn = "0.26"
-solana-sdk = "~1.14"
-solana-client = "~1.14"
-solana-program-test = "~1.14"
+anchor-lang = "0.28"
+anchor-syn = "0.28"
+solana-sdk = "~1.16"
+solana-client = "~1.16"
+solana-account-decoder = "~1.16"
+solana-program-test = "~1.16"
+tokio = { version = "1", features = ["full"] }
 
-anchor-gen = "0.3"
+anchor-gen = { git = "https://github.com/jup-ag/anchor-gen.git", rev = "26c04a10d20509f360ab176d003bea4c625b16f2" }
+jupiter-amm-interface = "~0.3.2"
+
+# SPL
+spl-token = { version = "3.5", features = ["no-entrypoint"] }
+spl-associated-token-account = { version = "2.1.0", features = [
+    "no-entrypoint",
+] }
+spl-token-2022 = { git = "https://github.com/solana-labs/solana-program-library.git", rev = "79a575fb7af56d26deeda94fef8f55bde7a90df3", features = [
+    "no-entrypoint",
+] }

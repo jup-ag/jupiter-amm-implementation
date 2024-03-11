@@ -1,0 +1,18 @@
+[package]
+name = "jupiter"
+version = "0.1.0"
+description = ""
+edition = { workspace = true }
+
+[features]
+default = ["cpi"]
+no-entrypoint = []
+cpi = ["no-entrypoint"]
+staging = []
+
+[dependencies]
+anchor-gen = { workspace = true }
+anchor-lang = { workspace = true }
+solana-sdk = { workspace = true }
+jupiter-amm-interface = { workspace = true }
+rand = "0.8.5"
