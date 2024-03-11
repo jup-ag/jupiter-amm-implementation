@@ -12,6 +12,7 @@ use jupiter_core::{
 };
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::{account::Account, pubkey};
+use stakedex_sdk::Stakedex;
 
 /// Loads AMM from snapshot and tests quoting
 async fn test_quoting_for_amm_key<T: Amm + 'static>(
@@ -148,4 +149,45 @@ async fn test_quoting_with_amm(
         one_test_passed = true;
     }
     assert!(one_test_passed);
+}
+
+#[tokio::test]
+async fn test_quote_stakedex_prefund_swap_via_stake_jitosol_bsol_with_shared_accounts() {
+    const JITOSOL_BSOL_TWO_WAY_POOL_PAIR: Pubkey =
+        pubkey!("DrFgFJe63cAwrTTaKeYvQqtKTnAh3Rk8rpoT3GiRdgYe");
+    let test_harness =
+        AmmTestHarness::new_with_rpc_url("".into(), JITOSOL_BSOL_TWO_WAY_POOL_PAIR, None);
+
+    let stake_pools = vec![
+        pubkey!("Jito4APyf642JPZPx3hGc6WWJ8zPKtRbRs4P815Awbb"),
+        pubkey!("stk9ApL5HeVAwPLr3TLhDXdZS8ptVu7zp6ov8HFDuMi"),
+    ];
+    // We the 2 stake pools for the initialization to function properly
+    let init_account_map = HashMap::from_iter(
+        stake_pools
+            .into_iter()
+            .map(|address| (address, test_harness.get_account_from_snapshot(&address))),
+    );
+
+    // The Stakedex scaffolding is involved as each AMM is 2 underlying stake pools combined,
+    // so we load the snapshot, spinup all the stakedex AMMs, then pick the one we need
+    let (stakedex, _) = Stakedex::from_fetched_accounts(&init_account_map);
+    let amms = stakedex.get_amms();
+
+    let amm = amms
+        .into_iter()
+        .find(|amm| amm.key() == JITOSOL_BSOL_TWO_WAY_POOL_PAIR)
+        .expect("finds the Stakedex AMM");
+    let before_test_setup: Option<fn(&dyn Amm, &mut HashMap<Pubkey, Account>)> = None;
+    test_quoting_with_amm(
+        &test_harness,
+        amm,
+        1, // off by 1 lamport
+        true,
+        SwapMode::ExactIn,
+        before_test_setup,
+        None,
+        None,
+    )
+    .await
 }

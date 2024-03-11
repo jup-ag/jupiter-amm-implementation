@@ -1,5 +1,5 @@
 use anchor_lang::{system_program, InstructionData, ToAccountMetas};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use assert_matches::assert_matches;
 use async_trait::async_trait;
 use glob::glob;
@@ -22,7 +22,7 @@ use solana_sdk::{
 };
 use spl_associated_token_account::get_associated_token_address_with_program_id;
 use spl_token_2022::extension::StateWithExtensions;
-// use stakedex_sdk::test_utils::spl_stake_pool;
+use stakedex_sdk::test_utils::spl_stake_pool;
 use std::fs::remove_dir_all;
 use std::hint::black_box;
 use std::str::FromStr;
@@ -49,7 +49,7 @@ use jupiter_amm_interface::{
 };
 use solana_sdk::pubkey;
 
-use super::loader::amm_factory;
+use super::{loader::amm_factory, stakedex_amms::initialize_stakedex_amms};
 
 const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
 
@@ -717,10 +717,10 @@ impl AmmTestHarness {
         let modified_label = amm.label().to_lowercase().replace(' ', "_");
         pt.add_program(&modified_label, amm.program_id(), None);
 
-        for (program_id, program_name) in amm.program_dependencies() {
-            // if program_id == spl_stake_pool::ID {
-            //     program_name = "spl_stake_pool".into(); // spl stake pool labels describe the state rather than the program
-            // }
+        for (program_id, mut program_name) in amm.program_dependencies() {
+            if program_id == spl_stake_pool::ID {
+                program_name = "spl_stake_pool".into(); // spl stake pool labels describe the state rather than the program
+            }
             pt.add_program(&program_name, program_id, None);
         }
 
@@ -1037,34 +1037,52 @@ fn create_ata_account(
 pub async fn take_snapshot(
     rpc_url: String,
     amm_id: String,
+    stakedex: bool,
     option: Option<String>,
     force: bool,
 ) -> Result<()> {
     let amm_key = Pubkey::from_str(&amm_id).unwrap();
 
-    let client = RpcClient::new(&rpc_url);
-    let account = client
-        .get_account(&amm_key)
-        .expect("Should find AMM in markets cache or on-chain");
-    let ui_account = UiAccount::encode(&amm_key, &account, UiAccountEncoding::Base64, None, None);
-    let keyed_ui_account = KeyedUiAccount {
-        pubkey: amm_id,
-        ui_account,
-        params: None,
-    };
-    let keyed_account = keyed_ui_account.try_into()?;
-
-    let test_harness = AmmTestHarness::new_with_rpc_url(rpc_url, amm_key, option);
+    let test_harness = AmmTestHarness::new_with_rpc_url(rpc_url.clone(), amm_key, option);
 
     let mut saber_wrapper_mints = HashSet::new();
-    let mut amm = amm_factory(&keyed_account, &mut saber_wrapper_mints)?;
+    let (mut amm, params) = if stakedex {
+        // Branch because stakedex AMMs are composite and the address does not point to anything on-chain
+        let client = nonblocking::rpc_client::RpcClient::new(rpc_url);
+        let stakedex_amms = initialize_stakedex_amms(&client).await?;
+        (
+            stakedex_amms
+                .into_iter()
+                .find(|amm| amm.key() == amm_key)
+                .with_context(|| format!("Could not findStakedex composite AMM"))?,
+            None,
+        )
+    } else {
+        let client = RpcClient::new(&rpc_url);
+        let account = client
+            .get_account(&amm_key)
+            .expect("Should find AMM in markets cache or on-chain");
+        let ui_account =
+            UiAccount::encode(&amm_key, &account, UiAccountEncoding::Base64, None, None);
+        let keyed_ui_account = KeyedUiAccount {
+            pubkey: amm_id,
+            ui_account,
+            params: None,
+        };
+        let keyed_account: KeyedAccount = keyed_ui_account.try_into()?;
 
-    let amm: &mut (dyn Amm + Send + Sync) = amm.as_mut();
+        (
+            amm_factory(&keyed_account, &mut saber_wrapper_mints)?,
+            keyed_account.params,
+        )
+    };
+
+    let amm: &mut dyn Amm = amm.as_mut();
     for _ in 0..3 {
         test_harness.update_amm(amm);
     }
 
-    test_harness.snapshot_amm_accounts(amm, keyed_account.params, force)?;
+    test_harness.snapshot_amm_accounts(amm, params, force)?;
 
     Ok(())
 }

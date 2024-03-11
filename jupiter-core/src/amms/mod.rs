@@ -4,3 +4,4 @@ pub mod spl_token_swap_amm;
 pub mod test_harness;
 
 pub mod loader;
+pub mod stakedex_amms;

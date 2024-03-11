@@ -2045,6 +2045,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "443144c8cdadd93ebf52ddb4056d257f5b52c04d3c804e657d19eb73fc33668b"
 
 [[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
+
+[[package]]
 name = "histogram"
 version = "0.6.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2226,6 +2232,7 @@ checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
 dependencies = [
  "autocfg",
  "hashbrown 0.12.3",
+ "serde",
 ]
 
 [[package]]
@@ -2236,6 +2243,7 @@ checksum = "d5477fe2230a79769d8dc68e0eabf5437907c0457a5614a9e8dddb67f65eb65d"
 dependencies = [
  "equivalent",
  "hashbrown 0.14.0",
+ "serde",
 ]
 
 [[package]]
@@ -2387,6 +2395,7 @@ dependencies = [
  "spl-token 3.5.0",
  "spl-token-2022 0.9.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-token-swap",
+ "stakedex_sdk",
  "tokio",
 ]
 
@@ -2460,6 +2469,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "lido"
+version = "1.3.6"
+source = "git+https://github.com/jup-ag/solido?rev=2c85ddf7b50d8162d2b81d79d7fcbfd5e05dc967#2c85ddf7b50d8162d2b81d79d7fcbfd5e05dc967"
+dependencies = [
+ "arrayref",
+ "borsh 0.10.3",
+ "num-derive 0.3.3",
+ "num-traits",
+ "serde",
+ "serde_derive",
+ "solana-program",
+ "spl-token 3.5.0",
+]
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2508,6 +2532,15 @@ checksum = "57d27b317e207b10f69f5e75494119e391a96f48861ae870d1da6edac98ca900"
 dependencies = [
  "cc",
  "libc",
+]
+
+[[package]]
+name = "marinade_finance_interface"
+version = "0.0.0"
+source = "git+https://github.com/jup-ag/marinade_finance_interface?rev=5747b5350c5505fc2ea597c3f8ae1f8cf71c363d#5747b5350c5505fc2ea597c3f8ae1f8cf71c363d"
+dependencies = [
+ "borsh 0.10.3",
+ "solana-program",
 ]
 
 [[package]]
@@ -3661,6 +3694,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "sanctum-lst-list"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/sanctum-lst-list.git?branch=master#4de2fe5a6f0ae2bf119c12ff26d0fdace182fcf0"
+dependencies = [
+ "sanctum-macros",
+ "serde",
+ "serde_with 3.7.0",
+ "solana-program",
+ "toml",
+]
+
+[[package]]
+name = "sanctum-macros"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23668fc5661fe63573abfbb823e3bfe246d3939dafbf56d361a9b3dbea72fa0d"
+dependencies = [
+ "heck 0.4.1",
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "solana-program",
+ "syn 2.0.52",
+]
+
+[[package]]
 name = "schannel"
 version = "0.1.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3742,9 +3800,9 @@ checksum = "bebd363326d05ec3e2f532ab7660680f3b02130d780c299bca73469d521bc0ed"
 
 [[package]]
 name = "serde"
-version = "1.0.171"
+version = "1.0.197"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "30e27d1e4fd7659406c492fd6cfaf2066ba8773de45ca75e855590f856dc34a9"
+checksum = "3fb1c873e1b9b056a4dc4c0c198b24c3ffa059243875552b2bd0933b1aee4ce2"
 dependencies = [
  "serde_derive",
 ]
@@ -3760,9 +3818,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.171"
+version = "1.0.197"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "389894603bd18c46fa56231694f8d827779c0951a667087194cf9de94ed24682"
+checksum = "7eb0b34b42edc17f6b7cac84a52a1c5f0e1bb2227e997ca9011ea3dd34e8610b"
 dependencies = [
  "proc-macro2 1.0.78",
  "quote 1.0.35",
@@ -3799,7 +3857,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "07ff71d2c147a7b57362cead5e22f772cd52f6ab31cfcd9edcd7f6aeb2a0afbe"
 dependencies = [
  "serde",
- "serde_with_macros",
+ "serde_with_macros 2.3.3",
+]
+
+[[package]]
+name = "serde_with"
+version = "3.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee80b0e361bbf88fd2f6e242ccd19cfda072cb0faa6ae694ecee08199938569a"
+dependencies = [
+ "base64 0.21.2",
+ "chrono",
+ "hex",
+ "indexmap 1.9.3",
+ "indexmap 2.0.0",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_with_macros 3.7.0",
+ "time 0.3.23",
 ]
 
 [[package]]
@@ -3807,6 +3883,18 @@ name = "serde_with_macros"
 version = "2.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "881b6f881b17d13214e5d494c939ebab463d01264ce1811e9d4ac3a882e7695f"
+dependencies = [
+ "darling 0.20.8",
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "syn 2.0.52",
+]
+
+[[package]]
+name = "serde_with_macros"
+version = "3.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6561dc161a9224638a31d876ccdfefbc1df91d3f3a8342eddb35f055d48c7655"
 dependencies = [
  "darling 0.20.8",
  "proc-macro2 1.0.78",
@@ -4671,7 +4759,7 @@ dependencies = [
  "serde_bytes",
  "serde_derive",
  "serde_json",
- "serde_with",
+ "serde_with 2.3.3",
  "sha2 0.10.7",
  "sha3 0.10.8",
  "solana-frozen-abi",
@@ -5023,7 +5111,17 @@ source = "git+https://github.com/solana-labs/solana-program-library.git?rev=79a5
 dependencies = [
  "bytemuck",
  "solana-program",
- "spl-discriminator-derive 0.1.0",
+ "spl-discriminator-derive 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
+]
+
+[[package]]
+name = "spl-discriminator"
+version = "0.1.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "bytemuck",
+ "solana-program",
+ "spl-discriminator-derive 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
 ]
 
 [[package]]
@@ -5032,7 +5130,17 @@ version = "0.1.0"
 source = "git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3#79a575fb7af56d26deeda94fef8f55bde7a90df3"
 dependencies = [
  "quote 1.0.35",
- "spl-discriminator-syn 0.1.0",
+ "spl-discriminator-syn 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
+ "syn 2.0.52",
+]
+
+[[package]]
+name = "spl-discriminator-derive"
+version = "0.1.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "quote 1.0.35",
+ "spl-discriminator-syn 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
  "syn 2.0.52",
 ]
 
@@ -5051,6 +5159,18 @@ dependencies = [
 name = "spl-discriminator-syn"
 version = "0.1.0"
 source = "git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3#79a575fb7af56d26deeda94fef8f55bde7a90df3"
+dependencies = [
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "solana-program",
+ "syn 2.0.52",
+ "thiserror",
+]
+
+[[package]]
+name = "spl-discriminator-syn"
+version = "0.1.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
 dependencies = [
  "proc-macro2 1.0.78",
  "quote 1.0.35",
@@ -5084,7 +5204,20 @@ dependencies = [
  "num-traits",
  "solana-program",
  "thiserror",
- "uint",
+ "uint 0.8.5",
+]
+
+[[package]]
+name = "spl-math"
+version = "0.2.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
+ "uint 0.9.5",
 ]
 
 [[package]]
@@ -5109,6 +5242,14 @@ dependencies = [
 name = "spl-memo"
 version = "4.0.0"
 source = "git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3#79a575fb7af56d26deeda94fef8f55bde7a90df3"
+dependencies = [
+ "solana-program",
+]
+
+[[package]]
+name = "spl-memo"
+version = "4.0.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
 dependencies = [
  "solana-program",
 ]
@@ -5139,6 +5280,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-pod"
+version = "0.1.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "solana-program",
+ "solana-zk-token-sdk",
+ "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+]
+
+[[package]]
 name = "spl-program-error"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5159,7 +5312,19 @@ dependencies = [
  "num-derive 0.4.2",
  "num-traits",
  "solana-program",
- "spl-program-error-derive 0.3.0",
+ "spl-program-error-derive 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
+ "thiserror",
+]
+
+[[package]]
+name = "spl-program-error"
+version = "0.3.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "spl-program-error-derive 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
  "thiserror",
 ]
 
@@ -5167,6 +5332,17 @@ dependencies = [
 name = "spl-program-error-derive"
 version = "0.3.0"
 source = "git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3#79a575fb7af56d26deeda94fef8f55bde7a90df3"
+dependencies = [
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "solana-program",
+ "syn 2.0.52",
+]
+
+[[package]]
+name = "spl-program-error-derive"
+version = "0.3.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
 dependencies = [
  "proc-macro2 1.0.78",
  "quote 1.0.35",
@@ -5184,6 +5360,39 @@ dependencies = [
  "quote 1.0.35",
  "sha2 0.10.7",
  "syn 2.0.52",
+]
+
+[[package]]
+name = "spl-stake-pool"
+version = "0.7.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "arrayref",
+ "bincode",
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "num_enum 0.7.2",
+ "serde",
+ "serde_derive",
+ "solana-program",
+ "spl-math 0.2.0",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-token-2022 0.8.0",
+ "thiserror",
+]
+
+[[package]]
+name = "spl-tlv-account-resolution"
+version = "0.3.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "bytemuck",
+ "solana-program",
+ "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-type-length-value 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
 ]
 
 [[package]]
@@ -5258,6 +5467,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-token"
+version = "4.0.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "arrayref",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "num_enum 0.7.2",
+ "solana-program",
+ "thiserror",
+]
+
+[[package]]
 name = "spl-token-2022"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5272,6 +5495,27 @@ dependencies = [
  "solana-zk-token-sdk",
  "spl-memo 3.0.1",
  "spl-token 3.5.0",
+ "thiserror",
+]
+
+[[package]]
+name = "spl-token-2022"
+version = "0.8.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "arrayref",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "num_enum 0.7.2",
+ "solana-program",
+ "solana-zk-token-sdk",
+ "spl-memo 4.0.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-token 4.0.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-token-metadata-interface 0.2.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-transfer-hook-interface 0.2.0",
+ "spl-type-length-value 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
  "thiserror",
 ]
 
@@ -5346,6 +5590,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-token-metadata-interface"
+version = "0.2.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "borsh 0.10.3",
+ "solana-program",
+ "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-type-length-value 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+]
+
+[[package]]
 name = "spl-token-swap"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5356,9 +5613,24 @@ dependencies = [
  "num-derive 0.3.3",
  "num-traits",
  "solana-program",
- "spl-math",
+ "spl-math 0.1.0",
  "spl-token 3.5.0",
  "thiserror",
+]
+
+[[package]]
+name = "spl-transfer-hook-interface"
+version = "0.2.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "arrayref",
+ "bytemuck",
+ "solana-program",
+ "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-tlv-account-resolution 0.3.0",
+ "spl-type-length-value 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
 ]
 
 [[package]]
@@ -5415,6 +5687,180 @@ dependencies = [
  "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
+]
+
+[[package]]
+name = "spl-type-length-value"
+version = "0.3.0"
+source = "git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9#a3996814cb44eab2834f72113b742c875ac7b1b9"
+dependencies = [
+ "bytemuck",
+ "solana-program",
+ "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+ "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=a3996814cb44eab2834f72113b742c875ac7b1b9)",
+]
+
+[[package]]
+name = "stakedex_deposit_sol_interface"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "borsh 0.9.3",
+ "solana-program",
+]
+
+[[package]]
+name = "stakedex_deposit_stake_interface"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "borsh 0.9.3",
+ "solana-program",
+]
+
+[[package]]
+name = "stakedex_interface"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "borsh 0.9.3",
+ "num-derive 0.3.3",
+ "num-traits",
+ "solana-program",
+ "thiserror",
+]
+
+[[package]]
+name = "stakedex_jup_interface"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "jupiter-amm-interface",
+ "rand 0.8.5",
+ "rust_decimal",
+ "solana-sdk",
+ "spl-token 3.5.0",
+ "stakedex_interface",
+ "stakedex_sdk_common",
+ "unstake-lib",
+ "unstake_interface",
+]
+
+[[package]]
+name = "stakedex_lido"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "borsh 0.9.3",
+ "jupiter-amm-interface",
+ "lido",
+ "solana-program",
+ "spl-token 3.5.0",
+ "stakedex_deposit_sol_interface",
+ "stakedex_sdk_common",
+ "stakedex_withdraw_stake_interface",
+]
+
+[[package]]
+name = "stakedex_marinade"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "borsh 0.9.3",
+ "jupiter-amm-interface",
+ "marinade_finance_interface",
+ "solana-program",
+ "spl-token 3.5.0",
+ "stakedex_deposit_sol_interface",
+ "stakedex_deposit_stake_interface",
+ "stakedex_sdk_common",
+]
+
+[[package]]
+name = "stakedex_sdk"
+version = "0.2.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "itertools 0.10.5",
+ "jupiter-amm-interface",
+ "lazy_static",
+ "sanctum-lst-list",
+ "solana-account-decoder",
+ "solana-sdk",
+ "spl-associated-token-account 1.1.3",
+ "spl-token 3.5.0",
+ "stakedex_interface",
+ "stakedex_jup_interface",
+ "stakedex_lido",
+ "stakedex_marinade",
+ "stakedex_sdk_common",
+ "stakedex_spl_stake_pool",
+ "stakedex_unstake_it",
+]
+
+[[package]]
+name = "stakedex_sdk_common"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "jupiter-amm-interface",
+ "rust_decimal",
+ "sanctum-macros",
+ "solana-program",
+ "stakedex_interface",
+ "thiserror",
+]
+
+[[package]]
+name = "stakedex_spl_stake_pool"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "borsh 0.9.3",
+ "jupiter-amm-interface",
+ "solana-program",
+ "spl-stake-pool",
+ "spl-token 3.5.0",
+ "stakedex_deposit_sol_interface",
+ "stakedex_deposit_stake_interface",
+ "stakedex_sdk_common",
+ "stakedex_withdraw_stake_interface",
+]
+
+[[package]]
+name = "stakedex_unstake_it"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "anyhow",
+ "jupiter-amm-interface",
+ "solana-program",
+ "spl-math 0.1.0",
+ "spl-token 3.5.0",
+ "stakedex_deposit_stake_interface",
+ "stakedex_jup_interface",
+ "stakedex_sdk_common",
+ "unstake-lib",
+ "unstake_interface",
+]
+
+[[package]]
+name = "stakedex_withdraw_stake_interface"
+version = "0.1.0"
+source = "git+ssh://git@github.com/jup-ag/stakedex-sdk?rev=f7ab8f0f0e9e726c2bc78323404d9d29a379a481#f7ab8f0f0e9e726c2bc78323404d9d29a379a481"
+dependencies = [
+ "borsh 0.9.3",
+ "solana-program",
 ]
 
 [[package]]
@@ -5963,6 +6409,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "uint"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76f64bba2c53b04fcab63c01a7d7427eadc821e3bc48c34dc9ba29c501164b52"
+dependencies = [
+ "byteorder",
+ "crunchy",
+ "hex",
+ "static_assertions",
+]
+
+[[package]]
 name = "unicode-bidi"
 version = "0.3.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6024,6 +6482,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "382810877fe448991dfc7f0dd6e3ae5d58088fd0ea5e35189655f84e6814fa56"
 dependencies = [
  "void",
+]
+
+[[package]]
+name = "unstake-lib"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/sanctum-unstake-program.git?rev=069f941#069f941d275cc41b2ec0e3c2dbfae78cae63d786"
+dependencies = [
+ "spl-math 0.1.0",
+ "unstake_interface",
+]
+
+[[package]]
+name = "unstake_interface"
+version = "2.0.0"
+source = "git+https://github.com/igneous-labs/sanctum-unstake-program.git?rev=069f941#069f941d275cc41b2ec0e3c2dbfae78cae63d786"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
 ]
 
 [[package]]

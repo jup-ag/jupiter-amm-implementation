@@ -13,6 +13,8 @@ pub enum Command {
     SnapshotAmm {
         #[clap(long)]
         amm_id: String,
+        #[clap(long)]
+        stakedex: bool,
         /// Expand an extra option to the snapshot directory (e.g. <amm-id><option>)
         #[clap(long)]
         option: Option<String>,
@@ -40,9 +42,10 @@ async fn main() {
     match command {
         Command::SnapshotAmm {
             amm_id,
+            stakedex,
             option,
             force,
-        } => take_snapshot(config_override.rpc_url, amm_id, option, force)
+        } => take_snapshot(config_override.rpc_url, amm_id, stakedex, option, force)
             .await
             .unwrap(),
     }

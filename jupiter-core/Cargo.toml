@@ -13,7 +13,7 @@ solana-program-test = "~1.16"
 spl-token-swap = { version = "3.0.0", features = ["no-entrypoint"] }
 serde_json = "1.0.82"
 anyhow = "1.0"
-serde = "1.0.140"
+serde = "1.0.197"
 lazy_static = "1.2.0"
 rust_decimal = "1.26.1"
 jupiter-amm-interface = { workspace = true }
@@ -26,6 +26,8 @@ tokio = { workspace = true, features = ["full"] }
 assert_matches = "1.5.0"
 itertools = "0.12.1"
 clap = { version = "4.5.2", features = ["derive"] }
+
+stakedex_sdk = { git = "ssh://git@github.com/jup-ag/stakedex-sdk", rev = "f7ab8f0f0e9e726c2bc78323404d9d29a379a481" }
 
 # SPL
 spl-token = { workspace = true, features = ["no-entrypoint"] }
