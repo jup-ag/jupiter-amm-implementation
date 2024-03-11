@@ -1,4 +1,3 @@
-use anchor_lang::prelude::AccountMeta;
 use anyhow::Result;
 use spl_token::state::Account as TokenAccount;
 use std::{collections::HashMap, convert::TryInto};
@@ -9,13 +8,12 @@ use solana_sdk::{program_pack::Pack, pubkey, pubkey::Pubkey};
 use spl_token_swap::curve::base::SwapCurve;
 use spl_token_swap::{curve::calculator::TradeDirection, state::SwapV1};
 
-use jupiter_amm_interface::Swap;
 use jupiter_amm_interface::{
-    try_get_account_data, AccountMap, Amm, KeyedAccount, Quote, QuoteParams, SwapAndAccountMetas,
-    SwapParams,
+    try_get_account_data, AccountMap, Amm, KeyedAccount, Quote, QuoteParams, Swap,
+    SwapAndAccountMetas, SwapParams,
 };
 
-use super::amm::TokenSwap;
+use super::account_meta_from_token_swap::TokenSwap;
 
 mod spl_token_swap_programs {
     use super::*;
@@ -157,7 +155,7 @@ impl Amm for SplTokenSwapAmm {
 
         let swap_result = get_swap_curve_result(
             &self.state.swap_curve,
-            quote_params.in_amount,
+            quote_params.amount,
             swap_source_amount,
             swap_destination_amount,
             trade_direction,
