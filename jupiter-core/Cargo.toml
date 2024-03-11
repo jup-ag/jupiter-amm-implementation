@@ -25,6 +25,7 @@ paste = "1.0.14"
 tokio = { workspace = true, features = ["full"] }
 assert_matches = "1.5.0"
 itertools = "0.12.1"
+clap = { version = "4.5.2", features = ["derive"] }
 
 # SPL
 spl-token = { workspace = true, features = ["no-entrypoint"] }
