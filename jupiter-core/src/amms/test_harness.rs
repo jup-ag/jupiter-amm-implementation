@@ -23,7 +23,6 @@ use solana_sdk::{
 use spl_associated_token_account::get_associated_token_address_with_program_id;
 use spl_token_2022::extension::StateWithExtensions;
 // use stakedex_sdk::test_utils::spl_stake_pool;
-use std::fs::remove_dir_all;
 use std::hint::black_box;
 use std::str::FromStr;
 use std::time::Instant;
@@ -33,6 +32,7 @@ use std::{
     io::Write,
     path::Path,
 };
+use std::{fs::remove_dir_all, num::NonZeroUsize};
 
 use crate::{
     build_swap_transaction::{
@@ -41,6 +41,7 @@ use crate::{
     },
     constants,
     route::get_token_mints_permutations,
+    solana_rpc_utils::ExtendedSolanaRpcClient,
 };
 use jupiter::find_jupiter_open_orders;
 use jupiter_amm_interface::{
@@ -908,7 +909,7 @@ impl AmmTestHarness {
 
         let addresses = addresses_for_snapshot.into_iter().collect::<Vec<_>>();
         self.client
-            .get_multiple_accounts(&addresses)
+            .get_multiple_accounts_chunked(&addresses, NonZeroUsize::new(100).unwrap())
             .unwrap()
             .iter()
             .zip(addresses)

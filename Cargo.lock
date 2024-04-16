@@ -2456,6 +2456,7 @@ dependencies = [
  "solana-account-decoder",
  "solana-client",
  "solana-program-test",
+ "solana-rpc-client-api",
  "solana-sdk",
  "spl-associated-token-account 2.2.0",
  "spl-token 3.5.0",
