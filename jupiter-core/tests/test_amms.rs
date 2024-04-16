@@ -2,8 +2,6 @@ use std::collections::HashMap;
 
 use anyhow::Error;
 use jupiter_amm_interface::{KeyedAccount, SwapMode};
-#[cfg(target_arch = "x86_64")]
-use jupiter_core::amms::openbook_v2_amm::OpenBookV2Amm;
 use jupiter_core::{
     amm::Amm,
     amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness},

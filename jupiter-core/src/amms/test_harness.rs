@@ -51,18 +51,62 @@ use solana_sdk::pubkey;
 
 use super::loader::amm_factory;
 
+const BONKSOL_MINT: Pubkey = pubkey!("BonK1YhkXEGLZzwtcvRTip3gAL9nCeQD7ppZBLXhtTs");
+const JUICYSOL_MINT: Pubkey = pubkey!("jucy5XJ76pHVvtPZb5TKRcGQExkwit2P5s4vY8UzmpC");
+const STRONGSOL_MINT: Pubkey = pubkey!("strng7mqqc1MBJJV6vMzYbEqnwVGvKKGKedeCvtktWA");
+const STSOL_MINT: Pubkey = pubkey!("7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj");
+const STAKESOL_MINT: Pubkey = pubkey!("st8QujHLPsX3d6HG9uQg9kJ91jFxUgruwsb1hyYXSNd");
+const LANTERNSOL_MINT: Pubkey = pubkey!("LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg");
+const EDGESOL_MINT: Pubkey = pubkey!("edge86g9cVz87xcpKpy3J77vbp4wYd9idEV562CCntt");
+const CLOCKSOL_MINT: Pubkey = pubkey!("GRJQtWwdJmp5LLpy8JWjPgn5FnLyqSJGNhn5ZnCTFUwM");
+const MSOL_MINT: Pubkey = pubkey!("mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So");
+const DSOL_MINT: Pubkey = pubkey!("Dso1bDeDjCQxTrWHqUUi63oBvV7Mdm6WaobLbQ7gnPQ");
+const LAINESOL_MINT: Pubkey = pubkey!("LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X");
+const JUPSOL_MINT: Pubkey = pubkey!("jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v");
+const HUBSOL_MINT: Pubkey = pubkey!("HUBsveNpjo5pWqNkH57QzxjQASdTVXcSK7bVKTSZtcSX");
+const SUPERFASTSOL_MINT: Pubkey = pubkey!("suPer8CPwxoJPQ7zksGMwFvjBQhjAHwUMmPV4FVatBw");
+const VAULTSOL_MINT: Pubkey = pubkey!("vSoLxydx6akxyMD9XEcPvGYNGq6Nn66oqVb3UkGkei7");
+const BSOL_MINT: Pubkey = pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1");
+const CGNTSOL_MINT: Pubkey = pubkey!("CgnTSoL3DgY9SFHxcLj6CgCgKKoTBr6tp4CPAEWy25DE");
+const COMPASSSOL_MINT: Pubkey = pubkey!("Comp4ssDzXcLeu2MnLuGNNFC4cmLPMng8qWHPvzAMU1h");
+const PWRSOL_MINT: Pubkey = pubkey!("pWrSoLAhue6jUxUkbWgmEy5rD9VJzkFmvfTDV5KgNuu");
+const LST_MINT: Pubkey = pubkey!("LSTxxxnJzKDFSLr4dUkPcmCf5VyryEqzPLz5j4bpxFp");
+const DAOSOL_MINT: Pubkey = pubkey!("GEJpt3Wjmr628FqXxTgxMce1pLntcPV4uFi8ksxMyPQh");
+const JSOL_MINT: Pubkey = pubkey!("7Q2afV64in6N6SeZsAAB81TJzwDoD6zpqmHkzi9Dcavn");
+const PICOSOL_MINT: Pubkey = pubkey!("picobAEvs6w7QEknPce34wAE4gknZA9v5tTonnmHYdX");
+const ZIPPYSOL_MINT: Pubkey = pubkey!("Zippybh3S5xYYam2nvL6hVJKz1got6ShgV4DyD1XQYF");
+const INF_MINT: Pubkey = pubkey!("5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm");
 const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
 
 lazy_static! {
-    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 5] = [
-        (spl_token::native_mint::ID, 25_000_000_000),
-        (JITOSOL_MINT, 8_000_000_000),
-        (
-            pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"),
-            100_000_000_000
-        ),
-        (constants::USDC_MINT, 1_110_000_000),
-        (constants::USDT_MINT, 1_110_000_000),
+    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 27] = [
+        (spl_token::native_mint::ID, 1_000_000_000),
+        (BONKSOL_MINT, 1_000_000_000),
+        (JUICYSOL_MINT, 1_000_000_000),
+        (STRONGSOL_MINT, 1_000_000_000),
+        (STSOL_MINT, 1_000_000_000),
+        (STAKESOL_MINT, 1_000_000_000),
+        (LANTERNSOL_MINT, 1_000_000_000),
+        (EDGESOL_MINT, 1_000_000_000),
+        (CLOCKSOL_MINT, 1_000_000_000),
+        (MSOL_MINT, 1_000_000_000),
+        (DSOL_MINT, 1_000_000_000),
+        (LAINESOL_MINT, 1_000_000_000),
+        (JUPSOL_MINT, 1_000_000_000),
+        (HUBSOL_MINT, 1_000_000_000),
+        (SUPERFASTSOL_MINT, 1_000_000_000),
+        (VAULTSOL_MINT, 1_000_000_000),
+        (BSOL_MINT, 1_000_000_000),
+        (CGNTSOL_MINT, 1_000_000_000),
+        (COMPASSSOL_MINT, 1_000_000_000),
+        (PWRSOL_MINT, 1_000_000_000),
+        (LST_MINT, 1_000_000_000),
+        (DAOSOL_MINT, 1_000_000_000),
+        (JSOL_MINT, 1_000_000_000),
+        (PICOSOL_MINT, 1_000_000_000),
+        (ZIPPYSOL_MINT, 1_000_000_000),
+        (INF_MINT, 1_000_000_000),
+        (JITOSOL_MINT, 1_000_000_000),
     ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {
@@ -652,8 +696,14 @@ impl AmmTestHarness {
     }
 
     pub fn update_amm(&self, amm: &mut dyn Amm) {
-        let accounts_to_update = amm.get_accounts_to_update();
-
+        let mut accounts_to_update = amm.get_accounts_to_update();
+        accounts_to_update.sort();
+        accounts_to_update.dedup();
+        eprintln!(
+            "{} accounts to update: {}",
+            amm.label(),
+            accounts_to_update.len()
+        );
         let account_map = self
             .client
             .get_multiple_accounts(&accounts_to_update)
