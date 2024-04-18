@@ -79,35 +79,38 @@ const ZIPPYSOL_MINT: Pubkey = pubkey!("Zippybh3S5xYYam2nvL6hVJKz1got6ShgV4DyD1XQ
 const INF_MINT: Pubkey = pubkey!("5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm");
 const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
 
+// 0.1 SOL, JSOL has smol liquidity of <1 SOL
+const SWAP_AMOUNT: u64 = 100_000_000;
+
 lazy_static! {
     pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 27] = [
-        (spl_token::native_mint::ID, 1_000_000_000),
-        (BONKSOL_MINT, 1_000_000_000),
-        (JUICYSOL_MINT, 1_000_000_000),
-        (STRONGSOL_MINT, 1_000_000_000),
-        (STSOL_MINT, 1_000_000_000),
-        (STAKESOL_MINT, 1_000_000_000),
-        (LANTERNSOL_MINT, 1_000_000_000),
-        (EDGESOL_MINT, 1_000_000_000),
-        (CLOCKSOL_MINT, 1_000_000_000),
-        (MSOL_MINT, 1_000_000_000),
-        (DSOL_MINT, 1_000_000_000),
-        (LAINESOL_MINT, 1_000_000_000),
-        (JUPSOL_MINT, 1_000_000_000),
-        (HUBSOL_MINT, 1_000_000_000),
-        (SUPERFASTSOL_MINT, 1_000_000_000),
-        (VAULTSOL_MINT, 1_000_000_000),
-        (BSOL_MINT, 1_000_000_000),
-        (CGNTSOL_MINT, 1_000_000_000),
-        (COMPASSSOL_MINT, 1_000_000_000),
-        (PWRSOL_MINT, 1_000_000_000),
-        (LST_MINT, 1_000_000_000),
-        (DAOSOL_MINT, 1_000_000_000),
-        (JSOL_MINT, 1_000_000_000),
-        (PICOSOL_MINT, 1_000_000_000),
-        (ZIPPYSOL_MINT, 1_000_000_000),
-        (INF_MINT, 1_000_000_000),
-        (JITOSOL_MINT, 1_000_000_000),
+        (spl_token::native_mint::ID, SWAP_AMOUNT),
+        (BONKSOL_MINT, SWAP_AMOUNT),
+        (JUICYSOL_MINT, SWAP_AMOUNT),
+        (STRONGSOL_MINT, SWAP_AMOUNT),
+        (STSOL_MINT, SWAP_AMOUNT),
+        (STAKESOL_MINT, SWAP_AMOUNT),
+        (LANTERNSOL_MINT, SWAP_AMOUNT),
+        (EDGESOL_MINT, SWAP_AMOUNT),
+        (CLOCKSOL_MINT, SWAP_AMOUNT),
+        (MSOL_MINT, SWAP_AMOUNT),
+        (DSOL_MINT, SWAP_AMOUNT),
+        (LAINESOL_MINT, SWAP_AMOUNT),
+        (JUPSOL_MINT, SWAP_AMOUNT),
+        (HUBSOL_MINT, SWAP_AMOUNT),
+        (SUPERFASTSOL_MINT, SWAP_AMOUNT),
+        (VAULTSOL_MINT, SWAP_AMOUNT),
+        (BSOL_MINT, SWAP_AMOUNT),
+        (CGNTSOL_MINT, SWAP_AMOUNT),
+        (COMPASSSOL_MINT, SWAP_AMOUNT),
+        (PWRSOL_MINT, SWAP_AMOUNT),
+        (LST_MINT, SWAP_AMOUNT),
+        (DAOSOL_MINT, SWAP_AMOUNT),
+        (JSOL_MINT, SWAP_AMOUNT),
+        (PICOSOL_MINT, SWAP_AMOUNT),
+        (ZIPPYSOL_MINT, SWAP_AMOUNT),
+        (INF_MINT, SWAP_AMOUNT),
+        (JITOSOL_MINT, SWAP_AMOUNT),
     ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {
@@ -789,9 +792,9 @@ impl AmmTestHarness {
             if address == &sysvar::clock::ID {
                 clock = Some(bincode::deserialize::<Clock>(&account.data).unwrap());
             }
-            if !account.executable {
+            //if !account.executable {
                 pt.add_account(*address, account.clone());
-            }
+            //}
         }
 
         for _ in 0..3 {
