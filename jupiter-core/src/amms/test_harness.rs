@@ -112,6 +112,15 @@ lazy_static! {
         (INF_MINT, SWAP_AMOUNT),
         (JITOSOL_MINT, SWAP_AMOUNT),
     ];
+    pub static ref RESTRICTED_TOKEN_MINTS: [Pubkey; 7] = [
+        spl_token::native_mint::ID,
+        COMPASSSOL_MINT,
+        MSOL_MINT,
+        JUPSOL_MINT,
+        LAINESOL_MINT,
+        INF_MINT,
+        STSOL_MINT,
+    ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {
         let mut m = HashMap::from(*TOKEN_MINT_AND_IN_AMOUNT);
@@ -793,7 +802,7 @@ impl AmmTestHarness {
                 clock = Some(bincode::deserialize::<Clock>(&account.data).unwrap());
             }
             //if !account.executable {
-                pt.add_account(*address, account.clone());
+            pt.add_account(*address, account.clone());
             //}
         }
 

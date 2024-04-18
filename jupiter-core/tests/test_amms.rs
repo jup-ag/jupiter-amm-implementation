@@ -1,7 +1,9 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
+use itertools::Itertools;
 use jupiter_amm_interface::{KeyedAccount, SwapMode};
+use jupiter_core::test_harness::RESTRICTED_TOKEN_MINTS;
 use jupiter_core::{
     amm::Amm, amms::test_harness::AmmTestHarness, route::get_token_mints_permutations,
     test_harness::AmmTestSwapParams,
@@ -9,6 +11,14 @@ use jupiter_core::{
 use s_jup_interface::SPool;
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::{account::Account, pubkey};
+
+fn reserve_token_mint_permutations() -> Vec<(Pubkey, Pubkey)> {
+    RESTRICTED_TOKEN_MINTS
+        .into_iter()
+        .permutations(2)
+        .map(|p| (p[0], p[1]))
+        .collect()
+}
 
 /// Loads AMM from snapshot and tests quoting
 async fn test_quoting_for_amm_key<T: Amm + 'static>(
@@ -59,7 +69,16 @@ macro_rules! test_exact_in_amms {
                         _ => Some($option.to_string()),
                     };
                     let before_test_setup: Option<fn(&dyn Amm, &mut HashMap<Pubkey, Account>)> = None;
-                    test_quoting_for_amm_key::<$amm_struct>($amm_key, SwapMode::ExactIn, false, $tolerance, option, before_test_setup, None, None).await
+                    test_quoting_for_amm_key::<$amm_struct>(
+                        $amm_key,
+                        SwapMode::ExactIn,
+                        false,
+                        $tolerance,
+                        option,
+                        before_test_setup,
+                        None, 
+                        Some(reserve_token_mint_permutations())
+                    ).await
                 }
                 #[tokio::test]
                 async fn [<test_quote_ $amm_key:lower _ $option:lower _ with_shared_accounts>] () {
@@ -68,7 +87,16 @@ macro_rules! test_exact_in_amms {
                         _ => Some($option.to_string()),
                     };
                     let before_test_setup: Option<fn(&dyn Amm, &mut HashMap<Pubkey, Account>)> = None;
-                    test_quoting_for_amm_key::<$amm_struct>($amm_key, SwapMode::ExactIn, true, $tolerance, option, before_test_setup, None, None).await
+                    test_quoting_for_amm_key::<$amm_struct>(
+                        $amm_key,
+                        SwapMode::ExactIn,
+                        true,
+                        $tolerance,
+                        option,
+                        before_test_setup,
+                        None,
+                        Some(reserve_token_mint_permutations())
+                    ).await
                 }
             }
         )*
