@@ -76,7 +76,7 @@ macro_rules! test_exact_in_amms {
                         $tolerance,
                         option,
                         before_test_setup,
-                        None, 
+                        None,
                         Some(reserve_token_mint_permutations())
                     ).await
                 }
