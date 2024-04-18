@@ -301,6 +301,7 @@ impl AmmTestHarnessProgramTest {
             in_amount: amount,
             out_amount: amount,
             jupiter_program_id: &jupiter::ID,
+            missing_dynamic_accounts_as_default: false,
         };
         let SwapAndAccountMetas {
             swap,
@@ -879,6 +880,7 @@ impl AmmTestHarness {
                     .get(&source_mint)
                     .unwrap_or_else(|| panic!("No in amount for mint: {}", destination_mint)),
                 jupiter_program_id: &placeholder,
+                missing_dynamic_accounts_as_default: false,
             })?;
 
             addresses_for_snapshot.extend(

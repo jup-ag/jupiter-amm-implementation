@@ -1783,7 +1783,7 @@ dependencies = [
 [[package]]
 name = "flat-fee-lib"
 version = "0.1.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -1798,7 +1798,7 @@ dependencies = [
 [[package]]
 name = "flat_fee_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -1942,7 +1942,7 @@ dependencies = [
 [[package]]
 name = "generic-pool-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "bincode",
  "bytemuck",
@@ -1955,7 +1955,7 @@ dependencies = [
 [[package]]
 name = "generic_pool_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -2420,9 +2420,8 @@ dependencies = [
 
 [[package]]
 name = "jupiter-amm-interface"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bad613279e534eba2c9d95ef6f2d2c7e170f6647ce50216301741ed3e73a79bb"
+version = "0.3.3"
+source = "git+https://github.com/jup-ag/jupiter-amm-interface.git?branch=feat/sanctum-s#504fd1181317e62bd5e54384266200f2c1086d74"
 dependencies = [
  "anyhow",
  "borsh 0.10.3",
@@ -2537,7 +2536,7 @@ dependencies = [
 [[package]]
 name = "lido-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "generic-pool-calculator-lib",
@@ -2554,7 +2553,7 @@ dependencies = [
 [[package]]
 name = "lido-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -2563,7 +2562,7 @@ dependencies = [
 [[package]]
 name = "lido_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "num-derive 0.4.2",
@@ -2626,7 +2625,7 @@ dependencies = [
 [[package]]
 name = "marinade-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "generic-pool-calculator-lib",
  "generic_pool_calculator_interface",
@@ -2641,7 +2640,7 @@ dependencies = [
 [[package]]
 name = "marinade-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -2650,7 +2649,7 @@ dependencies = [
 [[package]]
 name = "marinade_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "num-derive 0.4.2",
@@ -3242,7 +3241,7 @@ checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 [[package]]
 name = "pricing_programs_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -3813,7 +3812,7 @@ checksum = "fe232bdf6be8c8de797b22184ee71118d63780ea42ac85b61d1baa6d3b782ae9"
 [[package]]
 name = "s-controller-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -3834,7 +3833,7 @@ dependencies = [
 [[package]]
 name = "s-jup-interface"
 version = "0.1.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "anyhow",
  "flat_fee_interface",
@@ -3862,7 +3861,7 @@ dependencies = [
 [[package]]
 name = "s-pricing-prog-aggregate"
 version = "0.1.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "anyhow",
  "flat-fee-lib",
@@ -3875,7 +3874,7 @@ dependencies = [
 [[package]]
 name = "s-sol-val-calc-prog-aggregate"
 version = "0.1.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "anyhow",
  "bincode",
@@ -3901,7 +3900,7 @@ dependencies = [
 [[package]]
 name = "s_controller_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "bytemuck",
@@ -3933,7 +3932,7 @@ dependencies = [
 [[package]]
 name = "sanctum-lst-list"
 version = "0.2.0"
-source = "git+https://github.com/igneous-labs/sanctum-lst-list.git?branch=master#486a9db73845dc2338c24b260352036f02951333"
+source = "git+https://github.com/igneous-labs/sanctum-lst-list.git?branch=master#fe801dd7048f7542aa64fdbe52e365d6003a9e75"
 dependencies = [
  "sanctum-macros",
  "serde",
@@ -3958,7 +3957,7 @@ dependencies = [
 [[package]]
 name = "sanctum-spl-multi-stake-pool-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -3967,7 +3966,7 @@ dependencies = [
 [[package]]
 name = "sanctum-spl-stake-pool-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -4076,9 +4075,9 @@ checksum = "bebd363326d05ec3e2f532ab7660680f3b02130d780c299bca73469d521bc0ed"
 
 [[package]]
 name = "serde"
-version = "1.0.171"
+version = "1.0.198"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "30e27d1e4fd7659406c492fd6cfaf2066ba8773de45ca75e855590f856dc34a9"
+checksum = "9846a40c979031340571da2545a4e5b7c4163bdae79b301d5f86d03979451fcc"
 dependencies = [
  "serde_derive",
 ]
@@ -4094,9 +4093,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.171"
+version = "1.0.198"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "389894603bd18c46fa56231694f8d827779c0951a667087194cf9de94ed24682"
+checksum = "e88edab869b01783ba905e7d0153f9fc1a6505a96e4ad3018011eedb838566d9"
 dependencies = [
  "proc-macro2 1.0.78",
  "quote 1.0.35",
@@ -4105,9 +4104,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.100"
+version = "1.0.116"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f1e14e89be7aa4c4b78bdbdc9eb5bf8517829a600ae8eaa39a6e1d960b5185c"
+checksum = "3e17db7126d17feb94eb3fad46bf1a96b034e8aacbc2e775fe81505f8b0b2813"
 dependencies = [
  "itoa",
  "ryu",
@@ -4309,7 +4308,7 @@ dependencies = [
 [[package]]
 name = "sol-value-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-token-ratio",
  "solana-program",
@@ -4318,7 +4317,7 @@ dependencies = [
 [[package]]
 name = "sol_value_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "solana-program",
@@ -5401,7 +5400,7 @@ dependencies = [
 [[package]]
 name = "spl-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "generic-pool-calculator-lib",
@@ -5601,7 +5600,7 @@ dependencies = [
 [[package]]
 name = "spl-stake-pool-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -5841,7 +5840,7 @@ dependencies = [
 [[package]]
 name = "spl_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "num-derive 0.4.2",
@@ -6934,7 +6933,7 @@ dependencies = [
 [[package]]
 name = "wsol-calculator-lib"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-token-ratio",
  "sol-value-calculator-lib",
@@ -6946,7 +6945,7 @@ dependencies = [
 [[package]]
 name = "wsol-keys"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "sanctum-macros",
  "solana-program",
@@ -6955,7 +6954,7 @@ dependencies = [
 [[package]]
 name = "wsol_calculator_interface"
 version = "1.0.0"
-source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#eca5698b288d843a58ec733cb7a456c0940cf7ef"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#b6b0c3ad64de97a1e6c81bd17f1b59b0b30da556"
 dependencies = [
  "borsh 0.10.3",
  "num-derive 0.4.2",
