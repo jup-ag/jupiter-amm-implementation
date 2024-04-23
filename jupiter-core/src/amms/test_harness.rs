@@ -23,7 +23,6 @@ use solana_sdk::{
 use spl_associated_token_account::get_associated_token_address_with_program_id;
 use spl_token_2022::extension::StateWithExtensions;
 // use stakedex_sdk::test_utils::spl_stake_pool;
-use std::fs::remove_dir_all;
 use std::hint::black_box;
 use std::str::FromStr;
 use std::time::Instant;
@@ -33,6 +32,7 @@ use std::{
     io::Write,
     path::Path,
 };
+use std::{fs::remove_dir_all, num::NonZeroUsize};
 
 use crate::{
     build_swap_transaction::{
@@ -41,6 +41,7 @@ use crate::{
     },
     constants,
     route::get_token_mints_permutations,
+    solana_rpc_utils::ExtendedSolanaRpcClient,
 };
 use jupiter::find_jupiter_open_orders;
 use jupiter_amm_interface::{
@@ -51,18 +52,74 @@ use solana_sdk::pubkey;
 
 use super::loader::amm_factory;
 
+const BONKSOL_MINT: Pubkey = pubkey!("BonK1YhkXEGLZzwtcvRTip3gAL9nCeQD7ppZBLXhtTs");
+const JUICYSOL_MINT: Pubkey = pubkey!("jucy5XJ76pHVvtPZb5TKRcGQExkwit2P5s4vY8UzmpC");
+const STRONGSOL_MINT: Pubkey = pubkey!("strng7mqqc1MBJJV6vMzYbEqnwVGvKKGKedeCvtktWA");
+const STSOL_MINT: Pubkey = pubkey!("7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj");
+const STAKESOL_MINT: Pubkey = pubkey!("st8QujHLPsX3d6HG9uQg9kJ91jFxUgruwsb1hyYXSNd");
+const LANTERNSOL_MINT: Pubkey = pubkey!("LnTRntk2kTfWEY6cVB8K9649pgJbt6dJLS1Ns1GZCWg");
+const EDGESOL_MINT: Pubkey = pubkey!("edge86g9cVz87xcpKpy3J77vbp4wYd9idEV562CCntt");
+const CLOCKSOL_MINT: Pubkey = pubkey!("GRJQtWwdJmp5LLpy8JWjPgn5FnLyqSJGNhn5ZnCTFUwM");
+const MSOL_MINT: Pubkey = pubkey!("mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So");
+const DSOL_MINT: Pubkey = pubkey!("Dso1bDeDjCQxTrWHqUUi63oBvV7Mdm6WaobLbQ7gnPQ");
+const LAINESOL_MINT: Pubkey = pubkey!("LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X");
+const JUPSOL_MINT: Pubkey = pubkey!("jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v");
+const HUBSOL_MINT: Pubkey = pubkey!("HUBsveNpjo5pWqNkH57QzxjQASdTVXcSK7bVKTSZtcSX");
+const SUPERFASTSOL_MINT: Pubkey = pubkey!("suPer8CPwxoJPQ7zksGMwFvjBQhjAHwUMmPV4FVatBw");
+const VAULTSOL_MINT: Pubkey = pubkey!("vSoLxydx6akxyMD9XEcPvGYNGq6Nn66oqVb3UkGkei7");
+const BSOL_MINT: Pubkey = pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1");
+const CGNTSOL_MINT: Pubkey = pubkey!("CgnTSoL3DgY9SFHxcLj6CgCgKKoTBr6tp4CPAEWy25DE");
+const COMPASSSOL_MINT: Pubkey = pubkey!("Comp4ssDzXcLeu2MnLuGNNFC4cmLPMng8qWHPvzAMU1h");
+const PWRSOL_MINT: Pubkey = pubkey!("pWrSoLAhue6jUxUkbWgmEy5rD9VJzkFmvfTDV5KgNuu");
+const LST_MINT: Pubkey = pubkey!("LSTxxxnJzKDFSLr4dUkPcmCf5VyryEqzPLz5j4bpxFp");
+const DAOSOL_MINT: Pubkey = pubkey!("GEJpt3Wjmr628FqXxTgxMce1pLntcPV4uFi8ksxMyPQh");
+const JSOL_MINT: Pubkey = pubkey!("7Q2afV64in6N6SeZsAAB81TJzwDoD6zpqmHkzi9Dcavn");
+const PICOSOL_MINT: Pubkey = pubkey!("picobAEvs6w7QEknPce34wAE4gknZA9v5tTonnmHYdX");
+const ZIPPYSOL_MINT: Pubkey = pubkey!("Zippybh3S5xYYam2nvL6hVJKz1got6ShgV4DyD1XQYF");
+const INF_MINT: Pubkey = pubkey!("5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm");
 const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
 
+// 0.1 SOL, JSOL has smol liquidity of <1 SOL
+const SWAP_AMOUNT: u64 = 100_000_000;
+
 lazy_static! {
-    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 5] = [
-        (spl_token::native_mint::ID, 25_000_000_000),
-        (JITOSOL_MINT, 8_000_000_000),
-        (
-            pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"),
-            100_000_000_000
-        ),
-        (constants::USDC_MINT, 1_110_000_000),
-        (constants::USDT_MINT, 1_110_000_000),
+    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 27] = [
+        (spl_token::native_mint::ID, SWAP_AMOUNT),
+        (BONKSOL_MINT, SWAP_AMOUNT),
+        (JUICYSOL_MINT, SWAP_AMOUNT),
+        (STRONGSOL_MINT, SWAP_AMOUNT),
+        (STSOL_MINT, SWAP_AMOUNT),
+        (STAKESOL_MINT, SWAP_AMOUNT),
+        (LANTERNSOL_MINT, SWAP_AMOUNT),
+        (EDGESOL_MINT, SWAP_AMOUNT),
+        (CLOCKSOL_MINT, SWAP_AMOUNT),
+        (MSOL_MINT, SWAP_AMOUNT),
+        (DSOL_MINT, SWAP_AMOUNT),
+        (LAINESOL_MINT, SWAP_AMOUNT),
+        (JUPSOL_MINT, SWAP_AMOUNT),
+        (HUBSOL_MINT, SWAP_AMOUNT),
+        (SUPERFASTSOL_MINT, SWAP_AMOUNT),
+        (VAULTSOL_MINT, SWAP_AMOUNT),
+        (BSOL_MINT, SWAP_AMOUNT),
+        (CGNTSOL_MINT, SWAP_AMOUNT),
+        (COMPASSSOL_MINT, SWAP_AMOUNT),
+        (PWRSOL_MINT, SWAP_AMOUNT),
+        (LST_MINT, SWAP_AMOUNT),
+        (DAOSOL_MINT, SWAP_AMOUNT),
+        (JSOL_MINT, SWAP_AMOUNT),
+        (PICOSOL_MINT, SWAP_AMOUNT),
+        (ZIPPYSOL_MINT, SWAP_AMOUNT),
+        (INF_MINT, SWAP_AMOUNT),
+        (JITOSOL_MINT, SWAP_AMOUNT),
+    ];
+    pub static ref RESTRICTED_TOKEN_MINTS: [Pubkey; 7] = [
+        spl_token::native_mint::ID,
+        COMPASSSOL_MINT,
+        MSOL_MINT,
+        JUPSOL_MINT,
+        LAINESOL_MINT,
+        INF_MINT,
+        STSOL_MINT,
     ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {
@@ -256,6 +313,7 @@ impl AmmTestHarnessProgramTest {
             in_amount: amount,
             out_amount: amount,
             jupiter_program_id: &jupiter::ID,
+            missing_dynamic_accounts_as_default: false,
         };
         let SwapAndAccountMetas {
             swap,
@@ -652,8 +710,14 @@ impl AmmTestHarness {
     }
 
     pub fn update_amm(&self, amm: &mut dyn Amm) {
-        let accounts_to_update = amm.get_accounts_to_update();
-
+        let mut accounts_to_update = amm.get_accounts_to_update();
+        accounts_to_update.sort();
+        accounts_to_update.dedup();
+        eprintln!(
+            "{} accounts to update: {}",
+            amm.label(),
+            accounts_to_update.len()
+        );
         let account_map = self
             .client
             .get_multiple_accounts(&accounts_to_update)
@@ -737,9 +801,9 @@ impl AmmTestHarness {
             if address == &sysvar::clock::ID {
                 clock = Some(bincode::deserialize::<Clock>(&account.data).unwrap());
             }
-            if !account.executable {
-                pt.add_account(*address, account.clone());
-            }
+            //if !account.executable {
+            pt.add_account(*address, account.clone());
+            //}
         }
 
         for _ in 0..3 {
@@ -828,6 +892,7 @@ impl AmmTestHarness {
                     .get(&source_mint)
                     .unwrap_or_else(|| panic!("No in amount for mint: {}", destination_mint)),
                 jupiter_program_id: &placeholder,
+                missing_dynamic_accounts_as_default: false,
             })?;
 
             addresses_for_snapshot.extend(
@@ -858,7 +923,7 @@ impl AmmTestHarness {
 
         let addresses = addresses_for_snapshot.into_iter().collect::<Vec<_>>();
         self.client
-            .get_multiple_accounts(&addresses)
+            .get_multiple_accounts_chunked(&addresses, NonZeroUsize::new(100).unwrap())
             .unwrap()
             .iter()
             .zip(addresses)

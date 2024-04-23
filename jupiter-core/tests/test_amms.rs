@@ -1,17 +1,24 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
+use itertools::Itertools;
 use jupiter_amm_interface::{KeyedAccount, SwapMode};
-#[cfg(target_arch = "x86_64")]
-use jupiter_core::amms::openbook_v2_amm::OpenBookV2Amm;
+use jupiter_core::test_harness::RESTRICTED_TOKEN_MINTS;
 use jupiter_core::{
-    amm::Amm,
-    amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness},
-    route::get_token_mints_permutations,
+    amm::Amm, amms::test_harness::AmmTestHarness, route::get_token_mints_permutations,
     test_harness::AmmTestSwapParams,
 };
+use s_jup_interface::SPool;
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::{account::Account, pubkey};
+
+fn reserve_token_mint_permutations() -> Vec<(Pubkey, Pubkey)> {
+    RESTRICTED_TOKEN_MINTS
+        .into_iter()
+        .permutations(2)
+        .map(|p| (p[0], p[1]))
+        .collect()
+}
 
 /// Loads AMM from snapshot and tests quoting
 async fn test_quoting_for_amm_key<T: Amm + 'static>(
@@ -62,7 +69,16 @@ macro_rules! test_exact_in_amms {
                         _ => Some($option.to_string()),
                     };
                     let before_test_setup: Option<fn(&dyn Amm, &mut HashMap<Pubkey, Account>)> = None;
-                    test_quoting_for_amm_key::<$amm_struct>($amm_key, SwapMode::ExactIn, false, $tolerance, option, before_test_setup, None, None).await
+                    test_quoting_for_amm_key::<$amm_struct>(
+                        $amm_key,
+                        SwapMode::ExactIn,
+                        false,
+                        $tolerance,
+                        option,
+                        before_test_setup,
+                        None,
+                        Some(reserve_token_mint_permutations())
+                    ).await
                 }
                 #[tokio::test]
                 async fn [<test_quote_ $amm_key:lower _ $option:lower _ with_shared_accounts>] () {
@@ -71,7 +87,16 @@ macro_rules! test_exact_in_amms {
                         _ => Some($option.to_string()),
                     };
                     let before_test_setup: Option<fn(&dyn Amm, &mut HashMap<Pubkey, Account>)> = None;
-                    test_quoting_for_amm_key::<$amm_struct>($amm_key, SwapMode::ExactIn, true, $tolerance, option, before_test_setup, None, None).await
+                    test_quoting_for_amm_key::<$amm_struct>(
+                        $amm_key,
+                        SwapMode::ExactIn,
+                        true,
+                        $tolerance,
+                        option,
+                        before_test_setup,
+                        None,
+                        Some(reserve_token_mint_permutations())
+                    ).await
                 }
             }
         )*
@@ -104,14 +129,12 @@ macro_rules! test_exact_out_amms {
     };
 }
 
-const ORCA_V2_SOL_USDC_POOL: Pubkey = pubkey!("EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U");
-const ORCA_V2_USDC_USDT_POOL: Pubkey = pubkey!("F13xvvx45jVGd84ynK3c8T89UejQVxjCLtmHfPmAXAHP");
+const INF_AMM_KEY: Pubkey = pubkey!("Gb7m4daakbVbrFLR33FKMDVMHAprRZ66CSYt4bpFwUgS");
 
 // You can run a single test by doing: `cargo test test_quote_<lower_case_constant>_<default | option_name> -- --nocapture`
 
 test_exact_in_amms! {
-    (ORCA_V2_SOL_USDC_POOL, SplTokenSwapAmm, 0),
-    (ORCA_V2_USDC_USDT_POOL, SplTokenSwapAmm, 0),
+    (INF_AMM_KEY, SPool<Account, Account>, 0),
 }
 
 async fn test_quoting_with_amm(

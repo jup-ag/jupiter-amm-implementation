@@ -1,5 +1,6 @@
 pub mod amms;
 mod math;
+mod solana_rpc_utils;
 
 pub mod build_swap_transaction;
 pub mod config;

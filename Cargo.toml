@@ -16,7 +16,7 @@ solana-program-test = "~1.16"
 tokio = { version = "1", features = ["full"] }
 
 anchor-gen = { git = "https://github.com/jup-ag/anchor-gen.git", rev = "26c04a10d20509f360ab176d003bea4c625b16f2" }
-jupiter-amm-interface = "~0.3.2"
+jupiter-amm-interface = { git = "https://github.com/jup-ag/jupiter-amm-interface.git", branch = "feat/sanctum-s" }
 
 # SPL
 spl-token = { version = "3.5", features = ["no-entrypoint"] }

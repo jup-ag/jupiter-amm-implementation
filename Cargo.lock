@@ -1503,6 +1503,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "derive_more"
+version = "0.99.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fb810d30a7c1953f91334de7244731fc3f3c10d7fe163338a35b9f640960321"
+dependencies = [
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "dialoguer"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1770,6 +1781,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "flat-fee-lib"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "flat_fee_interface",
+ "sanctum-macros",
+ "sanctum-token-ratio",
+ "solana-program",
+ "solana-readonly-account",
+ "static_assertions",
+]
+
+[[package]]
+name = "flat_fee_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
+]
+
+[[package]]
 name = "flate2"
 version = "1.0.26"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1898,6 +1937,32 @@ dependencies = [
  "serde",
  "typenum",
  "version_check",
+]
+
+[[package]]
+name = "generic-pool-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "bincode",
+ "bytemuck",
+ "generic_pool_calculator_interface",
+ "solana-program",
+ "solana-readonly-account",
+ "static_assertions",
+]
+
+[[package]]
+name = "generic_pool_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
 ]
 
 [[package]]
@@ -2043,6 +2108,12 @@ name = "hermit-abi"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "443144c8cdadd93ebf52ddb4056d257f5b52c04d3c804e657d19eb73fc33668b"
+
+[[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "histogram"
@@ -2226,6 +2297,7 @@ checksum = "bd070e393353796e801d209ad339e89596eb4c8d430d18ede6a1cced8fafbd99"
 dependencies = [
  "autocfg",
  "hashbrown 0.12.3",
+ "serde",
 ]
 
 [[package]]
@@ -2236,6 +2308,7 @@ checksum = "d5477fe2230a79769d8dc68e0eabf5437907c0457a5614a9e8dddb67f65eb65d"
 dependencies = [
  "equivalent",
  "hashbrown 0.14.0",
+ "serde",
 ]
 
 [[package]]
@@ -2347,9 +2420,8 @@ dependencies = [
 
 [[package]]
 name = "jupiter-amm-interface"
-version = "0.3.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bad613279e534eba2c9d95ef6f2d2c7e170f6647ce50216301741ed3e73a79bb"
+version = "0.3.3"
+source = "git+https://github.com/jup-ag/jupiter-amm-interface.git?branch=feat/sanctum-s#504fd1181317e62bd5e54384266200f2c1086d74"
 dependencies = [
  "anyhow",
  "borsh 0.10.3",
@@ -2377,11 +2449,13 @@ dependencies = [
  "lazy_static",
  "paste",
  "rust_decimal",
+ "s-jup-interface",
  "serde",
  "serde_json",
  "solana-account-decoder",
  "solana-client",
  "solana-program-test",
+ "solana-rpc-client-api",
  "solana-sdk",
  "spl-associated-token-account 2.2.0",
  "spl-token 3.5.0",
@@ -2460,6 +2534,44 @@ dependencies = [
 ]
 
 [[package]]
+name = "lido-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "generic-pool-calculator-lib",
+ "generic_pool_calculator_interface",
+ "lido-keys",
+ "lido_calculator_interface",
+ "sanctum-macros",
+ "sanctum-token-ratio",
+ "sol-value-calculator-lib",
+ "solana-program",
+ "solana-readonly-account",
+]
+
+[[package]]
+name = "lido-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
+]
+
+[[package]]
+name = "lido_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
+]
+
+[[package]]
 name = "linux-raw-sys"
 version = "0.3.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2508,6 +2620,42 @@ checksum = "57d27b317e207b10f69f5e75494119e391a96f48861ae870d1da6edac98ca900"
 dependencies = [
  "cc",
  "libc",
+]
+
+[[package]]
+name = "marinade-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "generic-pool-calculator-lib",
+ "generic_pool_calculator_interface",
+ "marinade-keys",
+ "marinade_calculator_interface",
+ "sanctum-macros",
+ "sanctum-token-ratio",
+ "sol-value-calculator-lib",
+ "solana-program",
+]
+
+[[package]]
+name = "marinade-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
+]
+
+[[package]]
+name = "marinade_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
 ]
 
 [[package]]
@@ -3091,6 +3239,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
 
 [[package]]
+name = "pricing_programs_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "solana-program",
+]
+
+[[package]]
 name = "proc-macro-crate"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3652,12 +3810,187 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fe232bdf6be8c8de797b22184ee71118d63780ea42ac85b61d1baa6d3b782ae9"
 
 [[package]]
+name = "s-controller-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "flat-fee-lib",
+ "s_controller_interface",
+ "sanctum-associated-token-lib",
+ "sanctum-macros",
+ "sanctum-token-lib",
+ "sanctum-token-ratio",
+ "solana-program",
+ "solana-readonly-account",
+ "spl-associated-token-account 2.2.0",
+ "spl-token 4.0.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "spl-token-metadata-interface 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "static_assertions",
+]
+
+[[package]]
+name = "s-jup-interface"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "anyhow",
+ "flat_fee_interface",
+ "jupiter-amm-interface",
+ "lido-calculator-lib",
+ "marinade-calculator-lib",
+ "pricing_programs_interface",
+ "rust_decimal",
+ "s-controller-lib",
+ "s-pricing-prog-aggregate",
+ "s-sol-val-calc-prog-aggregate",
+ "s_controller_interface",
+ "sanctum-associated-token-lib",
+ "sanctum-lst-list",
+ "sanctum-token-lib",
+ "sanctum-token-ratio",
+ "serde_json",
+ "solana-program",
+ "solana-readonly-account",
+ "solana-sdk",
+ "spl-calculator-lib",
+ "wsol-calculator-lib",
+]
+
+[[package]]
+name = "s-pricing-prog-aggregate"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "anyhow",
+ "flat-fee-lib",
+ "flat_fee_interface",
+ "pricing_programs_interface",
+ "solana-program",
+ "solana-readonly-account",
+]
+
+[[package]]
+name = "s-sol-val-calc-prog-aggregate"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "anyhow",
+ "bincode",
+ "borsh 0.10.3",
+ "generic-pool-calculator-lib",
+ "generic_pool_calculator_interface",
+ "lido-calculator-lib",
+ "lido-keys",
+ "lido_calculator_interface",
+ "marinade-calculator-lib",
+ "marinade-keys",
+ "marinade_calculator_interface",
+ "sanctum-token-ratio",
+ "sol-value-calculator-lib",
+ "sol_value_calculator_interface",
+ "solana-program",
+ "solana-readonly-account",
+ "spl-calculator-lib",
+ "wsol-calculator-lib",
+ "wsol-keys",
+]
+
+[[package]]
+name = "s_controller_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "bytemuck",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
+]
+
+[[package]]
 name = "same-file"
 version = "1.0.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
 dependencies = [
  "winapi-util",
+]
+
+[[package]]
+name = "sanctum-associated-token-lib"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/sanctum-solana-utils.git?rev=2d1718f#2d1718f4837a0048570b656ad8a7ccc7c1ab1377"
+dependencies = [
+ "solana-program",
+ "solana-readonly-account",
+ "spl-associated-token-account 2.2.0",
+]
+
+[[package]]
+name = "sanctum-lst-list"
+version = "0.2.0"
+source = "git+https://github.com/igneous-labs/sanctum-lst-list.git?branch=master#fe801dd7048f7542aa64fdbe52e365d6003a9e75"
+dependencies = [
+ "sanctum-macros",
+ "serde",
+ "serde_with 3.7.0",
+ "solana-program",
+ "toml",
+]
+
+[[package]]
+name = "sanctum-macros"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23668fc5661fe63573abfbb823e3bfe246d3939dafbf56d361a9b3dbea72fa0d"
+dependencies = [
+ "heck 0.4.1",
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "solana-program",
+ "syn 2.0.52",
+]
+
+[[package]]
+name = "sanctum-spl-multi-stake-pool-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
+]
+
+[[package]]
+name = "sanctum-spl-stake-pool-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
+]
+
+[[package]]
+name = "sanctum-token-lib"
+version = "0.1.0"
+source = "git+https://github.com/igneous-labs/sanctum-solana-utils.git?rev=2d1718f#2d1718f4837a0048570b656ad8a7ccc7c1ab1377"
+dependencies = [
+ "solana-program",
+ "solana-readonly-account",
+ "spl-token-2022 0.9.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "sanctum-token-ratio"
+version = "0.2.0"
+source = "git+https://github.com/igneous-labs/sanctum-solana-utils.git?rev=f6c40a0#f6c40a08285be741e4e6ee46afdba4763586c570"
+dependencies = [
+ "borsh 0.10.3",
+ "num-traits",
+ "serde",
+ "solana-program",
 ]
 
 [[package]]
@@ -3742,9 +4075,9 @@ checksum = "bebd363326d05ec3e2f532ab7660680f3b02130d780c299bca73469d521bc0ed"
 
 [[package]]
 name = "serde"
-version = "1.0.171"
+version = "1.0.198"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "30e27d1e4fd7659406c492fd6cfaf2066ba8773de45ca75e855590f856dc34a9"
+checksum = "9846a40c979031340571da2545a4e5b7c4163bdae79b301d5f86d03979451fcc"
 dependencies = [
  "serde_derive",
 ]
@@ -3760,9 +4093,9 @@ dependencies = [
 
 [[package]]
 name = "serde_derive"
-version = "1.0.171"
+version = "1.0.198"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "389894603bd18c46fa56231694f8d827779c0951a667087194cf9de94ed24682"
+checksum = "e88edab869b01783ba905e7d0153f9fc1a6505a96e4ad3018011eedb838566d9"
 dependencies = [
  "proc-macro2 1.0.78",
  "quote 1.0.35",
@@ -3771,9 +4104,9 @@ dependencies = [
 
 [[package]]
 name = "serde_json"
-version = "1.0.100"
+version = "1.0.116"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0f1e14e89be7aa4c4b78bdbdc9eb5bf8517829a600ae8eaa39a6e1d960b5185c"
+checksum = "3e17db7126d17feb94eb3fad46bf1a96b034e8aacbc2e775fe81505f8b0b2813"
 dependencies = [
  "itoa",
  "ryu",
@@ -3799,7 +4132,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "07ff71d2c147a7b57362cead5e22f772cd52f6ab31cfcd9edcd7f6aeb2a0afbe"
 dependencies = [
  "serde",
- "serde_with_macros",
+ "serde_with_macros 2.3.3",
+]
+
+[[package]]
+name = "serde_with"
+version = "3.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ee80b0e361bbf88fd2f6e242ccd19cfda072cb0faa6ae694ecee08199938569a"
+dependencies = [
+ "base64 0.21.2",
+ "chrono",
+ "hex",
+ "indexmap 1.9.3",
+ "indexmap 2.0.0",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "serde_with_macros 3.7.0",
+ "time 0.3.23",
 ]
 
 [[package]]
@@ -3807,6 +4158,18 @@ name = "serde_with_macros"
 version = "2.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "881b6f881b17d13214e5d494c939ebab463d01264ce1811e9d4ac3a882e7695f"
+dependencies = [
+ "darling 0.20.8",
+ "proc-macro2 1.0.78",
+ "quote 1.0.35",
+ "syn 2.0.52",
+]
+
+[[package]]
+name = "serde_with_macros"
+version = "3.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6561dc161a9224638a31d876ccdfefbc1df91d3f3a8342eddb35f055d48c7655"
 dependencies = [
  "darling 0.20.8",
  "proc-macro2 1.0.78",
@@ -3940,6 +4303,24 @@ checksum = "64a4a911eed85daf18834cfaa86a79b7d266ff93ff5ba14005426219480ed662"
 dependencies = [
  "libc",
  "winapi",
+]
+
+[[package]]
+name = "sol-value-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-token-ratio",
+ "solana-program",
+]
+
+[[package]]
+name = "sol_value_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "solana-program",
 ]
 
 [[package]]
@@ -4483,6 +4864,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "solana-readonly-account"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a8cf9c7fb090625aa0be1c81845712cebcbfeadf771146b0829b0f03569e1c4c"
+dependencies = [
+ "derive_more",
+ "solana-program",
+ "solana-sdk",
+]
+
+[[package]]
 name = "solana-remote-wallet"
 version = "1.16.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4671,7 +5063,7 @@ dependencies = [
  "serde_bytes",
  "serde_derive",
  "serde_json",
- "serde_with",
+ "serde_with 2.3.3",
  "sha2 0.10.7",
  "sha3 0.10.8",
  "solana-frozen-abi",
@@ -5006,6 +5398,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "spl-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "generic-pool-calculator-lib",
+ "generic_pool_calculator_interface",
+ "sanctum-macros",
+ "sanctum-spl-multi-stake-pool-keys",
+ "sanctum-spl-stake-pool-keys",
+ "sanctum-token-ratio",
+ "sol-value-calculator-lib",
+ "solana-program",
+ "solana-readonly-account",
+ "spl-stake-pool-keys",
+ "spl_calculator_interface",
+]
+
+[[package]]
 name = "spl-discriminator"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5184,6 +5595,15 @@ dependencies = [
  "quote 1.0.35",
  "sha2 0.10.7",
  "syn 2.0.52",
+]
+
+[[package]]
+name = "spl-stake-pool-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
 ]
 
 [[package]]
@@ -5415,6 +5835,18 @@ dependencies = [
  "spl-discriminator 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-pod 0.1.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-program-error 0.3.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
+]
+
+[[package]]
+name = "spl_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
 ]
 
 [[package]]
@@ -6496,6 +6928,39 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "80d0f4e272c85def139476380b12f9ac60926689dd2e01d4923222f40580869d"
 dependencies = [
  "winapi",
+]
+
+[[package]]
+name = "wsol-calculator-lib"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-token-ratio",
+ "sol-value-calculator-lib",
+ "solana-program",
+ "wsol-keys",
+ "wsol_calculator_interface",
+]
+
+[[package]]
+name = "wsol-keys"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "sanctum-macros",
+ "solana-program",
+]
+
+[[package]]
+name = "wsol_calculator_interface"
+version = "1.0.0"
+source = "git+https://github.com/igneous-labs/S.git?branch=fix/jup-integration#090ea27a0efdef292feacac72ace1baf1268d843"
+dependencies = [
+ "borsh 0.10.3",
+ "num-derive 0.4.2",
+ "num-traits",
+ "solana-program",
+ "thiserror",
 ]
 
 [[package]]
