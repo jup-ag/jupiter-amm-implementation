@@ -6,9 +6,9 @@ solana program dump [program_id] [filename.so]
 
 ## Simulation test example based on Invariant AMM
 
-#### Make sure you're on the right network, choose Mercurial.
+#### Make sure you're on the right network, `mainnet-beta`.
 ```
-solana config set --url https://jupiter.rpcpool.com/<snipped>
+solana config set --url https://your-own-rpc.com
 ```
 
 #### Create a snapshot for our `INVARIANT_USDC_USDT` pool in `/jupiter-core`
