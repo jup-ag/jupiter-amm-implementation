@@ -8,6 +8,7 @@ edition = "2021"
 
 [workspace.dependencies]
 anchor-lang = "0.28"
+anchor-spl = { version = "0.28.0" }
 anchor-syn = "0.28"
 solana-sdk = "~1.16"
 solana-client = "~1.16"

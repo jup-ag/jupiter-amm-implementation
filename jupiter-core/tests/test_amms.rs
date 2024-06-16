@@ -4,7 +4,7 @@ use anyhow::Error;
 use jupiter_amm_interface::{KeyedAccount, SwapMode};
 use jupiter_core::{
     amm::Amm,
-    amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness},
+    amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness, goat_swap_amm::GoatSwapAmm},
     route::get_token_mints_permutations,
     test_harness::AmmTestSwapParams,
 };
@@ -104,12 +104,12 @@ macro_rules! test_exact_out_amms {
 
 const ORCA_V2_SOL_USDC_POOL: Pubkey = pubkey!("EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U");
 const ORCA_V2_USDC_USDT_POOL: Pubkey = pubkey!("F13xvvx45jVGd84ynK3c8T89UejQVxjCLtmHfPmAXAHP");
+const GOAT_SOL_USDC_POOL: Pubkey = pubkey!("2MfS2LB1cqgmXM1dERuxF9mzPGq23ow7p7ZAtQGyqKHr");
 
 // You can run a single test by doing: `cargo test test_quote_<lower_case_constant>_<default | option_name> -- --nocapture`
 
 test_exact_in_amms! {
-    (ORCA_V2_SOL_USDC_POOL, SplTokenSwapAmm, 0),
-    (ORCA_V2_USDC_USDT_POOL, SplTokenSwapAmm, 0),
+    (GOAT_SOL_USDC_POOL, GoatSwapAmm, 0),
 }
 
 async fn test_quoting_with_amm(

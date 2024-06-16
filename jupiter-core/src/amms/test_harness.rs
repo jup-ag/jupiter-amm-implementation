@@ -29,7 +29,7 @@ use std::str::FromStr;
 use std::time::Instant;
 use std::{
     collections::{HashMap, HashSet},
-    fs::{create_dir, File},
+    fs::{create_dir_all, File},
     io::Write,
     path::Path,
 };
@@ -54,8 +54,8 @@ use super::loader::amm_factory;
 const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
 
 lazy_static! {
-    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 5] = [
-        (spl_token::native_mint::ID, 25_000_000_000),
+    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 6] = [
+        (spl_token::native_mint::ID, 1_00_000_000),
         (JITOSOL_MINT, 8_000_000_000),
         (
             pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"),
@@ -63,6 +63,10 @@ lazy_static! {
         ),
         (constants::USDC_MINT, 1_110_000_000),
         (constants::USDT_MINT, 1_110_000_000),
+        (
+            pubkey!("EqkWxEAo4Y6CqEpn3EoFQ2cmohCVWTiqzoMbydn38AhE"),
+            100_000_000_000
+        ),
     ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {
@@ -848,7 +852,7 @@ impl AmmTestHarness {
         if force {
             remove_dir_all(snapshot_path)?;
         }
-        create_dir(snapshot_path)?;
+        create_dir_all(snapshot_path)?;
 
         if params.is_some() {
             let mut f = File::create(snapshot_path.join("params.json")).unwrap();
