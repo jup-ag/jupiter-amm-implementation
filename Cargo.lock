@@ -276,6 +276,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "anchor-spl"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78f860599da1c2354e7234c768783049eb42e2f54509ecfc942d2e0076a2da7b"
+dependencies = [
+ "anchor-lang",
+ "solana-program",
+ "spl-associated-token-account 1.1.3",
+ "spl-token 3.5.0",
+ "spl-token-2022 0.6.1",
+]
+
+[[package]]
 name = "anchor-syn"
 version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2045,6 +2058,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "443144c8cdadd93ebf52ddb4056d257f5b52c04d3c804e657d19eb73fc33668b"
 
 [[package]]
+name = "hex"
+version = "0.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
+
+[[package]]
 name = "histogram"
 version = "0.6.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2365,6 +2384,7 @@ name = "jupiter-core"
 version = "0.1.0"
 dependencies = [
  "anchor-lang",
+ "anchor-spl",
  "anyhow",
  "assert_matches",
  "async-trait",
@@ -2388,6 +2408,7 @@ dependencies = [
  "spl-token-2022 0.9.0 (git+https://github.com/solana-labs/solana-program-library.git?rev=79a575fb7af56d26deeda94fef8f55bde7a90df3)",
  "spl-token-swap",
  "tokio",
+ "uint 0.9.5",
 ]
 
 [[package]]
@@ -5084,7 +5105,7 @@ dependencies = [
  "num-traits",
  "solana-program",
  "thiserror",
- "uint",
+ "uint 0.8.5",
 ]
 
 [[package]]
@@ -5959,6 +5980,18 @@ dependencies = [
  "byteorder",
  "crunchy",
  "rustc-hex",
+ "static_assertions",
+]
+
+[[package]]
+name = "uint"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "76f64bba2c53b04fcab63c01a7d7427eadc821e3bc48c34dc9ba29c501164b52"
+dependencies = [
+ "byteorder",
+ "crunchy",
+ "hex",
  "static_assertions",
 ]
 
