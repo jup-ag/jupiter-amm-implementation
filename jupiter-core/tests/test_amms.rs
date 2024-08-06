@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use anyhow::Error;
-use jupiter_amm_interface::{KeyedAccount, SwapMode};
+use jupiter_amm_interface::{AmmContext, ClockRef, KeyedAccount, SwapMode};
 use jupiter_core::{
     amm::Amm,
     amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness},
@@ -27,7 +27,10 @@ async fn test_quoting_for_amm_key<T: Amm + 'static>(
     let test_harness = AmmTestHarness::new_with_rpc_url("".into(), amm_key, option);
     let keyed_account: KeyedAccount = test_harness.get_keyed_account_from_snapshot().unwrap();
 
-    let mut amm = T::from_keyed_account(&keyed_account).unwrap();
+    let amm_context = AmmContext {
+        clock_ref: ClockRef::from(test_harness.get_clock()),
+    };
+    let mut amm = T::from_keyed_account(&keyed_account, &amm_context).unwrap();
     // if amm.requires_update_for_reserve_mints() {
     //     test_harness.update_amm_from_snapshot(&mut amm).unwrap();
     // }

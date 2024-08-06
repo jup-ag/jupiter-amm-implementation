@@ -1,5 +1,5 @@
 use anchor_lang::{system_program, InstructionData, ToAccountMetas};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use assert_matches::assert_matches;
 use async_trait::async_trait;
 use glob::glob;
@@ -16,9 +16,9 @@ use solana_client::{
 };
 use solana_program_test::{BanksClient, BanksClientError, ProgramTestContext};
 use solana_sdk::{
-    account::Account, compute_budget::ComputeBudgetInstruction, instruction::Instruction,
-    program_option::COption, program_pack::Pack, pubkey::Pubkey, signature::Keypair,
-    signer::Signer, sysvar, transaction::Transaction,
+    account::Account, clock::Clock, compute_budget::ComputeBudgetInstruction,
+    instruction::Instruction, program_option::COption, program_pack::Pack, pubkey::Pubkey,
+    signature::Keypair, signer::Signer, sysvar, transaction::Transaction,
 };
 use spl_associated_token_account::get_associated_token_address_with_program_id;
 use spl_token_2022::extension::StateWithExtensions;
@@ -44,8 +44,8 @@ use crate::{
 };
 use jupiter::find_jupiter_open_orders;
 use jupiter_amm_interface::{
-    AccountMap, Amm, AmmUserSetup, KeyedAccount, KeyedUiAccount, QuoteParams, SwapAndAccountMetas,
-    SwapMode, SwapParams,
+    AccountMap, Amm, AmmContext, AmmUserSetup, ClockRef, KeyedAccount, KeyedUiAccount, QuoteParams,
+    SwapAndAccountMetas, SwapMode, SwapParams,
 };
 use solana_sdk::pubkey;
 
@@ -256,6 +256,7 @@ impl AmmTestHarnessProgramTest {
             in_amount: amount,
             out_amount: amount,
             jupiter_program_id: &jupiter::ID,
+            missing_dynamic_accounts_as_default: false,
         };
         let SwapAndAccountMetas {
             swap,
@@ -703,7 +704,6 @@ impl AmmTestHarness {
         amm: &mut dyn Amm,
         before_test_setup: Option<&mut impl FnMut(&dyn Amm, &mut HashMap<Pubkey, Account>)>,
     ) -> AmmTestHarnessProgramTest {
-        use anchor_lang::prelude::Clock;
         use solana_program_test::ProgramTest;
 
         let mut pt = ProgramTest::default();
@@ -763,6 +763,18 @@ impl AmmTestHarness {
             program_test_user,
             option: self.option.clone(),
         }
+    }
+
+    pub fn get_clock(&self) -> Clock {
+        let account_map = self.load_accounts_snapshot();
+        let clock: Clock = match account_map.get(&sysvar::clock::ID) {
+            Some(account) => bincode::deserialize(&account.data)
+                .context("Failed to deserialize sysvar::clock::ID")
+                .unwrap(),
+            None => Clock::default(), // some amms don't have clock snapshot
+        };
+
+        clock
     }
 
     /// Setup user and mutate token accounts with funded ATAs
@@ -828,6 +840,7 @@ impl AmmTestHarness {
                     .get(&source_mint)
                     .unwrap_or_else(|| panic!("No in amount for mint: {}", destination_mint)),
                 jupiter_program_id: &placeholder,
+                missing_dynamic_accounts_as_default: false,
             })?;
 
             addresses_for_snapshot.extend(
@@ -1043,6 +1056,8 @@ pub async fn take_snapshot(
     let amm_key = Pubkey::from_str(&amm_id).unwrap();
 
     let client = RpcClient::new(&rpc_url);
+
+    let amm_context = get_amm_context(&client).await?;
     let account = client
         .get_account(&amm_key)
         .expect("Should find AMM in markets cache or on-chain");
@@ -1057,7 +1072,7 @@ pub async fn take_snapshot(
     let test_harness = AmmTestHarness::new_with_rpc_url(rpc_url, amm_key, option);
 
     let mut saber_wrapper_mints = HashSet::new();
-    let mut amm = amm_factory(&keyed_account, &mut saber_wrapper_mints)?;
+    let mut amm = amm_factory(&keyed_account, &amm_context, &mut saber_wrapper_mints)?;
 
     let amm: &mut (dyn Amm + Send + Sync) = amm.as_mut();
     for _ in 0..3 {
@@ -1067,4 +1082,27 @@ pub async fn take_snapshot(
     test_harness.snapshot_amm_accounts(amm, keyed_account.params, force)?;
 
     Ok(())
+}
+
+pub async fn get_clock(rpc_client: &RpcClient) -> anyhow::Result<Clock> {
+    let clock_data = rpc_client
+        .get_account_with_commitment(&sysvar::clock::ID, rpc_client.commitment())?
+        .value
+        .context("Failed to get clock account")?;
+
+    let clock: Clock = bincode::deserialize(&clock_data.data)
+        .context("Failed to deserialize sysvar::clock::ID")?;
+
+    Ok(clock)
+}
+
+pub async fn get_clock_ref(rpc_client: &RpcClient) -> anyhow::Result<ClockRef> {
+    let clock = get_clock(rpc_client).await?;
+    Ok(ClockRef::from(clock))
+}
+
+pub async fn get_amm_context(rpc_client: &RpcClient) -> anyhow::Result<AmmContext> {
+    Ok(AmmContext {
+        clock_ref: get_clock_ref(rpc_client).await?,
+    })
 }
