@@ -4,7 +4,7 @@ use anyhow::{anyhow, Result};
 use jupiter_amm_interface::{Amm, AmmContext, KeyedAccount};
 use solana_sdk::pubkey::Pubkey;
 
-use super::spl_token_swap_amm::{SplTokenSwapAmm, SPL_TOKEN_SWAP_PROGRAMS};
+use super::{goat_swap_amm::{GoatSwapAmm, GOAT_SWAP_PROGRAMS}, spl_token_swap_amm::{SplTokenSwapAmm, SPL_TOKEN_SWAP_PROGRAMS}};
 
 pub fn amm_factory(
     keyed_account: &KeyedAccount,
@@ -18,6 +18,10 @@ pub fn amm_factory(
         Ok(Box::new(SplTokenSwapAmm::from_keyed_account(
             keyed_account,
             amm_context,
+        )?))
+    } else if GOAT_SWAP_PROGRAMS.contains_key(&owner) {
+        Ok(Box::new(GoatSwapAmm::from_keyed_account(
+            keyed_account,
         )?))
     } else {
         Err(anyhow!(
