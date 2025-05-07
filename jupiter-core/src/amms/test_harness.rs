@@ -51,18 +51,16 @@ use solana_sdk::pubkey;
 
 use super::loader::amm_factory;
 
-const JITOSOL_MINT: Pubkey = pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn");
-
 lazy_static! {
-    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 5] = [
+    pub static ref TOKEN_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 8] = [
         (spl_token::native_mint::ID, 25_000_000_000),
-        (JITOSOL_MINT, 8_000_000_000),
-        (
-            pubkey!("bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1"),
-            100_000_000_000
-        ),
+        (constants::JITOSOL_MINT, 8_000_000_000),
+        (constants::JUPSOL_MINT, 100_000_000_000),
+        (constants::BSOL_MINT, 100_000_000_000),
+        (constants::MSOL_MINT, 100_000_000_000),
         (constants::USDC_MINT, 1_110_000_000),
-        (constants::USDT_MINT, 1_110_000_000),
+        (constants::USDT_MINT, 1_000_000_000),
+        (constants::JUP_MINT, 1_00_000_000),
     ];
     pub static ref TOKEN2022_MINT_AND_IN_AMOUNT: [(Pubkey, u64); 0] = [];
     pub static ref TOKEN_MINT_TO_IN_AMOUNT: HashMap<Pubkey, u64> = {

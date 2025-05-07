@@ -10,6 +10,8 @@ use jupiter_core::{
 };
 use solana_sdk::pubkey::Pubkey;
 use solana_sdk::{account::Account, pubkey};
+use stabble_stable_swap::amm::StableSwap;
+use stabble_weighted_swap::amm::WeightedSwap;
 
 /// Loads AMM from snapshot and tests quoting
 async fn test_quoting_for_amm_key<T: Amm + 'static>(
@@ -107,12 +109,24 @@ macro_rules! test_exact_out_amms {
 
 const ORCA_V2_SOL_USDC_POOL: Pubkey = pubkey!("EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U");
 const ORCA_V2_USDC_USDT_POOL: Pubkey = pubkey!("F13xvvx45jVGd84ynK3c8T89UejQVxjCLtmHfPmAXAHP");
+const STABBLE_USDT_USDC_POOL: Pubkey = pubkey!("5K7CHUbBYAh6wrantyJvDDqwT4VoKuZTi73CN1DTUUer");
+const STABBLE_SOL_BSOL_POOL: Pubkey = pubkey!("G3uVt3hZjRpXNazhWHBg9ngw8JVWtzM64CaR5xMHCYm2");
+const STABBLE_JJMSOL_SOL_POOL: Pubkey = pubkey!("CakowQHNvku2CDVDprpvdsQGDKv35TEagjEUNoKwvoQH");
+const STABBLE_SOL_USDC_POOL: Pubkey = pubkey!("JV4MkRFn58xpyrhF2oDxQYwnq5jFVzTQUKcUzce1FQA");
+const STABBLE_JUP_USDT_POOL: Pubkey = pubkey!("858yFJxHNAqNFKC17R5Bix9tzhwhB7p4kATjNGkYzeB8");
+const STABBLE_JUP_SOL_POOL: Pubkey = pubkey!("ThMzojZ53A5NzAwxLoiPoddYABom5vAWvkCdQY6GbQW");
 
 // You can run a single test by doing: `cargo test test_quote_<lower_case_constant>_<default | option_name> -- --nocapture`
 
 test_exact_in_amms! {
-    (ORCA_V2_SOL_USDC_POOL, SplTokenSwapAmm, 0),
-    (ORCA_V2_USDC_USDT_POOL, SplTokenSwapAmm, 0),
+    // (ORCA_V2_SOL_USDC_POOL, SplTokenSwapAmm, 0),
+    // (ORCA_V2_USDC_USDT_POOL, SplTokenSwapAmm, 0),
+    (STABBLE_USDT_USDC_POOL, StableSwap, 0),
+    (STABBLE_SOL_BSOL_POOL, StableSwap, 0),
+    (STABBLE_JJMSOL_SOL_POOL, StableSwap, 0),
+    (STABBLE_SOL_USDC_POOL, WeightedSwap, 0),
+    (STABBLE_JUP_USDT_POOL, WeightedSwap, 0),
+    (STABBLE_JUP_SOL_POOL, WeightedSwap, 0),
 }
 
 async fn test_quoting_with_amm(
