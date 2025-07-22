@@ -1,0 +1,5327 @@
+{
+  "address": "Externa111111111111111111111111111111111111",
+  "metadata": {
+    "name": "dex_interfaces",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "docs": [
+    "Accounts interface to allow the Jupiter aggregator program to CPI"
+  ],
+  "instructions": [
+    {
+      "name": "mercurial_swap",
+      "discriminator": [
+        2,
+        5,
+        77,
+        173,
+        197,
+        0,
+        7,
+        157
+      ],
+      "accounts": [
+        {
+          "name": "swap_state"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source_token_account",
+          "writable": true
+        },
+        {
+          "name": "destination_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cykura_swap",
+      "discriminator": [
+        38,
+        241,
+        21,
+        107,
+        120,
+        59,
+        184,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "factory_state"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "last_observation_state",
+          "writable": true
+        },
+        {
+          "name": "core_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "serum_swap",
+      "discriminator": [
+        88,
+        183,
+        70,
+        249,
+        214,
+        118,
+        82,
+        210
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "open_orders",
+          "writable": true
+        },
+        {
+          "name": "request_queue",
+          "writable": true
+        },
+        {
+          "name": "event_queue",
+          "writable": true
+        },
+        {
+          "name": "bids",
+          "writable": true
+        },
+        {
+          "name": "asks",
+          "writable": true
+        },
+        {
+          "name": "coin_vault",
+          "writable": true
+        },
+        {
+          "name": "pc_vault",
+          "writable": true
+        },
+        {
+          "name": "vault_signer"
+        },
+        {
+          "name": "authority",
+          "writable": true
+        },
+        {
+          "name": "order_payer_token_account",
+          "writable": true
+        },
+        {
+          "name": "coin_wallet",
+          "writable": true
+        },
+        {
+          "name": "pc_wallet",
+          "writable": true
+        },
+        {
+          "name": "dex_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "saber_swap",
+      "discriminator": [
+        64,
+        62,
+        98,
+        226,
+        52,
+        74,
+        37,
+        178
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "swap"
+        },
+        {
+          "name": "swap_authority"
+        },
+        {
+          "name": "user_authority"
+        },
+        {
+          "name": "input_user_account",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_user_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "fees_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "saber_add_decimals",
+      "discriminator": [
+        36,
+        53,
+        231,
+        184,
+        7,
+        181,
+        5,
+        238
+      ],
+      "accounts": [
+        {
+          "name": "wrapper"
+        },
+        {
+          "name": "wrapper_mint",
+          "writable": true
+        },
+        {
+          "name": "wrapper_underlying_tokens",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "user_underlying_tokens",
+          "writable": true
+        },
+        {
+          "name": "user_wrapped_tokens",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "token_swap",
+      "discriminator": [
+        187,
+        192,
+        118,
+        212,
+        62,
+        109,
+        28,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "swap"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "pool_fee",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "token_swap_v2",
+      "discriminator": [
+        51,
+        48,
+        145,
+        115,
+        123,
+        95,
+        71,
+        138
+      ],
+      "accounts": [
+        {
+          "name": "swap"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "pool_fee",
+          "writable": true
+        },
+        {
+          "name": "source_mint"
+        },
+        {
+          "name": "destination_mint"
+        },
+        {
+          "name": "source_token_program"
+        },
+        {
+          "name": "destination_token_program"
+        },
+        {
+          "name": "pool_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sencha_swap",
+      "discriminator": [
+        25,
+        50,
+        7,
+        21,
+        207,
+        248,
+        230,
+        194
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "swap",
+          "writable": true
+        },
+        {
+          "name": "user_authority"
+        },
+        {
+          "name": "input_user_account",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_fees_account",
+          "writable": true
+        },
+        {
+          "name": "output_user_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_fees_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "step_swap",
+      "discriminator": [
+        155,
+        56,
+        208,
+        198,
+        27,
+        61,
+        149,
+        233
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "swap"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "pool_fee",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cropper_swap",
+      "discriminator": [
+        230,
+        216,
+        47,
+        182,
+        165,
+        117,
+        210,
+        103
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "swap"
+        },
+        {
+          "name": "swap_state"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "pool_fee",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "raydium_swap",
+      "discriminator": [
+        177,
+        173,
+        42,
+        240,
+        184,
+        4,
+        124,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "amm_id",
+          "writable": true
+        },
+        {
+          "name": "amm_authority"
+        },
+        {
+          "name": "amm_open_orders",
+          "writable": true
+        },
+        {
+          "name": "pool_coin_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool_pc_token_account",
+          "writable": true
+        },
+        {
+          "name": "serum_program_id"
+        },
+        {
+          "name": "serum_market",
+          "writable": true
+        },
+        {
+          "name": "serum_bids",
+          "writable": true
+        },
+        {
+          "name": "serum_asks",
+          "writable": true
+        },
+        {
+          "name": "serum_event_queue",
+          "writable": true
+        },
+        {
+          "name": "serum_coin_vault_account",
+          "writable": true
+        },
+        {
+          "name": "serum_pc_vault_account",
+          "writable": true
+        },
+        {
+          "name": "serum_vault_signer"
+        },
+        {
+          "name": "user_source_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_destination_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_source_owner"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "crema_swap",
+      "discriminator": [
+        169,
+        220,
+        41,
+        250,
+        35,
+        190,
+        133,
+        198
+      ],
+      "accounts": [
+        {
+          "name": "clmm_config"
+        },
+        {
+          "name": "clmmpool",
+          "writable": true
+        },
+        {
+          "name": "token_a"
+        },
+        {
+          "name": "token_b"
+        },
+        {
+          "name": "account_a",
+          "writable": true
+        },
+        {
+          "name": "account_b",
+          "writable": true
+        },
+        {
+          "name": "token_a_vault",
+          "writable": true
+        },
+        {
+          "name": "token_b_vault",
+          "writable": true
+        },
+        {
+          "name": "tick_array_map",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "partner"
+        },
+        {
+          "name": "partner_ata_a",
+          "writable": true
+        },
+        {
+          "name": "partner_ata_b",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "lifinity_swap",
+      "discriminator": [
+        23,
+        96,
+        165,
+        33,
+        90,
+        214,
+        96,
+        153
+      ],
+      "accounts": [
+        {
+          "name": "authority"
+        },
+        {
+          "name": "amm"
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source_info",
+          "writable": true
+        },
+        {
+          "name": "destination_info",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "fee_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "pyth_account"
+        },
+        {
+          "name": "pyth_pc_account"
+        },
+        {
+          "name": "config_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "marinade_deposit",
+      "discriminator": [
+        62,
+        236,
+        248,
+        28,
+        222,
+        232,
+        182,
+        73
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "writable": true
+        },
+        {
+          "name": "msol_mint",
+          "writable": true
+        },
+        {
+          "name": "liq_pool_sol_leg_pda",
+          "writable": true
+        },
+        {
+          "name": "liq_pool_msol_leg",
+          "writable": true
+        },
+        {
+          "name": "liq_pool_msol_leg_authority"
+        },
+        {
+          "name": "reserve_pda",
+          "writable": true
+        },
+        {
+          "name": "transfer_from",
+          "writable": true
+        },
+        {
+          "name": "mint_to",
+          "writable": true
+        },
+        {
+          "name": "msol_mint_authority"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "temp_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "payer",
+          "writable": true
+        },
+        {
+          "name": "wsol_mint"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "marinade_unstake",
+      "discriminator": [
+        41,
+        120,
+        15,
+        0,
+        113,
+        219,
+        42,
+        1
+      ],
+      "accounts": [
+        {
+          "name": "state",
+          "writable": true
+        },
+        {
+          "name": "msol_mint",
+          "writable": true
+        },
+        {
+          "name": "liq_pool_sol_leg_pda",
+          "writable": true
+        },
+        {
+          "name": "liq_pool_msol_leg",
+          "writable": true
+        },
+        {
+          "name": "treasury_msol_account",
+          "writable": true
+        },
+        {
+          "name": "get_msol_from",
+          "writable": true
+        },
+        {
+          "name": "get_msol_from_authority"
+        },
+        {
+          "name": "transfer_sol_to",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "aldrin_swap",
+      "discriminator": [
+        251,
+        232,
+        119,
+        166,
+        225,
+        185,
+        169,
+        161
+      ],
+      "accounts": [
+        {
+          "name": "pool"
+        },
+        {
+          "name": "pool_signer"
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "base_token_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_token_vault",
+          "writable": true
+        },
+        {
+          "name": "fee_pool_token_account",
+          "writable": true
+        },
+        {
+          "name": "wallet_authority"
+        },
+        {
+          "name": "user_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "aldrin_v2_swap",
+      "discriminator": [
+        190,
+        166,
+        89,
+        139,
+        33,
+        152,
+        16,
+        10
+      ],
+      "accounts": [
+        {
+          "name": "pool"
+        },
+        {
+          "name": "pool_signer"
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "base_token_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_token_vault",
+          "writable": true
+        },
+        {
+          "name": "fee_pool_token_account",
+          "writable": true
+        },
+        {
+          "name": "wallet_authority"
+        },
+        {
+          "name": "user_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "curve"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "whirlpool_swap",
+      "discriminator": [
+        123,
+        229,
+        184,
+        63,
+        12,
+        0,
+        92,
+        145
+      ],
+      "accounts": [
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_authority"
+        },
+        {
+          "name": "whirlpool",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array0",
+          "writable": true
+        },
+        {
+          "name": "tick_array1",
+          "writable": true
+        },
+        {
+          "name": "tick_array2",
+          "writable": true
+        },
+        {
+          "name": "oracle",
+          "docs": [
+            "Oracle is currently unused and will be enabled on subsequent updates"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "whirlpool_swap_v2",
+      "discriminator": [
+        56,
+        166,
+        129,
+        9,
+        157,
+        205,
+        118,
+        217
+      ],
+      "accounts": [
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "token_authority"
+        },
+        {
+          "name": "whirlpool",
+          "writable": true
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array0",
+          "writable": true
+        },
+        {
+          "name": "tick_array1",
+          "writable": true
+        },
+        {
+          "name": "tick_array2",
+          "writable": true
+        },
+        {
+          "name": "oracle",
+          "docs": [
+            "Oracle is currently unused and will be enabled on subsequent updates"
+          ],
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "invariant_swap",
+      "discriminator": [
+        187,
+        193,
+        40,
+        121,
+        47,
+        73,
+        144,
+        177
+      ],
+      "accounts": [
+        {
+          "name": "state"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "tickmap",
+          "writable": true
+        },
+        {
+          "name": "account_x",
+          "writable": true
+        },
+        {
+          "name": "account_y",
+          "writable": true
+        },
+        {
+          "name": "reserve_x",
+          "writable": true
+        },
+        {
+          "name": "reserve_y",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "program_authority"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "meteora_swap",
+      "discriminator": [
+        127,
+        125,
+        226,
+        12,
+        81,
+        24,
+        204,
+        35
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user_source_token",
+          "writable": true
+        },
+        {
+          "name": "user_destination_token",
+          "writable": true
+        },
+        {
+          "name": "a_vault",
+          "writable": true
+        },
+        {
+          "name": "b_vault",
+          "writable": true
+        },
+        {
+          "name": "a_token_vault",
+          "writable": true
+        },
+        {
+          "name": "b_token_vault",
+          "writable": true
+        },
+        {
+          "name": "a_vault_lp_mint",
+          "writable": true
+        },
+        {
+          "name": "b_vault_lp_mint",
+          "writable": true
+        },
+        {
+          "name": "a_vault_lp",
+          "writable": true
+        },
+        {
+          "name": "b_vault_lp",
+          "writable": true
+        },
+        {
+          "name": "admin_token_fee",
+          "writable": true
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "vault_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "goosefx_swap",
+      "discriminator": [
+        222,
+        136,
+        46,
+        123,
+        189,
+        125,
+        124,
+        122
+      ],
+      "accounts": [
+        {
+          "name": "controller"
+        },
+        {
+          "name": "pair",
+          "writable": true
+        },
+        {
+          "name": "ssl_in",
+          "writable": true
+        },
+        {
+          "name": "ssl_out",
+          "writable": true
+        },
+        {
+          "name": "liability_vault_in",
+          "writable": true
+        },
+        {
+          "name": "swapped_liability_vault_in",
+          "writable": true
+        },
+        {
+          "name": "liability_vault_out",
+          "writable": true
+        },
+        {
+          "name": "swapped_liability_vault_out",
+          "writable": true
+        },
+        {
+          "name": "user_in_ata",
+          "writable": true
+        },
+        {
+          "name": "user_out_ata",
+          "writable": true
+        },
+        {
+          "name": "fee_collector_ata",
+          "writable": true
+        },
+        {
+          "name": "user_wallet"
+        },
+        {
+          "name": "fee_collector"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "deltafi_swap",
+      "discriminator": [
+        132,
+        230,
+        102,
+        120,
+        205,
+        9,
+        237,
+        190
+      ],
+      "accounts": [
+        {
+          "name": "market_config"
+        },
+        {
+          "name": "swap_info",
+          "writable": true
+        },
+        {
+          "name": "user_source_token",
+          "writable": true
+        },
+        {
+          "name": "user_destination_token",
+          "writable": true
+        },
+        {
+          "name": "swap_source_token",
+          "writable": true
+        },
+        {
+          "name": "swap_destination_token",
+          "writable": true
+        },
+        {
+          "name": "deltafi_user",
+          "writable": true
+        },
+        {
+          "name": "admin_destination_token",
+          "writable": true
+        },
+        {
+          "name": "pyth_price_base"
+        },
+        {
+          "name": "pyth_price_quote"
+        },
+        {
+          "name": "user_authority"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "balansol_swap",
+      "discriminator": [
+        137,
+        109,
+        253,
+        253,
+        70,
+        109,
+        11,
+        100
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "tax_man",
+          "writable": true
+        },
+        {
+          "name": "bid_mint"
+        },
+        {
+          "name": "treasurer"
+        },
+        {
+          "name": "src_treasury",
+          "writable": true
+        },
+        {
+          "name": "src_associated_token_account",
+          "writable": true
+        },
+        {
+          "name": "ask_mint"
+        },
+        {
+          "name": "dst_treasury",
+          "writable": true
+        },
+        {
+          "name": "dst_associated_token_account",
+          "writable": true
+        },
+        {
+          "name": "dst_token_account_taxman",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "marco_polo_swap",
+      "discriminator": [
+        241,
+        147,
+        94,
+        15,
+        58,
+        108,
+        179,
+        68
+      ],
+      "accounts": [
+        {
+          "name": "state"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "token_x"
+        },
+        {
+          "name": "token_y"
+        },
+        {
+          "name": "pool_x_account",
+          "writable": true
+        },
+        {
+          "name": "pool_y_account",
+          "writable": true
+        },
+        {
+          "name": "swapper_x_account",
+          "writable": true
+        },
+        {
+          "name": "swapper_y_account",
+          "writable": true
+        },
+        {
+          "name": "swapper",
+          "writable": true
+        },
+        {
+          "name": "referrer_x_account",
+          "writable": true
+        },
+        {
+          "name": "referrer_y_account",
+          "writable": true
+        },
+        {
+          "name": "referrer",
+          "writable": true
+        },
+        {
+          "name": "program_authority"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "dradex_swap",
+      "discriminator": [
+        34,
+        146,
+        160,
+        38,
+        51,
+        85,
+        58,
+        151
+      ],
+      "accounts": [
+        {
+          "name": "pair",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "event_queue",
+          "writable": true
+        },
+        {
+          "name": "dex_user"
+        },
+        {
+          "name": "market_user",
+          "writable": true
+        },
+        {
+          "name": "bids",
+          "writable": true
+        },
+        {
+          "name": "asks",
+          "writable": true
+        },
+        {
+          "name": "t0_vault",
+          "writable": true
+        },
+        {
+          "name": "t1_vault",
+          "writable": true
+        },
+        {
+          "name": "t0_user",
+          "writable": true
+        },
+        {
+          "name": "t1_user",
+          "writable": true
+        },
+        {
+          "name": "master"
+        },
+        {
+          "name": "signer",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "logger"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "fox_buy_from_estimated_cost",
+      "discriminator": [
+        38,
+        20,
+        62,
+        38,
+        252,
+        254,
+        180,
+        216
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "mint_base"
+        },
+        {
+          "name": "mint_y",
+          "writable": true
+        },
+        {
+          "name": "mint_n",
+          "writable": true
+        },
+        {
+          "name": "pot",
+          "writable": true
+        },
+        {
+          "name": "user_ata_base",
+          "writable": true
+        },
+        {
+          "name": "user_ata_buy",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "fox_claim_partial",
+      "discriminator": [
+        184,
+        176,
+        125,
+        244,
+        139,
+        168,
+        254,
+        129
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "mint_base"
+        },
+        {
+          "name": "mint_y",
+          "writable": true
+        },
+        {
+          "name": "mint_n",
+          "writable": true
+        },
+        {
+          "name": "pot",
+          "writable": true
+        },
+        {
+          "name": "user_ata_base",
+          "writable": true
+        },
+        {
+          "name": "user_ata_y"
+        },
+        {
+          "name": "user_ata_n"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "lifinity_v2_swap",
+      "discriminator": [
+        19,
+        152,
+        195,
+        245,
+        187,
+        144,
+        74,
+        227
+      ],
+      "accounts": [
+        {
+          "name": "authority"
+        },
+        {
+          "name": "amm",
+          "writable": true
+        },
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "source_info",
+          "writable": true
+        },
+        {
+          "name": "destination_info",
+          "writable": true
+        },
+        {
+          "name": "swap_source",
+          "writable": true
+        },
+        {
+          "name": "swap_destination",
+          "writable": true
+        },
+        {
+          "name": "pool_mint",
+          "writable": true
+        },
+        {
+          "name": "fee_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "oracle_main_account"
+        },
+        {
+          "name": "oracle_sub_account"
+        },
+        {
+          "name": "oracle_pc_account"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "raydium_clmm_swap",
+      "discriminator": [
+        47,
+        184,
+        213,
+        193,
+        35,
+        210,
+        87,
+        4
+      ],
+      "accounts": [
+        {
+          "name": "payer"
+        },
+        {
+          "name": "amm_config"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "tick_array",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "raydium_clmm_swap_v2",
+      "discriminator": [
+        86,
+        108,
+        246,
+        93,
+        88,
+        47,
+        114,
+        90
+      ],
+      "accounts": [
+        {
+          "name": "payer"
+        },
+        {
+          "name": "amm_config"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_program2022"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "input_vault_mint"
+        },
+        {
+          "name": "output_vault_mint"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_v2_add_liquidity",
+      "discriminator": [
+        18,
+        66,
+        88,
+        194,
+        197,
+        52,
+        116,
+        212
+      ],
+      "accounts": [
+        {
+          "name": "owner"
+        },
+        {
+          "name": "funding_or_receiving_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "custody",
+          "writable": true
+        },
+        {
+          "name": "custody_doves_price_account"
+        },
+        {
+          "name": "custody_pythnet_price_account"
+        },
+        {
+          "name": "custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_v2_remove_liquidity",
+      "discriminator": [
+        16,
+        103,
+        98,
+        99,
+        106,
+        36,
+        5,
+        105
+      ],
+      "accounts": [
+        {
+          "name": "owner"
+        },
+        {
+          "name": "funding_or_receiving_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "custody",
+          "writable": true
+        },
+        {
+          "name": "custody_doves_price_account"
+        },
+        {
+          "name": "custody_pythnet_price_account"
+        },
+        {
+          "name": "custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_v2_swap",
+      "discriminator": [
+        127,
+        245,
+        19,
+        158,
+        82,
+        250,
+        33,
+        18
+      ],
+      "accounts": [
+        {
+          "name": "owner"
+        },
+        {
+          "name": "funding_account",
+          "writable": true
+        },
+        {
+          "name": "receiving_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "receiving_custody",
+          "writable": true
+        },
+        {
+          "name": "receiving_custody_doves_price_account"
+        },
+        {
+          "name": "receiving_custody_pythnet_price_account"
+        },
+        {
+          "name": "receiving_custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "dispensing_custody",
+          "writable": true
+        },
+        {
+          "name": "dispensing_custody_doves_price_account"
+        },
+        {
+          "name": "dispensing_custody_pythnet_price_account"
+        },
+        {
+          "name": "dispensing_custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "phoenix_swap",
+      "discriminator": [
+        99,
+        66,
+        223,
+        95,
+        236,
+        131,
+        26,
+        140
+      ],
+      "accounts": [
+        {
+          "name": "swap_program",
+          "docs": [
+            "The swap program is not repeated after the expected swap program before the accounts"
+          ]
+        },
+        {
+          "name": "log_authority"
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "trader"
+        },
+        {
+          "name": "base_account",
+          "writable": true
+        },
+        {
+          "name": "quote_account",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "symmetry_swap",
+      "discriminator": [
+        17,
+        114,
+        237,
+        234,
+        154,
+        12,
+        185,
+        116
+      ],
+      "accounts": [
+        {
+          "name": "buyer"
+        },
+        {
+          "name": "fund_state",
+          "writable": true
+        },
+        {
+          "name": "pda_account"
+        },
+        {
+          "name": "pda_from_token_account",
+          "writable": true
+        },
+        {
+          "name": "buyer_from_token_account",
+          "writable": true
+        },
+        {
+          "name": "pda_to_token_account",
+          "writable": true
+        },
+        {
+          "name": "buyer_to_token_account",
+          "writable": true
+        },
+        {
+          "name": "swap_fee_account",
+          "writable": true
+        },
+        {
+          "name": "host_fee_account",
+          "writable": true
+        },
+        {
+          "name": "manager_fee_account",
+          "writable": true
+        },
+        {
+          "name": "token_list"
+        },
+        {
+          "name": "prism_data"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "helium_treasury_management_redeem_v0",
+      "discriminator": [
+        163,
+        159,
+        163,
+        25,
+        243,
+        161,
+        108,
+        74
+      ],
+      "accounts": [
+        {
+          "name": "treasury_management"
+        },
+        {
+          "name": "treasury_mint"
+        },
+        {
+          "name": "supply_mint",
+          "writable": true
+        },
+        {
+          "name": "treasury",
+          "writable": true
+        },
+        {
+          "name": "circuit_breaker",
+          "writable": true
+        },
+        {
+          "name": "from",
+          "writable": true
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "circuit_breaker_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sol_fi_swap",
+      "discriminator": [
+        187,
+        18,
+        36,
+        207,
+        77,
+        52,
+        25,
+        43
+      ],
+      "accounts": [
+        {
+          "name": "token_transfer_authority"
+        },
+        {
+          "name": "market_account",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "user_base_ata",
+          "writable": true
+        },
+        {
+          "name": "user_quote_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "instructions_sysvar"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "solayer_delegate_undelegate_no_init",
+      "discriminator": [
+        197,
+        105,
+        46,
+        2,
+        253,
+        8,
+        197,
+        36
+      ],
+      "accounts": [
+        {
+          "name": "staker"
+        },
+        {
+          "name": "endo_avs"
+        },
+        {
+          "name": "avs_token_mint",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_vault",
+          "writable": true
+        },
+        {
+          "name": "delegated_token_mint"
+        },
+        {
+          "name": "staker_delegated_token_account",
+          "writable": true
+        },
+        {
+          "name": "staker_avs_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stabble_stable_swap",
+      "discriminator": [
+        144,
+        73,
+        163,
+        148,
+        143,
+        34,
+        40,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "vault_token_in",
+          "writable": true
+        },
+        {
+          "name": "vault_token_out",
+          "writable": true
+        },
+        {
+          "name": "beneficiary_token_out",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "withdraw_authority"
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "vault_authority"
+        },
+        {
+          "name": "vault_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stabble_weighted_swap",
+      "discriminator": [
+        94,
+        214,
+        232,
+        111,
+        142,
+        61,
+        123,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "vault_token_in",
+          "writable": true
+        },
+        {
+          "name": "vault_token_out",
+          "writable": true
+        },
+        {
+          "name": "beneficiary_token_out",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "withdraw_authority"
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "vault_authority"
+        },
+        {
+          "name": "vault_program"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stakedex_stake_wrapped_sol",
+      "discriminator": [
+        187,
+        11,
+        62,
+        242,
+        169,
+        120,
+        45,
+        123
+      ],
+      "accounts": [
+        {
+          "name": "user",
+          "docs": [
+            "The authority of wsol_account"
+          ]
+        },
+        {
+          "name": "wsol_from",
+          "docs": [
+            "The wrapped SOL token account to stake wrapped SOL from"
+          ],
+          "writable": true
+        },
+        {
+          "name": "dest_token_to",
+          "docs": [
+            "The liquid staked SOL token account to receive the resulting tokens"
+          ],
+          "writable": true
+        },
+        {
+          "name": "wsol_bridge_in",
+          "docs": [
+            "The PDA that serves as the wSOL account to bridge user's wSOL to SOL. Pubkey::create_with_seed(). base = sol_bridge_out.pubkey, seed = 'wsol_bridge_in'. owner = token_program"
+          ],
+          "writable": true
+        },
+        {
+          "name": "sol_bridge_out",
+          "docs": [
+            "The PDA that serves as the system account to bridge user's wSOL to SOL. Seeds = ['sol_bridge_out']"
+          ],
+          "writable": true
+        },
+        {
+          "name": "dest_token_fee_token_account",
+          "docs": [
+            "The liquid staked SOL token account collecting fees. PDA. Seeds = ['fee', dest_token_mint.pubkey]"
+          ],
+          "writable": true
+        },
+        {
+          "name": "dest_token_mint",
+          "docs": [
+            "The liquid staked SOL mint"
+          ],
+          "writable": true
+        },
+        {
+          "name": "wsol_mint",
+          "docs": [
+            "wSOL token mint"
+          ]
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "goosefx_v2_swap",
+      "discriminator": [
+        178,
+        108,
+        208,
+        137,
+        154,
+        194,
+        168,
+        213
+      ],
+      "accounts": [
+        {
+          "name": "pair",
+          "writable": true
+        },
+        {
+          "name": "pool_registry",
+          "writable": true
+        },
+        {
+          "name": "user_wallet"
+        },
+        {
+          "name": "ssl_pool_in_signer"
+        },
+        {
+          "name": "ssl_pool_out_signer"
+        },
+        {
+          "name": "user_ata_in",
+          "writable": true
+        },
+        {
+          "name": "user_ata_out",
+          "writable": true
+        },
+        {
+          "name": "ssl_out_main_vault",
+          "writable": true
+        },
+        {
+          "name": "ssl_out_secondary_vault",
+          "writable": true
+        },
+        {
+          "name": "ssl_in_main_vault",
+          "writable": true
+        },
+        {
+          "name": "ssl_in_secondary_vault",
+          "writable": true
+        },
+        {
+          "name": "ssl_out_fee_vault",
+          "writable": true
+        },
+        {
+          "name": "fee_destination",
+          "writable": true
+        },
+        {
+          "name": "output_token_price_history",
+          "writable": true
+        },
+        {
+          "name": "output_token_oracle"
+        },
+        {
+          "name": "input_token_price_history",
+          "writable": true
+        },
+        {
+          "name": "input_token_oracle"
+        },
+        {
+          "name": "event_emitter",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_swap",
+      "discriminator": [
+        147,
+        22,
+        108,
+        178,
+        110,
+        18,
+        171,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "funding_account",
+          "writable": true
+        },
+        {
+          "name": "receiving_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "receiving_custody",
+          "writable": true
+        },
+        {
+          "name": "receiving_custody_oracle_account"
+        },
+        {
+          "name": "receiving_custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "dispensing_custody",
+          "writable": true
+        },
+        {
+          "name": "dispensing_custody_oracle_account"
+        },
+        {
+          "name": "dispensing_custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_add_liquidity",
+      "discriminator": [
+        170,
+        238,
+        222,
+        214,
+        245,
+        202,
+        108,
+        155
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "funding_or_receiving_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "custody",
+          "writable": true
+        },
+        {
+          "name": "custody_oracle_account"
+        },
+        {
+          "name": "custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perps_remove_liquidity",
+      "discriminator": [
+        79,
+        211,
+        232,
+        140,
+        8,
+        78,
+        220,
+        34
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true
+        },
+        {
+          "name": "funding_or_receiving_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "transfer_authority"
+        },
+        {
+          "name": "perpetuals"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "custody",
+          "writable": true
+        },
+        {
+          "name": "custody_oracle_account"
+        },
+        {
+          "name": "custody_token_account",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "meteora_dlmm_swap",
+      "discriminator": [
+        127,
+        64,
+        37,
+        138,
+        173,
+        243,
+        207,
+        84
+      ],
+      "accounts": [
+        {
+          "name": "lb_pair",
+          "writable": true
+        },
+        {
+          "name": "bin_array_bitmap_extension"
+        },
+        {
+          "name": "reserve_x",
+          "writable": true
+        },
+        {
+          "name": "reserve_y",
+          "writable": true
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "token_x_mint"
+        },
+        {
+          "name": "token_y_mint"
+        },
+        {
+          "name": "oracle",
+          "writable": true
+        },
+        {
+          "name": "host_fee_in",
+          "maybe_writable": true
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "token_x_program"
+        },
+        {
+          "name": "token_y_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "moonshot_wrapped_buy",
+      "discriminator": [
+        207,
+        150,
+        213,
+        156,
+        138,
+        104,
+        238,
+        142
+      ],
+      "accounts": [
+        {
+          "name": "sender",
+          "writable": true
+        },
+        {
+          "name": "sender_token_account",
+          "writable": true
+        },
+        {
+          "name": "curve_account",
+          "writable": true
+        },
+        {
+          "name": "curve_token_account",
+          "writable": true
+        },
+        {
+          "name": "dex_fee",
+          "writable": true
+        },
+        {
+          "name": "helio_fee",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "config_account"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "temp_wsol_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  116,
+                  101,
+                  109,
+                  112,
+                  45,
+                  119,
+                  115,
+                  111,
+                  108,
+                  45,
+                  116,
+                  111,
+                  107,
+                  101,
+                  110,
+                  45,
+                  97,
+                  99,
+                  99,
+                  111,
+                  117,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "sender"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wsol_mint"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "moonshot_wrapped_sell",
+      "discriminator": [
+        248,
+        2,
+        240,
+        253,
+        17,
+        184,
+        57,
+        8
+      ],
+      "accounts": [
+        {
+          "name": "sender",
+          "writable": true
+        },
+        {
+          "name": "sender_token_account",
+          "writable": true
+        },
+        {
+          "name": "curve_account",
+          "writable": true
+        },
+        {
+          "name": "curve_token_account",
+          "writable": true
+        },
+        {
+          "name": "dex_fee",
+          "writable": true
+        },
+        {
+          "name": "helio_fee",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "config_account"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "obric_swap",
+      "discriminator": [
+        65,
+        93,
+        96,
+        169,
+        190,
+        214,
+        95,
+        3
+      ],
+      "accounts": [
+        {
+          "name": "trading_pair",
+          "writable": true
+        },
+        {
+          "name": "mint_x"
+        },
+        {
+          "name": "mint_y"
+        },
+        {
+          "name": "reserve_x",
+          "writable": true
+        },
+        {
+          "name": "reserve_y",
+          "writable": true
+        },
+        {
+          "name": "user_token_account_x",
+          "writable": true
+        },
+        {
+          "name": "user_token_account_y",
+          "writable": true
+        },
+        {
+          "name": "protocol_fee",
+          "writable": true
+        },
+        {
+          "name": "x_price_feed"
+        },
+        {
+          "name": "y_price_feed"
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "open_book_v2_swap",
+      "discriminator": [
+        135,
+        26,
+        163,
+        43,
+        198,
+        221,
+        29,
+        67
+      ],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true
+        },
+        {
+          "name": "penalty_payer",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "market_authority"
+        },
+        {
+          "name": "bids",
+          "writable": true
+        },
+        {
+          "name": "asks",
+          "writable": true
+        },
+        {
+          "name": "market_base_vault",
+          "writable": true
+        },
+        {
+          "name": "market_quote_vault",
+          "writable": true
+        },
+        {
+          "name": "event_heap",
+          "writable": true
+        },
+        {
+          "name": "user_base_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_account",
+          "writable": true
+        },
+        {
+          "name": "oracle_a"
+        },
+        {
+          "name": "oracle_b"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "open_orders_admin"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "clone_swap",
+      "discriminator": [
+        85,
+        201,
+        154,
+        92,
+        133,
+        31,
+        142,
+        85
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "clone",
+          "writable": true
+        },
+        {
+          "name": "pools",
+          "writable": true
+        },
+        {
+          "name": "oracles",
+          "writable": true
+        },
+        {
+          "name": "user_collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_onasset_token_account",
+          "writable": true
+        },
+        {
+          "name": "onasset_mint",
+          "writable": true
+        },
+        {
+          "name": "collateral_mint"
+        },
+        {
+          "name": "collateral_vault",
+          "writable": true
+        },
+        {
+          "name": "treasury_onasset_token_account",
+          "writable": true
+        },
+        {
+          "name": "treasury_collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "clone_staking"
+        },
+        {
+          "name": "user_staking_account"
+        },
+        {
+          "name": "clone_staking_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sanctum_s_swap",
+      "discriminator": [
+        54,
+        131,
+        253,
+        109,
+        95,
+        9,
+        12,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "src_lst_mint"
+        },
+        {
+          "name": "dst_lst_mint"
+        },
+        {
+          "name": "src_lst_acc",
+          "writable": true
+        },
+        {
+          "name": "dst_lst_acc",
+          "writable": true
+        },
+        {
+          "name": "protocol_fee_accumulator",
+          "writable": true
+        },
+        {
+          "name": "src_lst_token_program"
+        },
+        {
+          "name": "dst_lst_token_program"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "lst_state_list",
+          "writable": true
+        },
+        {
+          "name": "src_pool_reserves",
+          "writable": true
+        },
+        {
+          "name": "dst_pool_reserves",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sanctum_s_add_liquidity",
+      "discriminator": [
+        150,
+        27,
+        107,
+        198,
+        182,
+        54,
+        39,
+        141
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "lst_mint"
+        },
+        {
+          "name": "src_lst_acc",
+          "writable": true
+        },
+        {
+          "name": "dst_lp_acc",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "protocol_fee_accumulator",
+          "writable": true
+        },
+        {
+          "name": "lst_token_program"
+        },
+        {
+          "name": "lp_token_program"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "lst_state_list",
+          "writable": true
+        },
+        {
+          "name": "pool_reserves",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "sanctum_s_remove_liquidity",
+      "discriminator": [
+        112,
+        90,
+        173,
+        206,
+        66,
+        210,
+        108,
+        199
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "lst_mint"
+        },
+        {
+          "name": "dst_lst_acc",
+          "writable": true
+        },
+        {
+          "name": "src_lp_acc",
+          "writable": true
+        },
+        {
+          "name": "lp_token_mint",
+          "writable": true
+        },
+        {
+          "name": "protocol_fee_accumulator",
+          "writable": true
+        },
+        {
+          "name": "lst_token_program"
+        },
+        {
+          "name": "lp_token_program"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "lst_state_list",
+          "writable": true
+        },
+        {
+          "name": "pool_reserves",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "raydium_cp_swap",
+      "discriminator": [
+        54,
+        234,
+        83,
+        141,
+        52,
+        191,
+        46,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "payer"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "amm_config"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "input_token_program"
+        },
+        {
+          "name": "output_token_program"
+        },
+        {
+          "name": "input_token_mint"
+        },
+        {
+          "name": "output_token_mint"
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "one_intro_swap",
+      "discriminator": [
+        208,
+        212,
+        80,
+        169,
+        36,
+        148,
+        209,
+        35
+      ],
+      "accounts": [
+        {
+          "name": "metadata_state"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "pool_auth_pda"
+        },
+        {
+          "name": "pool_token_in_account",
+          "writable": true
+        },
+        {
+          "name": "pool_token_out_account",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "user_token_in_account",
+          "writable": true
+        },
+        {
+          "name": "user_token_out_account",
+          "writable": true
+        },
+        {
+          "name": "metadata_swap_fee_account",
+          "writable": true
+        },
+        {
+          "name": "referral_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "pump_wrapped_buy",
+      "discriminator": [
+        138,
+        139,
+        167,
+        134,
+        208,
+        91,
+        138,
+        158
+      ],
+      "accounts": [
+        {
+          "name": "global"
+        },
+        {
+          "name": "fee_recipient",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "associated_bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "associated_user",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "rent",
+          "writable": true
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "temp_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "wsol_mint"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "pump_wrapped_sell",
+      "discriminator": [
+        255,
+        19,
+        99,
+        99,
+        40,
+        65,
+        83,
+        255
+      ],
+      "accounts": [
+        {
+          "name": "global"
+        },
+        {
+          "name": "fee_recipient",
+          "writable": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "associated_bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "associated_user",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "token_mill_swap",
+      "discriminator": [
+        205,
+        208,
+        212,
+        54,
+        185,
+        3,
+        72,
+        209
+      ],
+      "accounts": [
+        {
+          "name": "config"
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "base_token_mint"
+        },
+        {
+          "name": "quote_token_mint"
+        },
+        {
+          "name": "market_base_token_ata",
+          "writable": true
+        },
+        {
+          "name": "market_quote_token_ata",
+          "writable": true
+        },
+        {
+          "name": "user_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "protocol_quote_token_ata",
+          "writable": true
+        },
+        {
+          "name": "referral_token_account",
+          "writable": true
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "base_token_program"
+        },
+        {
+          "name": "quote_token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "daos_fun_buy",
+      "discriminator": [
+        110,
+        167,
+        205,
+        210,
+        13,
+        23,
+        153,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "depositor"
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "funding_mint"
+        },
+        {
+          "name": "curve",
+          "writable": true
+        },
+        {
+          "name": "signer_token_ata",
+          "writable": true
+        },
+        {
+          "name": "signer_funding_ata",
+          "writable": true
+        },
+        {
+          "name": "token_vault",
+          "writable": true
+        },
+        {
+          "name": "funding_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "funding_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "daos_fun_sell",
+      "discriminator": [
+        171,
+        166,
+        104,
+        1,
+        86,
+        58,
+        198,
+        233
+      ],
+      "accounts": [
+        {
+          "name": "signer"
+        },
+        {
+          "name": "depositor"
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "funding_mint"
+        },
+        {
+          "name": "curve",
+          "writable": true
+        },
+        {
+          "name": "signer_token_ata",
+          "writable": true
+        },
+        {
+          "name": "signer_funding_ata",
+          "writable": true
+        },
+        {
+          "name": "token_vault",
+          "writable": true
+        },
+        {
+          "name": "funding_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "funding_token_program"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "zero_fi_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "vault_info_in",
+          "writable": true
+        },
+        {
+          "name": "vault_in",
+          "writable": true
+        },
+        {
+          "name": "vault_info_out",
+          "writable": true
+        },
+        {
+          "name": "vault_out",
+          "writable": true
+        },
+        {
+          "name": "source_token_account",
+          "writable": true
+        },
+        {
+          "name": "destination_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_transfer_authority"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "instructions_sysvar"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "virtuals_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "vpool",
+          "writable": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "user_virtuals_ata",
+          "writable": true
+        },
+        {
+          "name": "user_token_ata",
+          "writable": true
+        },
+        {
+          "name": "vpool_token_ata",
+          "writable": true
+        },
+        {
+          "name": "platform_prototype",
+          "writable": true
+        },
+        {
+          "name": "platform_prototype_virtuals_ata",
+          "writable": true
+        },
+        {
+          "name": "vpool_virtuals_ata",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "perena_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "in_mint",
+          "writable": true
+        },
+        {
+          "name": "out_mint",
+          "writable": true
+        },
+        {
+          "name": "in_trader",
+          "writable": true
+        },
+        {
+          "name": "out_trader",
+          "writable": true
+        },
+        {
+          "name": "in_vault",
+          "writable": true
+        },
+        {
+          "name": "out_vault",
+          "writable": true
+        },
+        {
+          "name": "numeraire_config"
+        },
+        {
+          "name": "payer"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_2022_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "pump_swap_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true
+        },
+        {
+          "name": "global_config"
+        },
+        {
+          "name": "base_mint"
+        },
+        {
+          "name": "quote_mint"
+        },
+        {
+          "name": "user_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "pool_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "protocol_fee_recipient"
+        },
+        {
+          "name": "protocol_fee_recipient_token_account",
+          "writable": true
+        },
+        {
+          "name": "base_token_program"
+        },
+        {
+          "name": "quote_token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        },
+        {
+          "name": "coin_creator_vault_ata",
+          "writable": true
+        },
+        {
+          "name": "coin_creator_vault_authority",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "gamma_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "payer"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "amm_config"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "name": "input_token_program"
+        },
+        {
+          "name": "output_token_program"
+        },
+        {
+          "name": "input_token_mint"
+        },
+        {
+          "name": "output_token_mint"
+        },
+        {
+          "name": "observation_state",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "meteora_dlmm_swap_v2",
+      "discriminator": [
+        65,
+        75,
+        63,
+        76,
+        235,
+        91,
+        91,
+        136
+      ],
+      "accounts": [
+        {
+          "name": "lb_pair",
+          "writable": true
+        },
+        {
+          "name": "bin_array_bitmap_extension"
+        },
+        {
+          "name": "reserve_x",
+          "writable": true
+        },
+        {
+          "name": "reserve_y",
+          "writable": true
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "token_x_mint"
+        },
+        {
+          "name": "token_y_mint"
+        },
+        {
+          "name": "oracle",
+          "writable": true
+        },
+        {
+          "name": "host_fee_in",
+          "maybe_writable": true
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "token_x_program"
+        },
+        {
+          "name": "token_y_program"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "woofi_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "wooconfig"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_transfer_authority"
+        },
+        {
+          "name": "token_a_wooracle",
+          "writable": true
+        },
+        {
+          "name": "token_a_woopool",
+          "writable": true
+        },
+        {
+          "name": "source_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_a_vault",
+          "writable": true
+        },
+        {
+          "name": "token_a_price_update",
+          "writable": true
+        },
+        {
+          "name": "token_b_wooracle",
+          "writable": true
+        },
+        {
+          "name": "token_b_woopool",
+          "writable": true
+        },
+        {
+          "name": "destination_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_b_vault",
+          "writable": true
+        },
+        {
+          "name": "token_b_price_update",
+          "writable": true
+        },
+        {
+          "name": "usdc_woopool",
+          "writable": true
+        },
+        {
+          "name": "usdc_price_update",
+          "writable": true
+        },
+        {
+          "name": "usdc_vault",
+          "writable": true
+        },
+        {
+          "name": "rebate_to"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "meteora_damm_swap_v2",
+      "discriminator": [
+        248,
+        198,
+        158,
+        145,
+        225,
+        117,
+        135,
+        200
+      ],
+      "accounts": [
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_a_vault",
+          "writable": true
+        },
+        {
+          "name": "token_b_vault",
+          "writable": true
+        },
+        {
+          "name": "token_a_mint"
+        },
+        {
+          "name": "token_b_mint"
+        },
+        {
+          "name": "payer"
+        },
+        {
+          "name": "token_a_program"
+        },
+        {
+          "name": "token_b_program"
+        },
+        {
+          "name": "referral_token_account",
+          "maybe_writeable": true
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "meteora_dynamic_bonding_curve_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "pool_authority"
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "base_mint"
+        },
+        {
+          "name": "quote_mint"
+        },
+        {
+          "name": "payer"
+        },
+        {
+          "name": "token_base_program"
+        },
+        {
+          "name": "token_quote_program"
+        },
+        {
+          "name": "referral_token_account",
+          "maybe_writeable": true
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stabble_stable_swap_v2",
+      "discriminator": [
+        43,
+        4,
+        237,
+        11,
+        26,
+        201,
+        30,
+        98
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "mint_in"
+        },
+        {
+          "name": "mint_out"
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "vault_token_in",
+          "writable": true
+        },
+        {
+          "name": "vault_token_out",
+          "writable": true
+        },
+        {
+          "name": "beneficiary_token_out",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "withdraw_authority"
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "vault_authority"
+        },
+        {
+          "name": "vault_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_2022_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "stabble_weighted_swap_v2",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "user"
+        },
+        {
+          "name": "mint_in"
+        },
+        {
+          "name": "mint_out"
+        },
+        {
+          "name": "user_token_in",
+          "writable": true
+        },
+        {
+          "name": "user_token_out",
+          "writable": true
+        },
+        {
+          "name": "vault_token_in",
+          "writable": true
+        },
+        {
+          "name": "vault_token_out",
+          "writable": true
+        },
+        {
+          "name": "beneficiary_token_out",
+          "writable": true
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "withdraw_authority"
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "vault_authority"
+        },
+        {
+          "name": "vault_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "token_2022_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "raydium_launchlab_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "payer"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "global_config"
+        },
+        {
+          "name": "platform_config"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "user_base_token",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "base_token_mint"
+        },
+        {
+          "name": "quote_token_mint"
+        },
+        {
+          "name": "base_token_program"
+        },
+        {
+          "name": "quote_token_program"
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "boopdotfun_wrapped_buy",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "mint"
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "trading_fees_vault",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve_vault",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve_sol_vault",
+          "writable": true
+        },
+        {
+          "name": "recipient_token_account",
+          "writable": true
+        },
+        {
+          "name": "buyer",
+          "writable": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "vault_authority"
+        },
+        {
+          "name": "wsol"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        },
+        {
+          "name": "temp_wsol_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "boopdotfun_wrapped_sell",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "mint"
+        },
+        {
+          "name": "bonding_curve",
+          "writable": true
+        },
+        {
+          "name": "trading_fees_vault",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve_vault",
+          "writable": true
+        },
+        {
+          "name": "bonding_curve_sol_vault",
+          "writable": true
+        },
+        {
+          "name": "seller_token_account",
+          "writable": true
+        },
+        {
+          "name": "seller",
+          "writable": true
+        },
+        {
+          "name": "recipient",
+          "writable": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "user_wsol_token_account",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "plasma_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "plasma_program"
+        },
+        {
+          "name": "log_authority"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "trader"
+        },
+        {
+          "name": "base_account",
+          "writable": true
+        },
+        {
+          "name": "quote_account",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "humidi_fi_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "user_transfer_authority"
+        },
+        {
+          "name": "pool",
+          "writable": true
+        },
+        {
+          "name": "base_token_account",
+          "writable": true
+        },
+        {
+          "name": "quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_base_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "clock"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "instructions_sysvar"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "goonfi_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true
+        },
+        {
+          "name": "market",
+          "writable": true
+        },
+        {
+          "name": "base_token_account",
+          "writable": true
+        },
+        {
+          "name": "quote_token_account",
+          "writable": true
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "blacklist"
+        },
+        {
+          "name": "instructions_sysvar"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "tessera_v_swap",
+      "discriminator": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "accounts": [
+        {
+          "name": "global_state_account"
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "name": "user"
+        },
+        {
+          "name": "base_vault",
+          "writable": true
+        },
+        {
+          "name": "quote_vault",
+          "writable": true
+        },
+        {
+          "name": "user_base_token",
+          "writable": true
+        },
+        {
+          "name": "user_quote_token",
+          "writable": true
+        },
+        {
+          "name": "base_mint"
+        },
+        {
+          "name": "quote_mint"
+        },
+        {
+          "name": "base_token_program"
+        },
+        {
+          "name": "quote_token_program"
+        },
+        {
+          "name": "sysvar_intructions"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "types": [
+    {
+      "name": "Swap",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tokens",
+            "type": "u64"
+          },
+          {
+            "name": "min_tokens",
+            "type": "u64"
+          },
+          {
+            "name": "side",
+            "type": {
+              "defined": {
+                "name": "Side"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Market",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": [
+              "PDA bump"
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "base_decimals",
+            "docs": [
+              "Number of decimals used for the base token.",
+              "",
+              "Used to convert the oracle's price into a native/native price."
+            ],
+            "type": "u8"
+          },
+          {
+            "name": "quote_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "padding1",
+            "type": {
+              "array": [
+                "u8",
+                5
+              ]
+            }
+          },
+          {
+            "name": "market_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "time_expiry",
+            "docs": [
+              "No expiry = 0. Market will expire and no trading allowed after time_expiry"
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "collect_fee_admin",
+            "docs": [
+              "Admin who can collect fees from the market"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "open_orders_admin",
+            "docs": [
+              "Admin who must sign off on all order creations"
+            ],
+            "type": {
+              "defined": {
+                "name": "NonZeroPubkeyOption"
+              }
+            }
+          },
+          {
+            "name": "consume_events_admin",
+            "docs": [
+              "Admin who must sign off on all event consumptions"
+            ],
+            "type": {
+              "defined": {
+                "name": "NonZeroPubkeyOption"
+              }
+            }
+          },
+          {
+            "name": "close_market_admin",
+            "docs": [
+              "Admin who can set market expired, prune orders and close the market"
+            ],
+            "type": {
+              "defined": {
+                "name": "NonZeroPubkeyOption"
+              }
+            }
+          },
+          {
+            "name": "name",
+            "docs": [
+              "Name. Trailing zero bytes are ignored."
+            ],
+            "type": {
+              "array": [
+                "u8",
+                16
+              ]
+            }
+          },
+          {
+            "name": "bids",
+            "docs": [
+              "Address of the BookSide account for bids"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "asks",
+            "docs": [
+              "Address of the BookSide account for asks"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "event_heap",
+            "docs": [
+              "Address of the EventHeap account"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "oracle_a",
+            "docs": [
+              "Oracles account address"
+            ],
+            "type": {
+              "defined": {
+                "name": "NonZeroPubkeyOption"
+              }
+            }
+          },
+          {
+            "name": "oracle_b",
+            "type": {
+              "defined": {
+                "name": "NonZeroPubkeyOption"
+              }
+            }
+          },
+          {
+            "name": "oracle_config",
+            "docs": [
+              "Oracle configuration"
+            ],
+            "type": {
+              "defined": {
+                "name": "OracleConfig"
+              }
+            }
+          },
+          {
+            "name": "quote_lot_size",
+            "docs": [
+              "Number of quote native in a quote lot. Must be a power of 10.",
+              "",
+              "Primarily useful for increasing the tick size on the market: A lot price",
+              "of 1 becomes a native price of quote_lot_size/base_lot_size becomes a",
+              "ui price of quote_lot_size*base_decimals/base_lot_size/quote_decimals."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "base_lot_size",
+            "docs": [
+              "Number of base native in a base lot. Must be a power of 10.",
+              "",
+              "Example: If base decimals for the underlying asset is 6, base lot size",
+              "is 100 and and base position lots is 10_000 then base position native is",
+              "1_000_000 and base position ui is 1."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "seq_num",
+            "docs": [
+              "Total number of orders seen"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "registration_time",
+            "docs": [
+              "Timestamp in seconds that the market was registered at."
+            ],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "NonZeroPubkeyOption",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "key",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "conf_filter",
+            "type": "f64"
+          },
+          {
+            "name": "max_staleness_slots",
+            "type": "i64"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                72
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "AddLiquidity",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "token_amount_in",
+            "type": "u64"
+          },
+          {
+            "name": "min_lp_amount_out",
+            "type": "u64"
+          },
+          {
+            "name": "token_amount_pre_swap",
+            "type": {
+              "option": "u64"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RemoveLiquidity",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lp_amount_in",
+            "type": "u64"
+          },
+          {
+            "name": "min_amount_out",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RemainingAccountsSlice",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "accounts_type",
+            "type": {
+              "defined": {
+                "name": "AccountsType"
+              }
+            }
+          },
+          {
+            "name": "length",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RemainingAccountsInfo",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "slices",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "RemainingAccountsSlice"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "PlaceOrderType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Limit"
+          },
+          {
+            "name": "ImmediateOrCancel"
+          },
+          {
+            "name": "PostOnly"
+          },
+          {
+            "name": "Market"
+          },
+          {
+            "name": "PostOnlySlide"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AccountsType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "TransferHookA"
+          },
+          {
+            "name": "TransferHookB"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Side",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Bid"
+          },
+          {
+            "name": "Ask"
+          }
+        ]
+      }
+    }
+  ]
+}

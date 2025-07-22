@@ -16,5 +16,4 @@ pub struct SwapResult {
     pub fees: u128,
     pub input_amount: u128,
     pub expected_output_amount: u128,
-    pub not_enough_liquidity: bool,
 }
