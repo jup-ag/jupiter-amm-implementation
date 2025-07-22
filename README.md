@@ -15,7 +15,7 @@ Use `cargo test` to run the integration tests to verify that the simulation yiel
 
 ## Test your own implementation
 
-Make sure your AMM is implemented and added to `amm_factory`
+Make sure your AMM is implemented and added to `PROGRAM_ID_TO_AMM_LABEL_WITH_AMM_FROM_KEYED_ACCOUNT`
 
 Take a snapshot of your AMM state, this is to allow reproducible test and being able to capture edge cases
 

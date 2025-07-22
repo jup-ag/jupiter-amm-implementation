@@ -10,8 +10,11 @@ fn get_two_permutations<T: PartialEq + Clone>(items: &[T]) -> Vec<(T, T)> {
         .collect()
 }
 
-pub fn get_token_mints_permutations(amm: &dyn Amm) -> Vec<(Pubkey, Pubkey)> {
-    if amm.unidirectional() {
+pub fn get_token_mints_permutations(
+    amm: &dyn Amm,
+    allow_unidirectional_restriction: bool,
+) -> Vec<(Pubkey, Pubkey)> {
+    if allow_unidirectional_restriction && amm.unidirectional() {
         vec![amm.get_reserve_mints().into_iter().collect_tuple().unwrap()]
     } else {
         get_two_permutations(&amm.get_reserve_mints())

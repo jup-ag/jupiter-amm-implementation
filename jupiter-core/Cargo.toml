@@ -4,21 +4,24 @@ version = "0.1.0"
 description = ""
 edition = { workspace = true }
 
+[features]
+staging = ["jupiter-aggregator-v6/staging"]
+
 [dependencies]
 anchor-lang = { workspace = true }
 solana-sdk = { workspace = true }
-solana-client = { workspace = true }
+solana-rpc-client = { workspace = true }
+solana-rpc-client-api = { workspace = true }
 solana-account-decoder = { workspace = true }
-solana-program-test = "~1.16"
+solana-sdk-ids = { workspace = true }
 spl-token-swap = { version = "3.0.0", features = ["no-entrypoint"] }
 serde_json = "1.0.82"
-anyhow = "1.0"
+anyhow = { workspace = true }
 serde = "1.0.140"
 lazy_static = "1.2.0"
 rust_decimal = "1.26.1"
 jupiter-amm-interface = { workspace = true }
 bincode = "1.3.3"
-jupiter = { path = "../jupiter" }
 glob = "0.3.1"
 async-trait = "0.1.77"
 paste = "1.0.14"
@@ -26,6 +29,13 @@ tokio = { workspace = true, features = ["full"] }
 assert_matches = "1.5.0"
 itertools = "0.12.1"
 clap = { version = "4.5.2", features = ["derive"] }
+litesvm = { git = "https://github.com/jup-ag/litesvm.git", rev = "328b11d7178ca9d6e4633ddbb95d7f0965cbe228" }
+log = { workspace = true }
+solana-system-interface = { workspace = true }
+program-interfaces = { path = "../program-interfaces" }
+jupiter-aggregator-v6 = { path = "../jupiter-aggregator-v6" }
+jupiter-aggregator-common = { path = "../jupiter-aggregator-common" }
+jupiter-common = { workspace = true }
 
 # SPL
 spl-token = { workspace = true, features = ["no-entrypoint"] }
@@ -33,3 +43,6 @@ spl-associated-token-account = { workspace = true, features = [
     "no-entrypoint",
 ] }
 spl-token-2022 = { workspace = true, features = ["no-entrypoint"] }
+regex = "1.11.1"
+ahash = "0.8.12"
+agave-feature-set = "2.2"

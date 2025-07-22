@@ -1,28 +1,40 @@
 [workspace]
 members = [
     "jupiter-core",
+    "program-interfaces",
+    "jupiter-aggregator-v6"
 ]
+resolver = "2"
 
 [workspace.package]
 edition = "2021"
 
 [workspace.dependencies]
-anchor-lang = "0.28"
-anchor-syn = "0.28"
-solana-sdk = "~1.16"
-solana-client = "~1.16"
-solana-account-decoder = "~1.16"
-solana-program-test = "~1.16"
+anchor-lang = "0.31.1"
+solana-sdk = ">=2.2"
+solana-rpc-client = ">=2.2"
+solana-rpc-client-api = ">=2.2"
+solana-account-decoder = ">=2.2"
+solana-sdk-ids = ">=2.2"
+solana-system-interface = "1.0.0"
+borsh = "0.10"
+bytemuck = "1.19"
 tokio = { version = "1", features = ["full"] }
-
-anchor-gen = { git = "https://github.com/jup-ag/anchor-gen.git", rev = "26c04a10d20509f360ab176d003bea4c625b16f2" }
-jupiter-amm-interface = "=0.4.4"
+jupiter-amm-interface = "0.6.0"
+jupiter-common = { path = "jupiter-common" }
+const-crypto = { git = "https://github.com/jup-ag/const-crypto.git", rev = "41202c405793566d0dc2038ed406554061ba66f3" }
+log = "0.4.20"
+bincode = "1.3.3"
+anyhow = "1"
 
 # SPL
-spl-token = { version = "3.5", features = ["no-entrypoint"] }
-spl-associated-token-account = { version = "2.1.0", features = [
+spl-token = { version = "8.0.0", features = ["no-entrypoint"] }
+spl-associated-token-account = { version = "7.0.0", features = [
     "no-entrypoint",
 ] }
-spl-token-2022 = { git = "https://github.com/solana-labs/solana-program-library.git", rev = "79a575fb7af56d26deeda94fef8f55bde7a90df3", features = [
-    "no-entrypoint",
-] }
+spl-token-2022 = { version = "9", features = ["no-entrypoint"] }
+
+[patch.crates-io]
+# solana-program-library
+spl-token-swap = { git = "https://github.com/jup-ag/solana-program-library.git", rev = "199de2208534f37fe077a0b1d7a9e17f305ed363" }
+spl-token-2022 = { git = "https://github.com/jup-ag/token-2022.git", rev = "ca177a833e72b22c5c7d785285740371327fba22" }

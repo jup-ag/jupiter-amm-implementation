@@ -16,9 +16,15 @@ pub enum Command {
         /// Expand an extra option to the snapshot directory (e.g. <amm-id><option>)
         #[clap(long)]
         option: Option<String>,
+        /// Allow capturing all encountered executable
+        #[clap(short, long)]
+        allow_executable: bool,
         /// Overwrite the output snapshot if it exists
         #[clap(short, long)]
         force: bool,
+        /// Params necessary to load the AMM
+        #[clap(long)]
+        params: Option<String>,
     },
 }
 
@@ -41,9 +47,18 @@ async fn main() {
         Command::SnapshotAmm {
             amm_id,
             option,
+            allow_executable,
             force,
-        } => take_snapshot(config_override.rpc_url, amm_id, option, force)
-            .await
-            .unwrap(),
+            params,
+        } => take_snapshot(
+            config_override.rpc_url,
+            amm_id,
+            option,
+            allow_executable,
+            force,
+            params,
+        )
+        .await
+        .unwrap(),
     }
 }

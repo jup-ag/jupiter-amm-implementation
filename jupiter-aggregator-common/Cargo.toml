@@ -1,0 +1,17 @@
+[package]
+name = "jupiter-aggregator-common"
+version = "0.1.0"
+description = ""
+edition = { workspace = true }
+
+[features]
+staging = []
+
+[dependencies]
+anchor-lang = { workspace = true }
+solana-sdk = { workspace = true }
+solana-system-interface = { workspace = true }
+jupiter-common = { path = "../jupiter-common" }
+jupiter-aggregator-v6 = { path = "../jupiter-aggregator-v6" }
+spl-token = { workspace = true, features = ["no-entrypoint"]}
+rand = "0.8.5"

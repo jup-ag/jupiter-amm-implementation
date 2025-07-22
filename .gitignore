@@ -2,3 +2,4 @@ target
 *.json
 
 !idl.json
+.DS_Store

@@ -1,53 +1,35 @@
-use anyhow::Result;
+use anyhow::{ensure, Context, Result};
+use program_interfaces::jupiter_dex_interfaces::client::accounts::TokenSwap;
 use spl_token::state::Account as TokenAccount;
-use std::{collections::HashMap, convert::TryInto};
+use std::{collections::HashMap, convert::TryInto, sync::LazyLock};
 
+use crate::amm::*;
 use crate::math::swap_curve_info::get_swap_curve_result;
-use lazy_static::lazy_static;
-use solana_sdk::{program_pack::Pack, pubkey, pubkey::Pubkey};
-use spl_token_swap::curve::base::SwapCurve;
-use spl_token_swap::{curve::calculator::TradeDirection, state::SwapV1};
-
 use jupiter_amm_interface::{
-    try_get_account_data, AccountMap, Amm, AmmContext, KeyedAccount, Quote, QuoteParams, Swap,
-    SwapAndAccountMetas, SwapParams,
+    try_get_account_data, AccountMap, AmmContext, AmmLabel, AmmProgramIdToLabel,
+};
+use solana_sdk::{program_pack::Pack, pubkey, pubkey::Pubkey};
+use spl_token_swap::{
+    curve::{
+        base::{CurveType, SwapCurve},
+        calculator::TradeDirection,
+    },
+    state::SwapV1,
 };
 
-use super::account_meta_from_token_swap::TokenSwap;
-
-mod spl_token_swap_programs {
+pub mod spl_token_swap_programs {
     use super::*;
     pub const ORCA_V1: Pubkey = pubkey!("DjVE6JNiYqPL2QXyCUUh8rNjHrbz9hXHNYt99MQ59qw1");
     pub const ORCA_V2: Pubkey = pubkey!("9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP");
     pub const STEPN: Pubkey = pubkey!("Dooar9JkhdZ7J3LHN3A7YCuoGRUggXhQaG4kijfLGU2j");
     pub const SAROS: Pubkey = pubkey!("SSwapUtytfBdBn1b9NUGG6foMVPtcWgpRU32HToDUZr");
     pub const PENGUIN: Pubkey = pubkey!("PSwapMdSai8tjrEXcxFeQth87xC4rRsa4VA5mhGhXkP");
-}
-
-// export const PROGRAM_ID_TO_LABEL = new Map<string, string>([
-//   ["DjVE6JNiYqPL2QXyCUUh8rNjHrbz9hXHNYt99MQ59qw1", "Orca v1"],
-//   ["9W959DqEETiGZocYWCQPaJ6sBmUzgfxXfqGeTEdp3aQP", "Orca"],
-//   [STEP_TOKEN_SWAP_PROGRAM_ID.toBase58(), "Step"],
-//   ["PSwapMdSai8tjrEXcxFeQth87xC4rRsa4VA5mhGhXkP", "Penguin"],
-//   ["SSwapUtytfBdBn1b9NUGG6foMVPtcWgpRU32HToDUZr", "Saros"],
-//   ["Dooar9JkhdZ7J3LHN3A7YCuoGRUggXhQaG4kijfLGU2j", "StepN"],
-// ]);
-
-lazy_static! {
-    pub static ref SPL_TOKEN_SWAP_PROGRAMS: HashMap<Pubkey, String> = {
-        let mut m = HashMap::new();
-        m.insert(spl_token_swap_programs::ORCA_V1, "Orca v1".into());
-        m.insert(spl_token_swap_programs::ORCA_V2, "Orca v2".into());
-        // m.insert(spl_token_swap_programs::STEP, "Step".into()); We need to support the STEP state
-        m.insert(spl_token_swap_programs::STEPN, "StepN".into());
-        m.insert(spl_token_swap_programs::SAROS, "Saros".into());
-        m.insert(spl_token_swap_programs::PENGUIN, "Penguin".into());
-        m
-    };
+    pub const SPL_TOKEN_SWAP: Pubkey = pubkey!("SwaPpA9LAaLfeLi3a68M4DjnLqgtticKg6CnyNwgAC8");
 }
 
 pub struct SplTokenSwapAmm {
     key: Pubkey,
+    authority: Pubkey,
     label: String,
     state: SwapV1,
     reserve_mints: [Pubkey; 2],
@@ -55,16 +37,30 @@ pub struct SplTokenSwapAmm {
     program_id: Pubkey,
 }
 
-impl SplTokenSwapAmm {
-    fn get_authority(&self) -> Pubkey {
-        Pubkey::find_program_address(&[&self.key.to_bytes()], &self.program_id).0
-    }
+impl AmmProgramIdToLabel for SplTokenSwapAmm {
+    const PROGRAM_ID_TO_LABELS: &[(Pubkey, AmmLabel)] = &[
+        (spl_token_swap_programs::ORCA_V1, "Orca V1"),
+        (spl_token_swap_programs::ORCA_V2, "Orca V2"),
+        (spl_token_swap_programs::STEPN, "StepN"),
+        (spl_token_swap_programs::SAROS, "Saros"),
+        (spl_token_swap_programs::PENGUIN, "Penguin"),
+        (spl_token_swap_programs::SPL_TOKEN_SWAP, "Token Swap"),
+    ];
 }
+
+pub static SPL_TOKEN_SWAP_PROGRAMS: LazyLock<HashMap<Pubkey, String>> = LazyLock::new(|| {
+    HashMap::from_iter(
+        SplTokenSwapAmm::PROGRAM_ID_TO_LABELS
+            .iter()
+            .map(|(program_id, amm_label)| (*program_id, (*amm_label).into())),
+    )
+});
 
 impl Clone for SplTokenSwapAmm {
     fn clone(&self) -> Self {
         SplTokenSwapAmm {
             key: self.key,
+            authority: self.authority,
             label: self.label.clone(),
             state: SwapV1 {
                 is_initialized: self.state.is_initialized,
@@ -93,19 +89,28 @@ impl Amm for SplTokenSwapAmm {
     fn from_keyed_account(keyed_account: &KeyedAccount, _amm_context: &AmmContext) -> Result<Self> {
         // Skip the first byte which is version
         let state = SwapV1::unpack(&keyed_account.account.data[1..])?;
+
+        // Support only the most common non exotic curves
+        ensure!(matches!(
+            state.swap_curve.curve_type,
+            CurveType::ConstantProduct | CurveType::Stable
+        ));
+
         let reserve_mints = [state.token_a_mint, state.token_b_mint];
 
         let label = SPL_TOKEN_SWAP_PROGRAMS
             .get(&keyed_account.account.owner)
-            .unwrap()
-            .clone();
-
+            .cloned()
+            .context("Label not found")?;
+        let program_id = keyed_account.account.owner;
         Ok(Self {
             key: keyed_account.key,
+            authority: Pubkey::find_program_address(&[&keyed_account.key.to_bytes()], &program_id)
+                .0,
             label,
             state,
             reserve_mints,
-            program_id: keyed_account.account.owner,
+            program_id,
             reserves: Default::default(),
         })
     }
@@ -168,16 +173,19 @@ impl Amm for SplTokenSwapAmm {
             out_amount: swap_result.expected_output_amount.try_into()?,
             fee_amount: swap_result.fees.try_into()?,
             fee_mint: quote_params.input_mint,
-            ..Quote::default()
         })
+    }
+
+    fn get_accounts_len(&self) -> usize {
+        11
     }
 
     fn get_swap_and_account_metas(&self, swap_params: &SwapParams) -> Result<SwapAndAccountMetas> {
         let SwapParams {
-            token_transfer_authority,
-            source_token_account,
-            destination_token_account,
             source_mint,
+            destination_token_account,
+            source_token_account,
+            token_transfer_authority,
             ..
         } = swap_params;
 
@@ -189,20 +197,21 @@ impl Amm for SplTokenSwapAmm {
 
         Ok(SwapAndAccountMetas {
             swap: Swap::TokenSwap,
-            account_metas: TokenSwap {
-                token_swap_program: self.program_id,
-                token_program: spl_token::id(),
-                swap: self.key,
-                authority: self.get_authority(),
-                user_transfer_authority: *token_transfer_authority,
-                source: *source_token_account,
-                destination: *destination_token_account,
-                pool_mint: self.state.pool_mint,
-                pool_fee: self.state.pool_fee_account,
-                swap_destination,
-                swap_source,
-            }
-            .into(),
+            account_metas: to_dex_account_metas(
+                self.program_id,
+                TokenSwap {
+                    token_program: spl_token::ID,
+                    swap: self.key,
+                    authority: self.authority,
+                    user_transfer_authority: *token_transfer_authority,
+                    source: *source_token_account,
+                    swap_source,
+                    swap_destination,
+                    destination: *destination_token_account,
+                    pool_mint: self.state.pool_mint,
+                    pool_fee: self.state.pool_fee_account,
+                },
+            ),
         })
     }
 
