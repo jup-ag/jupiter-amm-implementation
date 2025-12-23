@@ -1,13 +1,5 @@
-use std::ops::Range;
-
-use anchor_lang::{InstructionData, ToAccountMetas};
 use jupiter_common::find_program_address::find_program_address;
-use rand::Rng;
-use solana_sdk::{
-    instruction::{AccountMeta, Instruction},
-    pubkey::Pubkey,
-};
-use solana_system_interface::program as system_program;
+use solana_sdk::pubkey::Pubkey;
 
 pub const AUTHORITY_SEED: &[u8] = b"authority";
 pub const TOKEN_ACCOUNT_SEED: &[u8] = b"token_account";
