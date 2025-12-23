@@ -36,6 +36,5 @@ pub fn get_swap_curve_result(
         fees: curve_result.trade_fee + curve_result.owner_fee,
         input_amount: curve_result.source_amount_swapped,
         fee_pct,
-        ..Default::default()
     })
 }
