@@ -46,3 +46,4 @@ spl-token-2022 = { workspace = true, features = ["no-entrypoint"] }
 regex = "1.11.1"
 ahash = "0.8.12"
 agave-feature-set = "2.2"
+mnm-dlmm = { path = "../mnm-dlmm" }
