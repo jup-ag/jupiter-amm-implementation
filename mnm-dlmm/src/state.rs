@@ -72,15 +72,46 @@ unsafe impl bytemuck::Pod for BinArray {}
 unsafe impl bytemuck::Zeroable for BinArray {}
 
 /// Deserialize a zero-copy Anchor account (skip 8-byte discriminator).
+///
+/// Copies data into a zeroed `T` to guarantee alignment. This avoids
+/// bytemuck `from_bytes` alignment panics when account data arrives from
+/// RPC with arbitrary pointer alignment (u128 fields require 16-byte).
 pub fn deserialize<T: bytemuck::Pod>(data: &[u8]) -> Option<T> {
     let size = core::mem::size_of::<T>();
     if data.len() < DISC { return None; }
     let available = data.len() - DISC;
-    if available < size {
-        let mut buf = vec![0u8; size];
-        buf[..available].copy_from_slice(&data[DISC..]);
-        Some(*bytemuck::from_bytes::<T>(&buf))
-    } else {
-        Some(*bytemuck::from_bytes::<T>(&data[DISC..DISC + size]))
+    let copy_len = available.min(size);
+    let mut val = T::zeroed();
+    let dst = bytemuck::bytes_of_mut(&mut val);
+    dst[..copy_len].copy_from_slice(&data[DISC..DISC + copy_len]);
+    Some(val)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pool_state_deserialize_unaligned() {
+        let size = DISC + core::mem::size_of::<PoolState>();
+        let mut buf = vec![0u8; size + 1];
+        let unaligned = &mut buf[1..1 + size];
+        unaligned[..8].copy_from_slice(&[1, 2, 3, 4, 5, 6, 7, 8]);
+        let bin_id_offset = DISC + 160;
+        unaligned[bin_id_offset..bin_id_offset + 4].copy_from_slice(&42i32.to_le_bytes());
+        let pool: PoolState = deserialize(unaligned).expect("deserialize should succeed");
+        assert_eq!(pool.active_bin_id, 42);
+    }
+
+    #[test]
+    fn bin_array_deserialize_unaligned() {
+        let size = DISC + core::mem::size_of::<BinArray>();
+        let mut buf = vec![0u8; size + 1];
+        let unaligned = &mut buf[1..1 + size];
+        unaligned[..8].copy_from_slice(&[1, 2, 3, 4, 5, 6, 7, 8]);
+        let index_offset = DISC + 32;
+        unaligned[index_offset..index_offset + 4].copy_from_slice(&(-7i32).to_le_bytes());
+        let arr: BinArray = deserialize(unaligned).expect("deserialize should succeed");
+        assert_eq!(arr.index, -7);
     }
 }
