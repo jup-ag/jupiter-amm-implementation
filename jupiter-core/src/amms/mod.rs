@@ -5,3 +5,6 @@ pub mod test_harness;
 
 mod amm_program_id_to_labels;
 pub mod loader;
+
+// Re-export MnM DLMM adapter
+pub use mnm_dlmm::MnmDlmmAmm;

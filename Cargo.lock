@@ -2121,6 +2121,7 @@ dependencies = [
  "lazy_static",
  "litesvm",
  "log",
+ "mnm-dlmm",
  "paste",
  "program-interfaces",
  "regex",
@@ -2381,6 +2382,18 @@ dependencies = [
  "libc",
  "wasi 0.11.1+wasi-snapshot-preview1",
  "windows-sys 0.59.0",
+]
+
+[[package]]
+name = "mnm-dlmm"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "borsh 0.10.4",
+ "bytemuck",
+ "jupiter-amm-interface",
+ "rust_decimal",
+ "solana-sdk",
 ]
 
 [[package]]
