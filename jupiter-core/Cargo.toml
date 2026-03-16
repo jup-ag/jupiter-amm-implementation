@@ -35,6 +35,7 @@ solana-system-interface = { workspace = true }
 program-interfaces = { path = "../program-interfaces" }
 jupiter-aggregator-v6 = { path = "../jupiter-aggregator-v6" }
 jupiter-aggregator-common = { path = "../jupiter-aggregator-common" }
+cipher-dlmm-jup = { path = "../cipher-dlmm-jup" }
 jupiter-common = { workspace = true }
 
 # SPL

@@ -1,0 +1,16 @@
+[package]
+name = "cipher-dlmm-jup"
+version = "0.1.0"
+edition = { workspace = true }
+description = "Jupiter AMM adapter for CipherDLMM (Orbit Finance)"
+license = "Apache-2.0"
+
+[dependencies]
+jupiter-amm-interface = { workspace = true }
+solana-sdk = { workspace = true }
+solana-account-decoder = { workspace = true }
+anyhow = { workspace = true }
+rust_decimal = "1"
+ahash = "0.8"
+bytemuck = { version = "1", features = ["derive"] }
+uint = "0.10"
