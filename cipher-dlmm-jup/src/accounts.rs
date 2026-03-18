@@ -37,7 +37,7 @@ const TOKEN_PROGRAM_ID: Pubkey = solana_sdk::pubkey!("TokenkegQfeZyiNwAJbNbGKPFX
 ///  11.  token_program      (read-only)
 ///  -- remaining_accounts --
 ///  12+. BinArray PDAs      (writable, ordered by traversal direction)
-///   N.  Oracle PDA         (writable, optional)
+///   N.  Oracle PDA         (read-only, optional)
 pub fn build_swap_account_metas(
     pool_key: &Pubkey,
     pool: &PoolState,
@@ -76,10 +76,10 @@ pub fn build_swap_account_metas(
         metas.push(AccountMeta::new(pda, false));
     }
 
-    // Optional: Oracle
+    // Optional: Oracle (read-only — oracle is never mutated during swap)
     if include_oracle {
         let (oracle, _) = oracle_pda(pool_key);
-        metas.push(AccountMeta::new(oracle, false));
+        metas.push(AccountMeta::new_readonly(oracle, false));
     }
 
     metas

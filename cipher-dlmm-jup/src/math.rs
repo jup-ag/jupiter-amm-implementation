@@ -366,11 +366,25 @@ pub fn quote_exact_out(
         });
     }
 
-    // Binary search: find minimum input that produces >= amount_out
-    let mut lo: u64 = amount_out; // optimistic lower bound (1:1)
-    let mut hi: u64 = amount_out.saturating_mul(3).max(amount_out.saturating_add(1_000_000));
-    // Cap to prevent infinite search
-    if hi < lo {
+    // Binary search: find minimum input that produces >= amount_out.
+    //
+    // Lower bound: fee-adjusted estimate — in both swap directions, the minimum
+    // input is amount_out / (1 - fee_rate) = amount_out * 10_000 / (10_000 - fee_bps).
+    // This is tighter than the naive 1:1 assumption and avoids wasted iterations on
+    // high-fee pools (e.g. 2% CIPHER/USDC pool needs lo ≈ amount_out * 1.0204).
+    let fee_bps = effective_fee_bps(pool)? as u64;
+    let net_bps = 10_000u64.saturating_sub(fee_bps).max(1);
+    let fee_adjusted_lo = (amount_out as u128)
+        .saturating_mul(10_000)
+        .div_euclid(net_bps as u128)
+        .saturating_add(1)
+        .min(u64::MAX as u128) as u64;
+
+    let mut lo: u64 = fee_adjusted_lo;
+    let mut hi: u64 = fee_adjusted_lo
+        .saturating_mul(2)
+        .max(fee_adjusted_lo.saturating_add(1_000_000));
+    if hi <= lo {
         hi = u64::MAX / 2;
     }
 
@@ -401,6 +415,13 @@ pub fn quote_exact_out(
     }
 
     let result = quote_exact_in(pool, bin_arrays, hi, direction)?;
+    if result.out_amount < amount_out {
+        bail!(
+            "ExactOut: insufficient liquidity — need {} out but pool can only fill {}",
+            amount_out,
+            result.out_amount
+        );
+    }
     Ok(QuoteResult {
         in_amount: hi,
         out_amount: result.out_amount,

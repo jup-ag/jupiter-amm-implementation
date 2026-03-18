@@ -1,6 +1,6 @@
 //! Jupiter AMM adapter for CipherDLMM (Orbit Finance).
 //!
-//! Implements the `Amm` trait from `jupiter-amm-interface` (v0.6.0)
+//! Implements the `Amm` trait from `jupiter-amm-interface` (v0.6.1)
 //! to enable Jupiter routing through CipherDLMM pools.
 //!
 //! Program ID: Fn3fA3fjsmpULNL7E9U79jKTe1KHxPtQeWdURCbJXCnM
@@ -14,7 +14,7 @@ use std::collections::HashSet;
 
 use anyhow::Result;
 use jupiter_amm_interface::{
-    AccountMap, Amm, AmmContext, AmmLabel, AmmProgramIdToLabel, KeyedAccount, Quote, QuoteParams, Swap, SwapAndAccountMetas,
+    AccountMap, Amm, AmmContext, KeyedAccount, Quote, QuoteParams, Swap, SwapAndAccountMetas,
     SwapMode, SwapParams,
 };
 use rust_decimal::Decimal;
@@ -39,12 +39,6 @@ pub struct CipherDlmmAmm {
     pool: PoolState,
     bin_arrays: ahash::HashMap<i32, BinArrayState>,
     oracle_key: Pubkey,
-}
-
-impl AmmProgramIdToLabel for CipherDlmmAmm {
-    const PROGRAM_ID_TO_LABELS: &[(Pubkey, AmmLabel)] = &[
-        (PROGRAM_ID, "CipherDLMM"),
-    ];
 }
 
 impl Amm for CipherDlmmAmm {
@@ -189,7 +183,9 @@ impl Amm for CipherDlmmAmm {
         );
 
         Ok(SwapAndAccountMetas {
-            // Use MeteoraDlmm as placeholder — Jupiter team will add CipherDlmm variant
+            // Swap::CipherDlmm is pending merge of the companion PR to jup-ag/jupiter-amm-interface:
+            // https://github.com/EmperorLuxionVibecoder/jupiter-amm-interface/tree/add-cipher-dlmm
+            // Once merged and a new version published, replace MeteoraDlmm with Swap::CipherDlmm.
             swap: Swap::MeteoraDlmm,
             account_metas,
         })

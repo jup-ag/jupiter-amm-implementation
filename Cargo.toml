@@ -21,7 +21,7 @@ solana-system-interface = "1.0.0"
 borsh = "0.10"
 bytemuck = "1.19"
 tokio = { version = "1", features = ["full"] }
-jupiter-amm-interface = "0.6.0"
+jupiter-amm-interface = "0.6.1"
 jupiter-common = { path = "jupiter-common" }
 const-crypto = { git = "https://github.com/jup-ag/const-crypto.git", rev = "41202c405793566d0dc2038ed406554061ba66f3" }
 log = "0.4.20"
