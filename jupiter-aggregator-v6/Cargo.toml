@@ -13,4 +13,4 @@ solana-sdk = { workspace = true }
 jupiter-amm-interface = { workspace = true }
 spl-token = { workspace = true, features = ["no-entrypoint"]}
 jupiter-common = { workspace = true }
-rand = "0.8.5"
+rand = "0.9.3"
