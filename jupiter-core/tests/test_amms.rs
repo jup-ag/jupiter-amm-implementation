@@ -1,7 +1,9 @@
 use jupiter_amm_interface::{AccountMap, AmmContext, ClockRef, Swap, SwapMode};
 use jupiter_core::{
     amm::Amm,
-    amms::{spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness},
+    amms::{
+        cube::CubeAmm, spl_token_swap_amm::SplTokenSwapAmm, test_harness::AmmTestHarness,
+    },
     route::route::get_token_mints_permutations,
     test_harness::{load_test_programs, AmmTestAccountsSnapshot, AmmTestSwapParams, TestProgram},
 };
@@ -151,11 +153,34 @@ macro_rules! test_exact_out_amms {
 const ORCA_V2_SOL_USDC_POOL: Pubkey = pubkey!("EGZ7tiLeH62TPV1gL8WwbXGzEPa9zmcpVnnkPKKnrE2U");
 const ORCA_V2_USDC_USDT_POOL: Pubkey = pubkey!("F13xvvx45jVGd84ynK3c8T89UejQVxjCLtmHfPmAXAHP");
 
+// Cube DEX v4 mainnet pools (weighted CPMM, multi-token). Kept here so
+// the snapshot files under tests/fixtures/accounts/ retain a named
+// reference. Activated in `test_exact_in_amms!` once the upstream
+// Swap::Cube variant + aggregator route land.
+#[allow(dead_code)]
+const CUBE_BTC_BASKET_POOL: Pubkey = pubkey!("3YixTPPZGCrFKXH6qVWsAADcFwfhp8GLL9ZRv4MJyscc");
+#[allow(dead_code)]
+const CUBE_JUP_BASKET_POOL: Pubkey = pubkey!("CSgrEBxsghBsY1oXycBEhZVTd5PEbZuWFDZHHrtFF7yb");
+#[allow(dead_code)]
+const CUBE_SOL_USD_POOL: Pubkey = pubkey!("EFfVk5qcKBKEQXeWwWjVsnit3YqLNXNENUDW5Fxdfyjy");
+
 // You can run a single test by doing: `cargo test test_quote_<lower_case_constant>_<default | option_name> -- --nocapture`
 
 test_exact_in_amms! {
     (ORCA_V2_SOL_USDC_POOL, SplTokenSwapAmm, None),
     (ORCA_V2_USDC_USDT_POOL, SplTokenSwapAmm, None),
+    // Cube DEX harness entries — snapshots are present under
+    // tests/fixtures/accounts/{3YixTPP*,CSgrEBx*,EFfVk5q*}/ and
+    // tests/fixtures/cube.so. These will pass once the companion PR
+    // adding `Swap::Cube` to jup-ag/jupiter-amm-interface lands and
+    // the aggregator (jupiter_v6.so) is rebuilt to route the new
+    // variant to the cubic-pool program id. Until then, the harness
+    // routes via `Swap::TokenSwap` which CPIs into spl-token-swap
+    // and fails with IncorrectProgramId — expected.
+    //
+    // (CUBE_BTC_BASKET_POOL, CubeAmm, None),
+    // (CUBE_JUP_BASKET_POOL, CubeAmm, None),
+    // (CUBE_SOL_USD_POOL, CubeAmm, None),
 }
 
 #[allow(clippy::too_many_arguments)]
