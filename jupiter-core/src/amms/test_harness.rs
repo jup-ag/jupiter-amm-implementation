@@ -74,6 +74,63 @@ pub static SPL_TOKEN_MINT_TO_IN_AMOUNT: LazyLock<HashMap<Pubkey, u64>> = LazyLoc
             pubkey!("Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB"),
             1_110_000_000,
         ),
+        // ── Cube DEX pool tokens ──────────────────────────────────────
+        // BTC variants (8 decimals): 10_000 ≈ 0.0001 BTC.
+        (
+            pubkey!("cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij"),
+            10_000,
+        ),
+        (
+            pubkey!("CtzPWv73Sn1dMGVU3ZtLv9yWSyUAanBni19YWDaznnkn"),
+            10_000,
+        ),
+        (
+            pubkey!("3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh"),
+            10_000,
+        ),
+        (
+            pubkey!("zBTCug3er3tLyffELcvDNrKkCymbPWysGcWihESYfLg"),
+            10_000,
+        ),
+        // JitoSOL (9 dec): 0.1 JitoSOL.
+        (
+            pubkey!("J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"),
+            100_000_000,
+        ),
+        // JUP (6 dec): 1 JUP.
+        (
+            pubkey!("JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"),
+            1_000_000,
+        ),
+        // JTO (9 dec): 1 JTO.
+        (
+            pubkey!("jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL"),
+            1_000_000_000,
+        ),
+        // BONK (5 dec): 1_000 BONK.
+        (
+            pubkey!("DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"),
+            100_000_000,
+        ),
+        // Remaining Cube basket tokens — conservative defaults; the
+        // CubeAmm impl binary-searches the input cap if these exceed
+        // the pool's lp_actual_out, so unsafe overshoots are clamped.
+        (
+            pubkey!("4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R"),
+            1_000_000,
+        ),
+        (
+            pubkey!("6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN"),
+            1_000_000,
+        ),
+        (
+            pubkey!("EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm"),
+            1_000_000,
+        ),
+        (
+            pubkey!("2zMMhcVQEXDtdE6vsFS7S7D5oUodfJHE8vd1gnBouauv"),
+            1_000_000,
+        ),
     ])
 });
 

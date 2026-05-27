@@ -285,10 +285,6 @@ impl Amm for CubeAmm {
         None
     }
 
-    fn program_dependencies(&self) -> Vec<(Pubkey, String)> {
-        vec![(self.program_id, "cubic_pool".to_string())]
-    }
-
     fn clone_amm(&self) -> Box<dyn Amm + Send + Sync> {
         Box::new(self.clone())
     }
