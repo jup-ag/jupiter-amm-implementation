@@ -4,6 +4,7 @@ use solana_sdk::pubkey::Pubkey;
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
+use crate::amms::cube::CubeAmm;
 use crate::amms::spl_token_swap_amm::SplTokenSwapAmm;
 
 type AmmFromKeyedAccount =
@@ -30,6 +31,7 @@ pub static PROGRAM_ID_TO_AMM_LABEL_WITH_AMM_FROM_KEYED_ACCOUNT: LazyLock<
     let mut m = HashMap::new();
 
     m.extend(create_entries_for_amm::<SplTokenSwapAmm>());
+    m.extend(create_entries_for_amm::<CubeAmm>());
     m
 });
 
