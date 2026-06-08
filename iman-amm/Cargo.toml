@@ -1,0 +1,12 @@
+[package]
+name = "iman-amm"
+version = "0.1.0"
+edition = { workspace = true }
+description = "IMÁN AMM adapter for Jupiter — TRAMPA PROPINA concentrated-liquidity pools"
+
+[dependencies]
+jupiter-amm-interface = { workspace = true }
+solana-sdk = { workspace = true }
+anyhow = { workspace = true }
+bytemuck = { workspace = true, features = ["derive"] }
+rust_decimal = "1"

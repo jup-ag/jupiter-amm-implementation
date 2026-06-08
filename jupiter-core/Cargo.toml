@@ -33,6 +33,7 @@ litesvm = { git = "https://github.com/jup-ag/litesvm.git", rev = "328b11d7178ca9
 log = { workspace = true }
 solana-system-interface = { workspace = true }
 program-interfaces = { path = "../program-interfaces" }
+iman-amm = { path = "../iman-amm" }
 jupiter-aggregator-v6 = { path = "../jupiter-aggregator-v6" }
 jupiter-aggregator-common = { path = "../jupiter-aggregator-common" }
 jupiter-common = { workspace = true }

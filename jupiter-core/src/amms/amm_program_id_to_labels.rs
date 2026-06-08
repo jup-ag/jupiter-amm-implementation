@@ -5,6 +5,7 @@ use std::collections::HashMap;
 use std::sync::LazyLock;
 
 use crate::amms::spl_token_swap_amm::SplTokenSwapAmm;
+use iman_amm::ImanAmm;
 
 type AmmFromKeyedAccount =
     Box<dyn Fn(&KeyedAccount, &AmmContext) -> Result<Box<dyn Amm + Send + Sync>> + Send + Sync>;
@@ -30,6 +31,7 @@ pub static PROGRAM_ID_TO_AMM_LABEL_WITH_AMM_FROM_KEYED_ACCOUNT: LazyLock<
     let mut m = HashMap::new();
 
     m.extend(create_entries_for_amm::<SplTokenSwapAmm>());
+    m.extend(create_entries_for_amm::<ImanAmm>());
     m
 });
 

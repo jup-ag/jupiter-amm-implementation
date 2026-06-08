@@ -2,7 +2,8 @@
 members = [
     "jupiter-core",
     "program-interfaces",
-    "jupiter-aggregator-v6"
+    "jupiter-aggregator-v6",
+    "iman-amm",
 ]
 resolver = "2"
 

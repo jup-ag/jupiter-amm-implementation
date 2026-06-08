@@ -1925,6 +1925,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "iman-amm"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "jupiter-amm-interface",
+ "rust_decimal",
+ "solana-sdk",
+]
+
+[[package]]
 name = "indexmap"
 version = "2.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2113,6 +2124,7 @@ dependencies = [
  "bincode",
  "clap",
  "glob",
+ "iman-amm",
  "itertools 0.12.1",
  "jupiter-aggregator-common",
  "jupiter-aggregator-v6",
